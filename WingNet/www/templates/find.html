@@ -1,15 +1,19 @@
 <ion-view view-title="Find">
   <ion-content ng-controller="FinderController">
-        <ion-checkbox ng-model="filter.interest.exploration">
-          Exploration
-        </ion-checkbox>
-        <ion-checkbox ng-model="filter.interest.trading">
-         Trading
-       </ion-checkbox>
-        <ion-checkbox ng-model="filter.interest.combat">
+    <div id="finder-filters">
+      <ion-checkbox ng-model="filter.interest.exploration">
+        Exploration
+      </ion-checkbox>
+      <ion-checkbox ng-model="filter.interest.trading">
+        Trading
+      </ion-checkbox>
+      <ion-checkbox ng-model="filter.interest.combat">
         Combat
       </ion-checkbox>
-      <button>Find</button>
+      <button class="button icon-left ion-search button-primary-w">
+        Find
+      </button>
+    </div>
 
     <table class="pure-table pure-table-horizontal" style="width:100%" >
       <thead>

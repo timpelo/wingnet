@@ -1,4 +1,16 @@
-.table-cell-w {
-  margin-left: 30px;
-  margin-right: 30px;
+.button-primary-w,
+.button-primary-w:hover {
+  background: rgb(255, 165, 0);
+  color: #ffffff;
+}
+
+.button-primary-w:focus,
+.button-primary-w:active,
+.button-primary-w:visited{
+  background: rgb(255,183,50);
+  color: #ffffff;
+}
+
+.wing-background {
+  background: #333333;
 }
