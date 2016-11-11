@@ -1,15 +1,15 @@
 <ion-view view-title="Find">
-  <ion-content ng-controller="FinderController">
+  <ion-content ng-controller="FinderController"  class="background-dark-w">
 
     <!-- Filters -->
     <div id="finder-filters">
-      <ion-checkbox ng-model="filter.interest.exploration">
+      <ion-checkbox class="checkbox-dark-w checkbox-w" ng-model="filter.interest.exploration">
         Exploration
       </ion-checkbox>
-      <ion-checkbox ng-model="filter.interest.trading">
+      <ion-checkbox class="checkbox-dark-w checkbox-w" ng-model="filter.interest.trading">
         Trading
       </ion-checkbox>
-      <ion-checkbox ng-model="filter.interest.combat">
+      <ion-checkbox class="checkbox-w checkbox-dark-w" ng-model="filter.interest.combat">
         Combat
       </ion-checkbox>
       <button ng-click="getProfiles()" class="button icon-left ion-search button-primary-w">
@@ -18,9 +18,9 @@
     </div>
 
     <!-- Tables -->
-    <table class="pure-table pure-table-horizontal" style="width:100%" >
+    <table class="borderless-w table-w pure-table pure-table-horizontal" style="width:100%" >
       <thead>
-          <tr>
+          <tr class="table-w-head">
               <th>Name</th>
               <th>Interest</th>
               <th>Date</th>
@@ -29,7 +29,7 @@
       </thead>
 
       <tbody>
-          <tr ng-repeat="profile in profiles">
+          <tr class="table-w-body" ng-repeat="profile in profiles">
               <td>{{profile.name}}</td>
               <td>{{profile.interest}}</td>
               <td>20.11.201</td>

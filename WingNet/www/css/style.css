@@ -1,16 +1,62 @@
 .button-primary-w,
 .button-primary-w:hover {
-  background: rgb(255, 165, 0);
+  margin-left: 10pt;
+  background-color: #BB5500;
   color: #ffffff;
 }
 
 .button-primary-w:focus,
 .button-primary-w:active,
 .button-primary-w:visited{
-  background: rgb(255,183,50);
+  margin-left: 10pt;
+  background-color: #DB8B31;
   color: #ffffff;
 }
 
-.wing-background {
-  background: #333333;
+.background-dark-w {
+  background-color: #2D2D2D;
+}
+
+.checkbox-dark-w {
+  background-color: #2D2D2D;
+  border: none;
+  color: #ffffff;
+}
+
+.checkbox-w input:before,
+.checkbox-w .checkbox-icon:before {
+border-color: #ffffff;
+}
+
+.checkbox-w input:checked:before,
+.checkbox-w input:checked + .checkbox-icon:before {
+background: #DB8B31;
+border-color: #DB8B31;
+}
+
+.table-w {
+  margin-top: 10pt;
+  margin-bottom: 10pt;
+}
+
+.borderless-w {
+  border: none;
+}
+
+.table-w-head {
+  background-color: #BB5500;
+  color: #ffffff;
+}
+
+.table-w-head th{
+  border:none;
+}
+
+.table-w-body {
+  color: #ffffff;
+}
+
+.table-w-body td {
+  border-top: none;
+  border-bottom: 1px solid #43413F;
 }
