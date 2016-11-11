@@ -18,13 +18,30 @@ angular.module('default.controllers', [])
 .controller('FinderController', function($scope, Connection) {
 
    $scope.getProfiles = function() {
-      var filter = {};
 
+      if (!($scope.filter == undefined)) {
+         var filters = {$or : ""};
+         var checkboxValues = [];
 
-      Connection.getProfiles(filters)
-         .success(function(data) {
-            $scope.profiles = data;
-         });
+         if ($scope.filter.interest.exploration){
+            checkboxValues.push({interest: "Exploration"});
+         }
+         if ($scope.filter.interest.trading){
+            checkboxValues.push({interest: "Trading"});
+         }
+         if ($scope.filter.interest.combat){
+            checkboxValues.push({interest: "Combat"});
+         }
+
+         filters.$or = checkboxValues;
+
+         Connection.getProfiles(filters)
+            .success(function(data) {
+               $scope.profiles = data;
+            });
+      } else {
+         alert("Choose atleast 1 interest");
+      }
    }
 })
 
