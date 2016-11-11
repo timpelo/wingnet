@@ -19,10 +19,8 @@
   // Gets profiles with filter.
   app.post("/profiles", function(req, res) {
     var filter = req.body;
-    console.log(filter);
     if(filter != null && filter != undefined) {
       mongo.getProfiles(filter, function(result) {
-         console.log(result);
         res.json(result);
       });
     }
@@ -42,12 +40,8 @@
   app.get("/requests/:profileId",function(req, res) {
      var profileId = req.params.profileId.toString();
 
-     console.log(profileId);
-
      if (profileId != null && profileId != undefined) {
        mongo.getRequests(profileId, function(result) {
-
-
            res.json(result);
        });
      }
