@@ -1,27 +1,23 @@
 <ion-view view-title="Requests">
-  <ion-content>
+  <ion-content ng-controller="RequestController">
     <table class="pure-table" style="width:100%">
         <thead>
             <tr>
                 <th>Name</th>
+                <th>Interests</th>
+                <th>Platform</th>
                 <th>Status</th>
+                <th>Date</th>
             </tr>
         </thead>
 
         <tbody>
-            <tr>
-                <td>Mark</td>
-                <td>Accepted</td>
-            </tr>
-
-            <tr>
-                <td>Harry</td>
-                <td>Pending</td>
-            </tr>
-
-            <tr>
-                <td>Mike</td>
-                <td>Pending</td>
+            <tr ng-repeat="request in requests">
+                <td>{{request.fromName}}</td>
+                <td>{{request.interests}}</td>
+                <td>{{request.platform}}</td>
+                <td>{{request.status}}</td>
+                <td>{{request.date}}</td>
             </tr>
         </tbody>
     </table>

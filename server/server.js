@@ -39,6 +39,21 @@
     }
   });
 
+  app.get("/requests/:profileId",function(req, res) {
+     var profileId = req.params.profileId.toString();
+
+     console.log(profileId);
+
+     if (profileId != null && profileId != undefined) {
+       mongo.getRequests(profileId, function(result) {
+
+
+           res.json(result);
+       });
+     }
+  });
+
+
 
   /* Server */
   var server = app.listen(serverPort, function() {

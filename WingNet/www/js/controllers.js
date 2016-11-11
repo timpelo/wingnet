@@ -7,6 +7,9 @@ angular.module('default.controllers', [])
       },
       addProfile : function(profile) {
          return $http.post('http://localhost:8080/profiles/add', profile);
+      },
+      getRequests : function(profileId) {
+         return $http.get('http://localhost:8080/requests/' + profileId);
       }
    }
 })
@@ -17,14 +20,13 @@ angular.module('default.controllers', [])
 
 .controller('FinderController', function($scope, Connection) {
 
+   // Gets all profiles that fit the filters
    $scope.getProfiles = function() {
 
       if (!($scope.filter == undefined)) {
          var filters = {$or : ""};
 
-
          filters.$or = filterInterests($scope);
-
          Connection.getProfiles(filters)
             .success(function(data) {
                $scope.profiles = data;
@@ -34,6 +36,7 @@ angular.module('default.controllers', [])
       }
    }
 
+   // Filters interests from checkboxes
    function filterInterests($scope) {
       var checkboxValues = [];
 
@@ -52,6 +55,10 @@ angular.module('default.controllers', [])
 })
 
 
-.controller('RequestController', function($scope) {
-
+.controller('RequestController', function($scope, Connection) {
+   var profileId = "5825815ed01cb174b789a494";
+   Connection.getRequests(profileId)
+      .success(function(data) {
+         $scope.requests = data;
+      });
 });
