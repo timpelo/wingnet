@@ -21,19 +21,9 @@ angular.module('default.controllers', [])
 
       if (!($scope.filter == undefined)) {
          var filters = {$or : ""};
-         var checkboxValues = [];
 
-         if ($scope.filter.interest.exploration){
-            checkboxValues.push({interest: "Exploration"});
-         }
-         if ($scope.filter.interest.trading){
-            checkboxValues.push({interest: "Trading"});
-         }
-         if ($scope.filter.interest.combat){
-            checkboxValues.push({interest: "Combat"});
-         }
 
-         filters.$or = checkboxValues;
+         filters.$or = filterInterests($scope);
 
          Connection.getProfiles(filters)
             .success(function(data) {
@@ -42,6 +32,22 @@ angular.module('default.controllers', [])
       } else {
          alert("Choose atleast 1 interest");
       }
+   }
+
+   function filterInterests($scope) {
+      var checkboxValues = [];
+
+      if ($scope.filter.interest.exploration){
+         checkboxValues.push({interest: "Exploration"});
+      }
+      if ($scope.filter.interest.trading){
+         checkboxValues.push({interest: "Trading"});
+      }
+      if ($scope.filter.interest.combat){
+         checkboxValues.push({interest: "Combat"});
+      }
+
+      return checkboxValues;
    }
 })
 
