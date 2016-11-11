@@ -16,8 +16,12 @@ angular.module('default.controllers', [])
 })
 
 .controller('FinderController', function($scope, Connection) {
+
    $scope.getProfiles = function() {
-      Connection.getProfiles(filters) {
+      var filter = {};
+
+
+      Connection.getProfiles(filters)
          .success(function(data) {
             $scope.profiles = data;
          });

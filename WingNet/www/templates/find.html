@@ -1,5 +1,11 @@
 <ion-view view-title="Find">
   <ion-content ng-controller="FinderController">
+     <form>
+         <input ng-model="filter-interest-exploration" type="checkbox" value="exploration" /> Exploration <br />
+         <input ng-model="filter-interest-trading" type="checkbox" value="trading" /> Trading <br />
+         <input ng-model="filter-interest-combat" type="checkbox" value="combat" /> Combat <br />
+         <button>Find</button>
+     </form>
     <table class="pure-table pure-table-horizontal" style="width:100%" >
       <thead>
           <tr>
