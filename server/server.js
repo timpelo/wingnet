@@ -19,7 +19,6 @@
   // Gets profiles with filter.
   app.post("/profiles", function(req, res) {
     var filter = req.body.filter;
-
     if(filter != null && filter != undefined) {
       mongo.getProfiles(filter, function(result) {
         res.json(result);
