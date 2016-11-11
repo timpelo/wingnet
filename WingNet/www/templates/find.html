@@ -10,5 +10,25 @@
         Combat
       </ion-checkbox>
       <button>Find</button>
+
+    <table class="pure-table pure-table-horizontal" style="width:100%" >
+      <thead>
+          <tr>
+              <th>Name</th>
+              <th>Interest</th>
+              <th>Date</th>
+              <th>Platform</th>
+          </tr>
+      </thead>
+
+      <tbody>
+          <tr ng-repeat="profile in profiles">
+              <td>{{profile.name}}</td>
+              <td>{{profile.interest}}</td>
+              <td>20.11.201</td>
+              <td>{{profile.platform}}</td>
+          </tr>
+      </tbody>
+    </table>
   </ion-content>
 </ion-view>
