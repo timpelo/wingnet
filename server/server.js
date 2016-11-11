@@ -18,9 +18,11 @@
 
   // Gets profiles with filter.
   app.post("/profiles", function(req, res) {
-    var filter = req.body.filter;
+    var filter = req.body;
+    console.log(filter);
     if(filter != null && filter != undefined) {
       mongo.getProfiles(filter, function(result) {
+         console.log(result);
         res.json(result);
       });
     }

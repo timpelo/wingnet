@@ -16,16 +16,11 @@ angular.module('default.controllers', [])
 })
 
 .controller('FinderController', function($scope, Connection) {
-   var filters = "{}";
-   Connection.getProfiles(filters)
-      .success(function(data) {
-         $scope.profiles = data;
-      });
-
-   console.log($scope.profiles);
    $scope.getProfiles = function() {
-
-
+      Connection.getProfiles(filters) {
+         .success(function(data) {
+            $scope.profiles = data;
+         });
    }
 })
 

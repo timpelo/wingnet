@@ -1,6 +1,6 @@
 <ion-view view-title="Find">
   <ion-content ng-controller="FinderController">
-      <table class="pure-table pure-table-horizontal" style="width:100%">
+    <table class="pure-table pure-table-horizontal" style="width:100%" >
       <thead>
           <tr>
               <th>Name</th>
@@ -11,25 +11,11 @@
       </thead>
 
       <tbody>
-          <tr>
-              <td>Mark</td>
-              <td>Combat</td>
-              <td>20.11.2015</td>
-              <td>PC</td>
-          </tr>
-
-          <tr>
-              <td>Simon</td>
-              <td>Trade</td>
-              <td>12.11.2016</td>
-              <td>PC</td>
-          </tr>
-
-          <tr>
-              <td>Mary</td>
-              <td>Trade</td>
-              <td>04.05.2016</td>
-              <td>PC</td>
+          <tr ng-repeat="profile in profiles">
+              <td>{{profile.name}}</td>
+              <td>{{profile.interest}}</td>
+              <td>20.11.201</td>
+              <td>{{profile.platform}}</td>
           </tr>
       </tbody>
     </table>
