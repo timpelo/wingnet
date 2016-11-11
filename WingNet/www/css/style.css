@@ -1,24 +1,33 @@
+:root {
+  --main-orange-dark: #BB5500;
+  --main-orange-light: #DB8B31;
+  --main-gray-dark: #2D2D2D;
+  --main-gray-light: #43413F;
+}
+
 .button-primary-w,
 .button-primary-w:hover {
   margin-left: 10pt;
-  background-color: #BB5500;
+  background-color: var(--main-orange-dark);
   color: #ffffff;
+  border: none;
 }
 
 .button-primary-w:focus,
 .button-primary-w:active,
 .button-primary-w:visited{
   margin-left: 10pt;
-  background-color: #DB8B31;
+  background-color: var(--main-orange-light);
   color: #ffffff;
+  border: none;
 }
 
 .background-dark-w {
-  background-color: #2D2D2D;
+  background-color: var(--main-gray-dark);
 }
 
 .checkbox-dark-w {
-  background-color: #2D2D2D;
+  background-color: var(--main-gray-dark);
   border: none;
   color: #ffffff;
 }
@@ -30,8 +39,8 @@ border-color: #ffffff;
 
 .checkbox-w input:checked:before,
 .checkbox-w input:checked + .checkbox-icon:before {
-background: #DB8B31;
-border-color: #DB8B31;
+background: var(--main-orange-light);
+border-color: var(--main-orange-light);
 }
 
 .table-w {
@@ -44,7 +53,7 @@ border-color: #DB8B31;
 }
 
 .table-w-head {
-  background-color: #BB5500;
+  background-color: var(--main-orange-dark);
   color: #ffffff;
 }
 
@@ -58,5 +67,5 @@ border-color: #DB8B31;
 
 .table-w-body td {
   border-top: none;
-  border-bottom: 1px solid #43413F;
+  border-bottom: 1px solid var(--main-gray-light);
 }
