@@ -1,5 +1,7 @@
 <ion-view view-title="Find">
   <ion-content ng-controller="FinderController">
+
+    <!-- Filters -->
     <div id="finder-filters">
       <ion-checkbox ng-model="filter.interest.exploration">
         Exploration
@@ -10,11 +12,12 @@
       <ion-checkbox ng-model="filter.interest.combat">
         Combat
       </ion-checkbox>
-      <button class="button icon-left ion-search button-primary-w">
+      <button ng-click="getProfiles()" class="button icon-left ion-search button-primary-w">
         Find
       </button>
     </div>
 
+    <!-- Tables -->
     <table class="pure-table pure-table-horizontal" style="width:100%" >
       <thead>
           <tr>
