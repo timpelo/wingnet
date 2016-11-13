@@ -18,9 +18,10 @@
     </div>
 
     <!-- Tables -->
-    <table class="borderless-w table-w pure-table pure-table-horizontal" style="width:100%" >
-      <thead>
-          <tr class="table-w-head">
+    <table class="borderless-w table-w pure-table pure-table-horizontal"
+    style="width:100%" >
+      <thead class="table-w-head">
+          <tr>
               <th>Name</th>
               <th>Interest</th>
               <th>Date</th>
@@ -28,8 +29,8 @@
           </tr>
       </thead>
 
-      <tbody>
-          <tr class="table-w-body" ng-repeat="profile in profiles">
+      <tbody class="table-w-body">
+          <tr ng-repeat="profile in profiles">
               <td>{{profile.name}}</td>
               <td>{{profile.interest}}</td>
               <td>20.11.201</td>

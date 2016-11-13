@@ -59,7 +59,7 @@ border-color: var(--main-orange-light);
   border: none;
 }
 
-.table-w-head {
+.table-w-head th{
   background-color: var(--main-orange-dark);
   color: #ffffff;
 }
@@ -68,11 +68,12 @@ border-color: var(--main-orange-light);
   border:none;
 }
 
-.table-w-body {
+.table-w-body td{
   color: #ffffff;
 }
 
 .table-w-body td {
   border-top: none;
+  background: var(--main-gray-dark);
   border-bottom: 1px solid var(--main-gray-light);
 }

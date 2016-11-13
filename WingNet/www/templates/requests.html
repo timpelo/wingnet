@@ -1,7 +1,9 @@
 <ion-view view-title="Requests">
   <ion-content ng-controller="RequestController">
-    <table class="pure-table" style="width:100%">
-        <thead>
+    <table class="borderless-w table-w pure-table pure-table-horizontal"
+    style="width:100%">
+
+        <thead class="table-w-head">
             <tr>
                 <th>Name</th>
                 <th>Interests</th>
@@ -11,7 +13,7 @@
             </tr>
         </thead>
 
-        <tbody>
+        <tbody class="table-w-body">
             <tr ng-repeat="request in requests">
                 <td>{{request.fromName}}</td>
                 <td>{{request.interests}}</td>
