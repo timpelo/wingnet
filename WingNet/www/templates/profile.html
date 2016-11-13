@@ -1,5 +1,28 @@
 <ion-view view-title="Profile">
   <ion-content>
-    <h1>Profile</h1>
+    <label class="item item-input">
+      CMDR Mike
+    </label>
+    <label class="item label-title-w">
+      Platform
+    </label>
+    <ion-checkbox class="checkbox-dark-w checkbox-w"
+     ng-model="profile.platform.pc">PC</ion-checkbox>
+
+    <ion-checkbox class="checkbox-dark-w checkbox-w"
+     ng-model="profile.platform.xbox">XBOX</ion-checkbox>
+
+    <label class="label-title-w item">
+      Interest
+    </label>
+    <ion-checkbox class="checkbox-dark-w checkbox-w"
+     ng-model="profile.interest.trading">Trading</ion-checkbox>
+
+    <ion-checkbox class="checkbox-dark-w checkbox-w"
+     ng-model="profile.interest.combat">Combat</ion-checkbox>
+
+    <ion-checkbox class="checkbox-dark-w checkbox-w"
+     ng-model="profile.interest.exploration">Exploration</ion-checkbox>
+
   </ion-content>
 </ion-view>

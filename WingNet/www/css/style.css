@@ -34,13 +34,20 @@
 
 .checkbox-w input:before,
 .checkbox-w .checkbox-icon:before {
-border-color: #ffffff;
+border-color: var(--main-orange-light);
+background: var(--main-gray-light);
 }
 
 .checkbox-w input:checked:before,
 .checkbox-w input:checked + .checkbox-icon:before {
 background: var(--main-orange-light);
 border-color: var(--main-orange-light);
+}
+
+.label-title-w{
+  background-color: var(--main-gray-dark) !important;
+  color: var(--main-orange-light) !important;
+  border-top: 1px solid var(--main-gray-light);
 }
 
 .table-w {
