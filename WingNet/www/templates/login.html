@@ -1,0 +1,18 @@
+<ion-view view-title="Login" hide-nav-bar="true">
+  <ion-content class="background-dark-w center-w" ng-controller="LoginController">
+
+    <label>
+      <input class="input-w" type="text" ng-model="login.username"
+      placeholder="Username">
+    </label>
+
+    <label>
+      <input class="input-w" type="password" ng-model="login.password"
+      placeholder="Password">
+    </label>
+
+    <button style="width:80%;" ng-click="login()" class="button button-primary-w">
+      Log in
+    </button>
+  </ion-content>
+</ion-view>

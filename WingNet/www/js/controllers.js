@@ -57,9 +57,20 @@ angular.module('default.controllers', [])
 
 .controller('RequestController', function($scope, Connection) {
   //Janin 5820c86ee0e56011df73e02d
-   var profileId = "5825815ed01cb174b789a494";
+  //Juhon 5825815ed01cb174b789a494
+   var profileId = "5820c86ee0e56011df73e02d";
    Connection.getRequests(profileId)
       .success(function(data) {
          $scope.requests = data;
       });
+})
+
+.controller('LoginController', function($scope, $state, $ionicHistory) {
+  $scope.login = function() {
+    //TODO tarvitaan login handle tähän.
+    $ionicHistory.nextViewOptions({
+      disableBack: true
+    });
+    $state.go('app.welcome');
+  }
 });
