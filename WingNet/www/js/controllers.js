@@ -101,8 +101,10 @@ angular.module('default.controllers', [])
     loginInfo.remember = $scope.login.remember;
     Connection.login(loginInfo)
        .success(function(data) {
-          token = data.token;
-          $state.go('app.welcome');
+          if (data.success) {
+            token = data.token;
+            $state.go('app.welcome');
+          }
        });
   }
 });
