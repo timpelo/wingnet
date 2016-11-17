@@ -70,6 +70,13 @@ background: var(--main-orange-light);
 border-color: var(--main-orange-light);
 }
 
+.login-title-w {
+  font-size: 35pt;
+  margin: 0;
+  font-family: 'Open Sans Condensed', sans-serif;
+  color: var(--main-orange-light);
+}
+
 .label-title-w{
   background-color: var(--main-gray-dark) !important;
   color: var(--main-orange-light) !important;
