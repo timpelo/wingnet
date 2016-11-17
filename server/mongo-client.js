@@ -106,7 +106,6 @@
      getProfiles(filter, fillMethod);
 
      function fillMethod(fillInfo) {
-        console.log(fillInfo);
         for(var i = 0;  i < inResult.length; i++) {
            for (var j = 0; j < fillInfo.length; j++) {
              if(fillInfo[j]._id == inResult[i].from) {
@@ -116,7 +115,6 @@
              }
           }
         }
-        console.log(inResult);
         callback(inResult);
      }
   }

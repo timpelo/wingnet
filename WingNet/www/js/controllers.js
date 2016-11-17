@@ -41,7 +41,6 @@ angular.module('default.controllers', [])
          body = {}
          body.filters = filterstmp
          body.token = token;
-         console.log(JSON.stringify(body));
 
          Connection.getProfiles(body)
             .success(function(data) {
@@ -83,6 +82,7 @@ angular.module('default.controllers', [])
 })
 
 .controller('LoginController', function($scope, $state, $ionicHistory, Connection) {
+//TODO check token expiration.
   $scope.login = function() {
     $ionicHistory.nextViewOptions({
       disableBack: true
@@ -91,7 +91,7 @@ angular.module('default.controllers', [])
     var loginInfo = {};
     loginInfo.username = $scope.login.username;
     loginInfo.password = $scope.login.password;
-    console.log(loginInfo);
+    loginInfo.remember = $scope.login.remember;
     Connection.login(loginInfo)
        .success(function(data) {
           token = data.token;
