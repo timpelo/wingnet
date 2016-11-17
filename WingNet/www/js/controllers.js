@@ -1,4 +1,12 @@
 var token = "";
+var dev = false;
+var hostDev = "http://localhost:8080";
+var hostRelease = "http://35.160.11.177:8080";
+
+var host = hostRelease;
+if (dev == true) {
+   host = hostDev;
+}
 angular.module('default.controllers', [])
 
 
@@ -6,22 +14,21 @@ angular.module('default.controllers', [])
 .factory('Connection', function($http) {
    return {
       getProfiles : function(body){
-         return $http.post('http://localhost:8080/api/profiles', body);
+         return $http.post(host+'/api/profiles', body);
       },
       addProfile : function(body) {
-         return $http.post('http://localhost:8080/api/profiles/add', body);
+         return $http.post(host+'/api/profiles/add', body);
       },
       getRequests : function(profileId) {
 
          return $http({
-                   url: 'http://localhost:8080/api/requests/',
+                   url: host+'/api/requests/',
                    method: "GET",
                    params: {profileId: profileId, token: token}
                 });
-         //return $http.get('http://localhost:8080/api/requests/' + profileId + "?token="+ token);
       },
       login : function(loginInfo) {
-         return $http.post('http://localhost:8080/login', loginInfo);
+         return $http.post(host + '/login', loginInfo);
       }
    }
 })
