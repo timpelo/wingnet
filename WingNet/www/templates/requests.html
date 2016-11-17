@@ -16,8 +16,8 @@
         <tbody class="table-w-body">
             <tr ng-repeat="request in requests">
                 <td>{{request.fromName}}</td>
-                <td>{{request.interests}}</td>
-                <td>{{request.platform}}</td>
+                <td>{{request.interests.toString()}}</td>
+                <td>{{request.platform.toString()}}</td>
                 <td>{{request.status}}</td>
                 <td>{{request.date}}</td>
             </tr>

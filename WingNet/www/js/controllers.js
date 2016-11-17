@@ -8,11 +8,17 @@ angular.module('default.controllers', [])
       getProfiles : function(body){
          return $http.post('http://localhost:8080/api/profiles', body);
       },
-      addProfile : function(profile) {
-         return $http.post('http://localhost:8080/api/profiles/add', profile);
+      addProfile : function(body) {
+         return $http.post('http://localhost:8080/api/profiles/add', body);
       },
       getRequests : function(profileId) {
-         return $http.get('http://localhost:8080/api/requests/' + profileId);
+
+         return $http({
+                   url: 'http://localhost:8080/api/requests/',
+                   method: "GET",
+                   params: {profileId: profileId, token: token}
+                });
+         //return $http.get('http://localhost:8080/api/requests/' + profileId + "?token="+ token);
       },
       login : function(loginInfo) {
          return $http.post('http://localhost:8080/login', loginInfo);
@@ -69,7 +75,7 @@ angular.module('default.controllers', [])
 .controller('RequestController', function($scope, Connection) {
   //Janin 5820c86ee0e56011df73e02d
   //Juhon 5825815ed01cb174b789a494
-   var profileId = "5820c86ee0e56011df73e02d";
+   var profileId = "5825815ed01cb174b789a494";
    Connection.getRequests(profileId)
       .success(function(data) {
          $scope.requests = data;
