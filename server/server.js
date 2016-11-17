@@ -21,17 +21,11 @@
   var apiRoutes = express.Router();
 
   apiRoutes.use(function(req, res, next) {
-     console.log(req);
      // check header or url parameters or post parameters for token
      var token = req.body.token;
-     console.log("hep");
-     console.log(token);
-     console.log(req.body);
      // decode token
      if (token) {
-        console.log("TOKEN FOUND");
        // verifies secret and checks exp
-
        jwt.verify(token, superSecret, function(err, decoded) {
          if (err) {
            return res.json({ success: false, message: 'Failed to authenticate token.' });
@@ -45,7 +39,6 @@
      } else {
        // if there is no token
        // return an error
-       console.log("hep");
        return res.status(403).send({
            success: false,
            message: 'No token provided.'
@@ -55,7 +48,7 @@
 
   // Gets profiles with filter.
   apiRoutes.post("/profiles", function(req, res) {
-    var filter = req.body.filter;
+    var filter = req.body.filters;
     if(filter != null && filter != undefined) {
       mongo.getProfiles(filter, function(result) {
         res.json(result);
@@ -106,13 +99,11 @@
              token: token
           });
         }
-
       }
-
     });
   });
 
-  apiRoutes.post("/register", function(req, res) {
+  app.post("/register", function(req, res) {
      var user = {username: req.body.username,
                   password: req.body.password};
 
