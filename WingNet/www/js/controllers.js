@@ -1,4 +1,4 @@
-var token = "";
+var token = undefined;
 var dev = false;
 var hostDev = "http://localhost:8080";
 var hostRelease = "http://35.160.11.177:8080";
@@ -7,7 +7,7 @@ var host = hostRelease;
 if (dev == true) {
    host = hostDev;
 }
-angular.module('default.controllers', [])
+angular.module('default.controllers', ['angular-jwt'])
 
 
 
@@ -81,6 +81,7 @@ angular.module('default.controllers', [])
 .controller('RequestController', function($scope, Connection) {
   //Janin 5820c86ee0e56011df73e02d
   //Juhon 5825815ed01cb174b789a494
+  //Servun 5825815ed01cb174b789a494
    var profileId = "5825815ed01cb174b789a494";
    Connection.getRequests(profileId)
       .success(function(data) {
@@ -88,8 +89,20 @@ angular.module('default.controllers', [])
       });
 })
 
-.controller('LoginController', function($scope, $state, $ionicHistory, Connection) {
+.controller('ProfileAddController', function($scope, Connection){
+
+})
+
+.controller('LoginController', function($scope, $state, $ionicHistory, Connection, jwtHelper) {
 //TODO check token expiration.
+  if (token != undefined) {
+     var date = jwtHelper.getTokenExpirationDate(token);
+     console.log(date);
+     console.log(Date.now());
+     if (date > Date.now()) {
+        $state.go('app.welcome');
+     }
+  }
   $scope.login = function() {
     $ionicHistory.nextViewOptions({
       disableBack: true
