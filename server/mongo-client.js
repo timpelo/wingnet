@@ -6,8 +6,38 @@
   var url = "mongodb://localhost:27017/test";
   var profilesCollection = "profiles";
   var requestCollection = "requests";
+  var userCollection = "users";
 
   /* List functions */
+
+  function register(user, callback) {
+    MongoClient.connect(url, function(err, db) {
+      var collection = db.collection(userCollection);
+      collection.insertOne(user, function(err, result) {
+        if(err != null) {
+          callback({"success" : "false", "message":err});
+        } else {
+          callback(result);
+        }
+        db.close();
+      });
+   });
+  }
+
+  function getUser(filter, callback) {
+     MongoClient.connect(url, function(err, db) {
+       var collection = db.collection(userCollection);
+       collection.findOne(filter, function(err, result) {
+          if(err != null) {
+            callback({"success" : "false", "message":err});
+          } else {
+            callback(result);
+          }
+          db.close();
+       });
+     });
+  }
+
   function getProfiles(filter, callback) {
     MongoClient.connect(url, function(err, db) {
       var collection = db.collection(profilesCollection);
@@ -52,6 +82,21 @@
     })
   }
 
+  /* Utils */
+  function getLastId(collectionName, callback) {
+    MongoClient.connect(url, function(err, db) {
+      var collection = db.collection(collectionName);
+      collection.find({}).sort({"id":-1}).limit(1).toArray(function(err, result) {
+        if(result.length > 0) {
+          callback(result[0].id);
+        } else {
+          callback(0);
+        }
+        db.close();
+      });
+    });
+  }
+
   function fillRequestInfo(inResult, callback) {
 
      // Get list of profile Ids
@@ -72,25 +117,11 @@
         }
         callback(inResult);
      }
-
-  }
-
-  /* Utils */
-  function getLastId(collectionName, callback) {
-    MongoClient.connect(url, function(err, db) {
-      var collection = db.collection(collectionName);
-      collection.find({}).sort({"id":-1}).limit(1).toArray(function(err, result) {
-        if(result.length > 0) {
-          callback(result[0].id);
-        } else {
-          callback(0);
-        }
-        db.close();
-      });
-    });
   }
 
   exports.getProfiles = getProfiles;
   exports.addProfile = addProfile;
   exports.getRequests = getRequests;
+  exports.register = register;
+  exports.getUser = getUser;
 }())

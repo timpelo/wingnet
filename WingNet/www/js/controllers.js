@@ -2,14 +2,26 @@ angular.module('default.controllers', [])
 
 .factory('Connection', function($http) {
    return {
-      getProfiles : function(filters) {
-         return $http.post('http://localhost:8080/profiles', filters);
+      getProfiles : function(body, callback) {
+         $.ajax({
+            url:'http://localhost:8080/api/profiles',
+            type:"post",
+            data: JSON.stringify(body),
+            headers:{"Content-Type":"application/json"},
+            dataType:"json",
+            success: function(res) {
+                console.log("Response");
+                callback(res);
+            }
+         });
+
+         //return $http.post('http://localhost:8080/api/profiles', JSON.stringify(body));
       },
       addProfile : function(profile) {
-         return $http.post('http://localhost:8080/profiles/add', profile);
+         return $http.post('http://localhost:8080/api/profiles/add', profile);
       },
       getRequests : function(profileId) {
-         return $http.get('http://localhost:8080/requests/' + profileId);
+         return $http.get('http://localhost:8080/api/requests/' + profileId);
       }
    }
 })
@@ -24,13 +36,16 @@ angular.module('default.controllers', [])
    $scope.getProfiles = function() {
 
       if (!($scope.filter == undefined)) {
-         var filters = {$or : ""};
+         var filterstmp = {$or : ""};
+         filterstmp.$or = filterInterests($scope);
+         var body = {filters : filterstmp,
+                     token : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ODJkNmEwZTJhZDUwNDE1OGNiYzFmMjkiLCJ1c2VybmFtZSI6Inh5eiIsInBhc3N3b3JkIjoieHl6IiwiaWF0IjoxNDc5Mzc3NTU1LCJleHAiOjE0Nzk0NjM5NTV9.Jww03Vts_x9QLuD7N-b1PX-uqeF5fLU2fkhbQBaur_Q"};
+         console.log(JSON.stringify(body));
 
-         filters.$or = filterInterests($scope);
-         Connection.getProfiles(filters)
-            .success(function(data) {
-               $scope.profiles = data;
-            });
+         Connection.getProfiles(body, function (res){
+            $scope.profiles = res;
+         });
+         
       } else {
          alert("Choose atleast 1 interest");
       }
