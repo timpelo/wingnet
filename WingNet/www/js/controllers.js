@@ -1,5 +1,5 @@
 var token = undefined;
-var dev = true;
+var dev = false;
 var hostDev = "http://localhost:8080";
 var hostRelease = "http://35.160.11.177:8080";
 
@@ -109,7 +109,12 @@ angular.module('default.controllers', ['angular-jwt'])
          body.profile = profile;
          Connection.addProfile(body)
             .success(function(data) {
-               $scope.profiles = data;
+               if(data.success) {
+                  alert("Profile created!");
+               } else {
+                  alert(data.message);
+               }
+
             });
       } else {
          alert("Choose atleast 1 interest and platform");

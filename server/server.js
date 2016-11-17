@@ -66,9 +66,6 @@
          } else {
             res.json({ success: false, message: 'Profile with that name already exists' });
          }
-         /*
-
-         */
       });
 
     }
