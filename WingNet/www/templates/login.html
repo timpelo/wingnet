@@ -2,7 +2,7 @@
   <ion-content class="background-dark-w center-w" ng-controller="LoginController">
 
     <div class="login-title-container-w">
-      <img src="../img/ed_logo.png" />
+      <img ng-src="img/ed_logo.png" />
       <h1 class="login-title-w">Elite: WingNet</h1>
     </div>
 
@@ -16,7 +16,7 @@
       placeholder="Password">
     </label>
 
-    <button style="width:80%;" ng-click="login()" class="button button-primary-w">
+    <button ng-click="login()" class="button button-primary-w button-login-w">
       Log in
     </button>
   </ion-content>

@@ -44,6 +44,11 @@
   border: none;
 }
 
+.button-login-w {
+  width:80%;
+  height:40pt;
+}
+
 .background-dark-w {
   background-color: var(--main-gray-dark);
 }
@@ -71,7 +76,7 @@ border-color: var(--main-orange-light);
 }
 
 .login-title-w {
-  font-size: 35pt;
+  font-size: 30pt;
   margin: 0;
   font-family: 'Open Sans Condensed', sans-serif;
   color: var(--main-orange-light);
@@ -80,7 +85,7 @@ border-color: var(--main-orange-light);
 .login-title-container-w {
   text-align:center;
   margin-bottom:30pt;
-  margin-top:50pt;
+  margin-top:40pt;
 }
 
 .label-title-w{
