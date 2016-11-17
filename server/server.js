@@ -23,20 +23,16 @@
   apiRoutes.use(function(req, res, next) {
      // check header or url parameters or post parameters for token
      var token = req.body.token || req.query.token;
-     console.log(req.query);
      // decode token
      if (token) {
-       // verifies secret and checks exp
-       jwt.verify(token, superSecret, function(err, decoded) {
-         if (err) {
-           return res.json({ success: false, message: 'Failed to authenticate token.' });
-         } else {
-           // if everything is good, save to request for use in other routes
-           req.decoded = decoded;
-           next();
-         }
-       });
-
+        validateToken(token, function(result){
+           if(result.success == true) {
+             req.decoded = result.decoded;
+             next();
+          } else {
+             return res.json({ success: false, message: 'Failed to authenticate token.' });
+          }
+        });
      } else {
        // if there is no token
        // return an error
@@ -70,13 +66,8 @@
 
   apiRoutes.get("/requests",function(req, res) {
      var profileId = req.query.profileId;
-
-     console.log(profileId);
-
-
      if (profileId != null && profileId != undefined) {
        mongo.getRequests(profileId, function(result) {
-          console.log(result);
            res.json(result);
        });
      }
@@ -92,9 +83,13 @@
         if (user.password != req.body.password) {
           res.json({ success: false, message: 'Authentication failed. Wrong password.' });
         } else {
-           console.log(user);
+          var expriration =  60*60*24;
+
+          if(req.body.remember == true) {
+             expriration = 60*60*24*100;
+          }
           var token = jwt.sign(user, superSecret, {
-             expiresIn: 60*60*24 // expires in 24 hours
+             expiresIn: expriration // expires in 24 hours unless remember == true
           });
 
           // return the information including token as JSON
@@ -116,7 +111,6 @@
           && user.password != null && user.password != undefined) {
 
         mongo.getUser({username: user.username}, function(result){
-          console.log(result);
           if (result == null) {
              mongo.register(user, function(result){
                 res.json(result);
@@ -129,11 +123,35 @@
      }
   });
 
-
+  app.post("/checkToken", function(req, res) {
+     var token = req.body.token || req.query.token;
+    if (token) {
+      validateToken(token,function(result){
+         if (result.success == true) {
+            res.json({"success":"true", "message":"Token is valid"});
+         } else {
+            res.json({"success":"false", "message":"Token is invalid"});
+         }
+      });
+    } else {
+      return res.status(403).send({
+          success: false,
+          message: 'No token provided.'
+      });
+    }
+  });
 
   app.use('/api', apiRoutes);
 
-
+   function validateToken(token, callback) {
+      jwt.verify(token, superSecret, function(err, decoded) {
+        if (err) {
+          callback({success: false, message: 'Failed to authenticate token.' });
+        } else {
+          callback({success: true, decoded: decoded});
+        }
+      });
+   }
 
   /* Server */
   var server = app.listen(serverPort, function() {
