@@ -32,9 +32,9 @@
       <tbody class="table-w-body">
           <tr ng-repeat="profile in profiles">
               <td>{{profile.name}}</td>
-              <td>{{profile.interest}}</td>
+              <td>{{profile.interest.toString()}}</td>
               <td>20.11.201</td>
-              <td>{{profile.platform}}</td>
+              <td>{{profile.platform.toString()}}</td>
           </tr>
       </tbody>
     </table>

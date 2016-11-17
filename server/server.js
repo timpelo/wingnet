@@ -22,7 +22,8 @@
 
   apiRoutes.use(function(req, res, next) {
      // check header or url parameters or post parameters for token
-     var token = req.body.token;
+     var token = req.body.token || req.query.token;
+     console.log(req.query);
      // decode token
      if (token) {
        // verifies secret and checks exp
@@ -67,11 +68,15 @@
     }
   });
 
-  apiRoutes.get("/requests/:profileId",function(req, res) {
-     var profileId = req.params.profileId.toString();
+  apiRoutes.get("/requests",function(req, res) {
+     var profileId = req.query.profileId;
+
+     console.log(profileId);
+
 
      if (profileId != null && profileId != undefined) {
        mongo.getRequests(profileId, function(result) {
+          console.log(result);
            res.json(result);
        });
      }
@@ -87,7 +92,7 @@
         if (user.password != req.body.password) {
           res.json({ success: false, message: 'Authentication failed. Wrong password.' });
         } else {
-
+           console.log(user);
           var token = jwt.sign(user, superSecret, {
              expiresIn: 60*60*24 // expires in 24 hours
           });
