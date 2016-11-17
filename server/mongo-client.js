@@ -59,7 +59,8 @@
         if(err != null) {
           callback({"success" : "false", "message":err});
         } else {
-          callback(result);
+           console.log(result);
+          callback({"success" : "true", "message":result});
         }
         db.close();
       });

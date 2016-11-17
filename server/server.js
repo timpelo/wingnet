@@ -58,9 +58,20 @@
     var profile = req.body.profile;
 
     if(profile != null && profile != undefined) {
-      mongo.addProfile(profile, function(result) {
-          res.json(result);
+      mongo.getProfiles({name : profile.name}, function(result){
+         console.log(result);
+         if(result.length == 0) {
+            mongo.addProfile(profile, function(result) {
+                res.json(result);
+            });
+         } else {
+            res.json({ success: false, message: 'Profile with that name already exists' });
+         }
+         /*
+
+         */
       });
+
     }
   });
 
