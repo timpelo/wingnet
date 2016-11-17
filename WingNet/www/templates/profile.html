@@ -1,7 +1,7 @@
 <ion-view view-title="Profile">
-  <ion-content class="background-dark-w">
+  <ion-content class="background-dark-w" ng-controller="ProfileAddController">
     <label class="item item-input">
-      CMDR Mike
+      <input type="text"ng-model="profile.name" placeholder="CMDR Mike"/>
     </label>
     <label class="item label-title-w">
       Platform
@@ -23,6 +23,10 @@
 
     <ion-checkbox class="checkbox-dark-w checkbox-w"
      ng-model="profile.interest.exploration">Exploration</ion-checkbox>
+
+     <button ng-click="addProfile()" class="button icon-left ion-search button-primary-w">
+      Add Profile
+     </button>
 
   </ion-content>
 </ion-view>

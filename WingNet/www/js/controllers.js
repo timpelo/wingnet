@@ -89,16 +89,67 @@ angular.module('default.controllers', ['angular-jwt'])
       });
 })
 
-.controller('ProfileAddController', function($scope, Connection){
+.controller('ProfileAddController', function($scope, Connection, jwtHelper){
+   $scope.addProfile = function () {
+      if (!($scope.profile == undefined)
+            && !($scope.profile.interest == undefined)
+            && !($scope.profile.platform == undefined)
+            && !($scope.profile.name == undefined)) {
+         var body = {};
+         var profile = {};
+         var platforms = fillPlatforms();
+         var interests = fillInterests();
+         body.token = token;
 
+         var tokenPayload = jwtHelper.decodeToken(token);
+         profile.userid = tokenPayload._id;
+         profile.name = $scope.profile.name;
+         profile.interest = interests;
+         profile.platform = platforms;
+         body.profile = profile;
+         Connection.addProfile(body)
+            .success(function(data) {
+               $scope.profiles = data;
+            });
+      } else {
+         alert("Choose atleast 1 interest and platform");
+      }
+   }
+
+   function fillPlatforms() {
+      var platforms = [];
+
+      if ($scope.profile.platform.xbox){
+         platforms.push("XBOX");
+      }
+      if ($scope.profile.platform.pc){
+         platforms.push("PC");
+      }
+
+      return platforms;
+   }
+
+   function fillInterests() {
+      var interests = [];
+
+      if ($scope.profile.interest.exploration){
+         interests.push("Exploration");
+      }
+      if ($scope.profile.interest.trading){
+         interests.push("Trading");
+      }
+      if ($scope.profile.interest.combat){
+         interests.push("Combat");
+      }
+
+      return interests;
+   }
 })
 
 .controller('LoginController', function($scope, $state, $ionicHistory, Connection, jwtHelper) {
 //TODO check token expiration.
   if (token != undefined) {
      var date = jwtHelper.getTokenExpirationDate(token);
-     console.log(date);
-     console.log(Date.now());
      if (date > Date.now()) {
         $state.go('app.welcome');
      }

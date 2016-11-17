@@ -59,7 +59,6 @@
 
     if(profile != null && profile != undefined) {
       mongo.getProfiles({name : profile.name}, function(result){
-         console.log(result);
          if(result.length == 0) {
             mongo.addProfile(profile, function(result) {
                 res.json(result);
