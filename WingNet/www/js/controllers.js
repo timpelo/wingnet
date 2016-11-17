@@ -38,14 +38,15 @@ angular.module('default.controllers', [])
       if (!($scope.filter == undefined)) {
          var filterstmp = {$or : ""};
          filterstmp.$or = filterInterests($scope);
-         var body = {filters : filterstmp,
-                     token : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ODJkNmEwZTJhZDUwNDE1OGNiYzFmMjkiLCJ1c2VybmFtZSI6Inh5eiIsInBhc3N3b3JkIjoieHl6IiwiaWF0IjoxNDc5Mzc3NTU1LCJleHAiOjE0Nzk0NjM5NTV9.Jww03Vts_x9QLuD7N-b1PX-uqeF5fLU2fkhbQBaur_Q"};
+         body = {}
+         body.filters = filterstmp
+         body.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ODJkNmEwZTJhZDUwNDE1OGNiYzFmMjkiLCJ1c2VybmFtZSI6Inh5eiIsInBhc3N3b3JkIjoieHl6IiwiaWF0IjoxNDc5Mzc3NTU1LCJleHAiOjE0Nzk0NjM5NTV9.Jww03Vts_x9QLuD7N-b1PX-uqeF5fLU2fkhbQBaur_Q";
          console.log(JSON.stringify(body));
 
          Connection.getProfiles(body, function (res){
             $scope.profiles = res;
          });
-         
+
       } else {
          alert("Choose atleast 1 interest");
       }

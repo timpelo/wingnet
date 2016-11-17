@@ -19,7 +19,7 @@
 
   /* Endpoints for maganing player profiles*/
   var apiRoutes = express.Router();
-  
+
   apiRoutes.use(function(req, res, next) {
      console.log(req);
      // check header or url parameters or post parameters for token
@@ -141,7 +141,6 @@
 
   /* Server */
   var server = app.listen(serverPort, function() {
-
   });
 
   /* Models */
