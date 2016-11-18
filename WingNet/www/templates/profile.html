@@ -2,19 +2,20 @@
   <ion-content class="background-dark-w" ng-controller="ProfileController">
     <!-- Commander name -->
     <div class="row">
-      <div class="col" style="width:50%">
+      <div style="width:90%">
         <input id="nameInput" type="text" class="input-w-bigfont profile-name-label-w"
         value="{{profile.name || 'John Smith'}}" readonly>
       </div>
-      <div style="text-align:right;" class="col">
-        <button id="editButton" ng-click="toggleEdit()" style="margin-right:20pt;"
+      <div style="text-align:right;width:10%;">
+        <button id="editButton" ng-click="toggleEdit()"
+        style="margin-right:20pt;margin-top:5pt;"
         class="button-right button icon-middle ion-edit icon-button-w"></button>
       </div>
     </div>
 
     <!-- Platform -->
     <label class="item label-title-w">
-      Platform
+      Platforms
     </label>
     <div class="row">
       <div class="col menu-title-w">PC</div>
@@ -33,7 +34,7 @@
 
     <!-- Interests -->
     <label class="label-title-w item">
-      Interest
+      Interests
     </label>
     <div class="row">
       <div class="col menu-title-w">Trading</div>
