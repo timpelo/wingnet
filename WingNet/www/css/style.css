@@ -162,23 +162,17 @@ border-color: #DB8B31;
   border: none;
 }
 
-.table-w-head th{
+.table-w-head p{
   background-color: #BB5500;
   color: #ffffff;
-}
-
-.table-w-head th{
   border:none;
 }
 
-.table-w-body td{
-  color: #ffffff;
-}
-
-.table-w-body td {
+.table-w-body p {
   border-top: none;
   background: #2D2D2D;
   border-bottom: 1px solid #43413F;
+  color: #ffffff;
 }
 
 .input-w {

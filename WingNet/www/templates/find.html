@@ -18,7 +18,7 @@
     </div>
 
     <!-- Tables -->
-    <table class="borderless-w table-w pure-table pure-table-horizontal"
+    <!--<table class="borderless-w table-w pure-table pure-table-horizontal"
     style="width:100%" >
       <thead class="table-w-head">
           <tr>
@@ -37,6 +37,17 @@
               <td>{{profile.platform.toString()}}</td>
           </tr>
       </tbody>
-    </table>
+    </table>-->
+    <div class="row table-w-head">
+      <div class="col"><p>Name</p></div>
+      <div class="col"><p>Interest</p></div>
+      <div class="col"><p>Platform</p></div>
+    </div>
+    <div class="row table-w-body" ng-repeat="profile in profiles">
+      <div class="col"><p>{{profile.name}}</p></div>
+      <div class="col"><p>{{profile.interest.toString()}}</p></div>
+      <div class="col"><p>{{profile.platform.toString()}}</p></div>
+    </div>
+
   </ion-content>
 </ion-view>
