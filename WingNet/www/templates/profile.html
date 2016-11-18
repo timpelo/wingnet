@@ -1,39 +1,61 @@
 <ion-view view-title="Profile">
   <ion-content class="background-dark-w" ng-controller="ProfileController">
     <!-- Commander name -->
-    <label class="item label-title-w">
-
-      <input id="nameInput" type="text" class="profile-name-label-w"
-       value="{{profile.name || 'John Smith'}}" readonly/>
-
-      <button id="editButton" ng-click="toggleEdit()"
-      class="button icon-middle ion-edit icon-button-w"></button>
-
-    </label>
+    <div class="row">
+      <div class="col" style="width:50%">
+        <input id="nameInput" type="text" class="profile-name-label-w"
+        value="{{profile.name || 'John Smith'}}" readonly>
+      </div>
+      <div style="text-align:right;" class="col">
+        <button id="editButton" ng-click="toggleEdit()" style="margin-right:20pt;"
+        class="button-right button icon-middle ion-edit icon-button-w"></button>
+      </div>
+    </div>
 
     <!-- Platform -->
     <label class="item label-title-w">
       Platform
     </label>
-    <ion-checkbox style="display:table-cell;" class="checkbox-dark-w checkbox-w"
-     ng-model="profile.platform.pc">PC</ion-checkbox>
-
-    <ion-checkbox style="display:table-cell;" class="checkbox-dark-w checkbox-w"
-     ng-model="profile.platform.xbox">XBOX</ion-checkbox>
+    <div class="row">
+      <div class="col menu-title-w">PC</div>
+      <div class="col">
+        <ion-checkbox class="checkbox-right checkbox-dark-w checkbox-w"
+        ng-model="profile.platform.pc"></ion-checkbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col menu-title-w">XBOX</div>
+      <div class="col">
+        <ion-checkbox class="checkbox-right checkbox-dark-w checkbox-w"
+         ng-model="profile.platform.xbox"></ion-checkbox>
+      </div>
+    </div>
 
     <!-- Interests -->
     <label class="label-title-w item">
       Interest
     </label>
-    <ion-checkbox style="display:table-cell;" class="checkbox-dark-w checkbox-w"
-     ng-model="profile.interest.trading">Trading</ion-checkbox>
-
-    <ion-checkbox class="checkbox-dark-w checkbox-w"
-     ng-model="profile.interest.combat">Combat</ion-checkbox>
-
-    <ion-checkbox style="display:table-cell;" class="checkbox-dark-w checkbox-w"
-     ng-model="profile.interest.exploration">Exploration</ion-checkbox>
-
+    <div class="row">
+      <div class="col menu-title-w">Trading</div>
+      <div class="col">
+        <ion-checkbox class="checkbox-right checkbox-dark-w checkbox-w"
+         ng-model="profile.interest.trading"></ion-checkbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col menu-title-w">Combat</div>
+      <div class="col">
+        <ion-checkbox class="checkbox-right checkbox-dark-w checkbox-w"
+         ng-model="profile.interest.combat"></ion-checkbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col menu-title-w">Exploration</div>
+      <div class="col">
+        <ion-checkbox class="checkbox-right checkbox-dark-w checkbox-w"
+         ng-model="profile.interest.exploration"></ion-checkbox>
+      </div>
+    </div>
      <label class="label-title-w item">
      </label>
 

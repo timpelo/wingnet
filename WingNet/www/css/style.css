@@ -54,8 +54,8 @@
   background-color: transparent;
   height: 24pt;
   color: #DB8B31;
-  margin-left: 10pt;
   border:none;
+  padding-left: 60px;
 }
 
 .icon-button-w:focus,
@@ -64,7 +64,6 @@
   background-color: transparent;
   height: 24pt;
   color: #DB8B31;
-  margin-left: 10pt;
   border:none;
 }
 .icon-button-w.button{
@@ -97,6 +96,15 @@ background: #43413F;
 background: #DB8B31;
 border-color: #DB8B31;
 }
+.button-right,
+.checkbox-right {
+  float: right;
+  clear: both;
+}
+
+.menu-title-w {
+  color: #BB5500;
+}
 
 .login-title-w {
   font-size: 30pt;
@@ -109,6 +117,16 @@ border-color: #DB8B31;
   text-align:center;
   margin-bottom:30pt;
   margin-top:40pt;
+}
+
+.margin-10{
+  margin: 10pt;
+}
+.margin-20{
+  margin: 10pt;
+}
+.margin-30{
+  margin: 10pt;
 }
 
 .label-title-w{

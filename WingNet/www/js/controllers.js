@@ -124,14 +124,20 @@ angular.module('default.controllers', ['angular-jwt'])
    $scope.toggleEdit = function() {
      console.log("hello");
      var nameInput = document.getElementById("nameInput");
-     nameInput.readOnly = false;
 
-     var button = document.getElementById("editButton");
-     button.removeClass("ion-edit");
-     button.addClass("ion-checkmark-round");
+     if(nameInput.readOnly == true) {
+       nameInput.readOnly = false;
 
-     console.log(nameInput);
-     console.log(button);
+       var button = angular.element( document.querySelector( '#editButton' ) );
+       button.removeClass("ion-edit");
+       button.addClass("ion-checkmark-round");
+     } else {
+       nameInput.readOnly = true;
+
+       var button = angular.element( document.querySelector( '#editButton' ) );
+       button.addClass("ion-edit");
+       button.removeClass("ion-checkmark-round");
+     }
    }
 
    function fillPlatforms() {
