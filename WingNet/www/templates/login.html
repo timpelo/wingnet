@@ -5,19 +5,20 @@
       <img ng-src="img/ed_logo.png" />
       <h1 class="login-title-w">Elite: WingNet</h1>
     </div>
+    <form ng-submit="login()">
+      <label>
+        <input class="input-w" type="text" ng-model="login.username"
+        placeholder="Username">
+      </label>
 
-    <label>
-      <input class="input-w" type="text" ng-model="login.username"
-      placeholder="Username">
-    </label>
+      <label>
+        <input class="input-w" type="password" ng-model="login.password"
+        placeholder="Password">
+      </label>
 
-    <label>
-      <input class="input-w" type="password" ng-model="login.password"
-      placeholder="Password">
-    </label>
-
-    <button ng-click="login()" class="button button-primary-w button-login-w">
-      Log in
-    </button>
+      <button ng-click="login()" class="button button-primary-w button-login-w">
+        Log in
+      </button>
+    </form>
   </ion-content>
 </ion-view>

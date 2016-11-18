@@ -3,8 +3,10 @@
     <!-- Commander name -->
     <div class="row">
       <div style="width:90%">
-        <input id="nameInput" type="text" class="input-w-bigfont profile-name-label-w"
-        value="{{profile.name || 'John Smith'}}" readonly>
+        <form ng-submit="toggleEdit()">
+          <input id="nameInput" type="text" class="input-w-bigfont profile-name-label-w"
+          value="{{profile.name || 'John Smith'}}" readonly>
+        </form>
       </div>
       <div style="text-align:right;width:10%;">
         <button id="editButton" ng-click="toggleEdit()"
