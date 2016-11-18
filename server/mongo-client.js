@@ -3,7 +3,7 @@
 
   var MongoClient = require('mongodb').MongoClient;
   var ObjectID = require('mongodb').ObjectID;
-  var url = "mongodb://localhost:27017/test";
+  var url = "mongodb://localhost:27017/wingnet";
   var profilesCollection = "profiles";
   var requestCollection = "requests";
   var userCollection = "users";

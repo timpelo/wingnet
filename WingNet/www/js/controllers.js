@@ -89,7 +89,7 @@ angular.module('default.controllers', ['angular-jwt'])
       });
 })
 
-.controller('ProfileAddController', function($scope, Connection, jwtHelper){
+.controller('ProfileController', function($scope, Connection, jwtHelper){
    $scope.addProfile = function () {
       if (!($scope.profile == undefined)
             && !($scope.profile.interest == undefined)
@@ -119,6 +119,19 @@ angular.module('default.controllers', ['angular-jwt'])
       } else {
          alert("Choose atleast 1 interest and platform");
       }
+   }
+
+   $scope.toggleEdit = function() {
+     console.log("hello");
+     var nameInput = document.getElementById("nameInput");
+     nameInput.readOnly = false;
+
+     var button = document.getElementById("editButton");
+     button.removeClass("ion-edit");
+     button.addClass("ion-checkmark-round");
+
+     console.log(nameInput);
+     console.log(button);
    }
 
    function fillPlatforms() {
