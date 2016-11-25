@@ -73,6 +73,24 @@
     }
   });
 
+/*
+  apiRoutes.post("/profiles/update", function(req, res) {
+    var profile = req.body.profile;
+
+    if(profile != null && profile != undefined) {
+      mongo.getProfiles({name : profile.name}, function(result){
+         if(result.length == 0) {
+            mongo.addProfile(profile, function(result) {
+                res.json(result);
+            });
+         } else {
+            res.json({ success: false, message: 'Profile with that name already exists' });
+         }
+      });
+
+    }
+  });
+*/
   apiRoutes.get("/requests",function(req, res) {
      var profileId = req.query.profileId;
      if (profileId != null && profileId != undefined) {
