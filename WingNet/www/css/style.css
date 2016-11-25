@@ -162,13 +162,14 @@ border-color: #DB8B31;
   border: none;
 }
 
-.table-w-head p{
+.table-w-head {
   background-color: #BB5500;
   color: #ffffff;
+  font-size:15pt;
   border:none;
 }
 
-.table-w-body p {
+.table-w-body {
   border-top: none;
   background: #2D2D2D;
   border-bottom: 1px solid #43413F;
@@ -208,4 +209,29 @@ border-color: #DB8B31;
 .actionbar-w {
   background-color: #2D2D2D;
   color: #DB8B31;
+}
+
+.interest-icon {
+  padding-left:37px;
+  padding-top: 7px;
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+}
+.icon-trading {
+  background:url("../img/icon_trading.png");
+  background-repeat: no-repeat;
+}
+.icon-exploration {
+  background:url("../img/icon_exploration.png");
+  background-repeat: no-repeat;
+}
+
+.icon-combat {
+  background:url("../img/icon_combat.png");
+  background-repeat: no-repeat;
+}
+
+.interest-icon-cg {
+
 }

@@ -3,16 +3,20 @@
 
     <!-- Filters -->
     <div id="finder-filters">
-      <ion-checkbox class="checkbox-dark-w checkbox-w" ng-model="filter.interest.exploration">
-        Exploration
+      <ion-checkbox class="checkbox-dark-w checkbox-w"
+      ng-model="filter.interest.exploration">
+        <div class="interest-icon icon-exploration">Exploration</div>
       </ion-checkbox>
-      <ion-checkbox class="checkbox-dark-w checkbox-w" ng-model="filter.interest.trading">
-        Trading
+      <ion-checkbox class="checkbox-dark-w checkbox-w"
+      ng-model="filter.interest.trading">
+        <div class="interest-icon icon-trading">Trading</div>
       </ion-checkbox>
-      <ion-checkbox class="checkbox-w checkbox-dark-w" ng-model="filter.interest.combat">
-        Combat
+      <ion-checkbox class="checkbox-w checkbox-dark-w"
+      ng-model="filter.interest.combat">
+        <div class="interest-icon icon-combat">Combat</div>
       </ion-checkbox>
-      <button ng-click="getProfiles()" class="button icon-left ion-search button-primary-w">
+      <button ng-click="getProfiles()"
+      class="button icon-left ion-search button-primary-w">
         Find
       </button>
     </div>
@@ -45,7 +49,10 @@
     </div>
     <div class="row table-w-body" ng-repeat="profile in profiles">
       <div class="col"><p>{{profile.name}}</p></div>
-      <div class="col"><p>{{profile.interest.toString()}}</p></div>
+      <div class="col">
+          <div ng-repeat="interest in profile.interest"
+          class="interest-icon icon-{{interest | lowercase}}"></div>
+      </div>
       <div class="col"><p>{{profile.platform.toString()}}</p></div>
     </div>
 
