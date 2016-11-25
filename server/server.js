@@ -88,8 +88,7 @@
         res.json({ success: false, message: 'Authentication failed. User not found.' });
       } else if (user) {
         // check if password matches
-        //var decodedUserPw = sjcl.decrypt(encodePw, user.password);
-        var decodedUserPw = user.password;
+        var decodedUserPw = sjcl.decrypt(encodePw, user.password);
         var decodedBodyPw = sjcl.decrypt(encodePw, req.body.password);
         if (decodedUserPw != decodedBodyPw) {
           res.json({ success: false, message: 'Authentication failed. Wrong password.' });
@@ -115,8 +114,9 @@
   });
 
   app.post("/register", function(req, res) {
+     var cryptedPw = devolopCrypt(req.body.password);
      var user = {username: req.body.username,
-                  password: req.body.password};
+                  password: cryptedPw};
 
      if(user.username != null && user.username != undefined
           && user.password != null && user.password != undefined) {
@@ -133,6 +133,11 @@
 
      }
   });
+
+  function devolopCrypt(pass) {
+     var encodedPw = sjcl.encrypt(encodePw, pass);
+     return encodedPw;
+ }
 
   app.post("/checkToken", function(req, res) {
      var token = req.body.token || req.query.token;
