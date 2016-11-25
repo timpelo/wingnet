@@ -7,11 +7,13 @@
   var jwt    = require('jsonwebtoken');
   var app = express();
 
+  var encodePw = "dotamasterraceblizzardsucks";
+
+  var sjcl = require('sjcl');
+
   var superSecret = "ilovedotadotaisthebest";
 
   var serverPort = 8080;
-
-
 
   // Configuration
   app.use(bodyParser.json());
@@ -82,12 +84,13 @@
 
   app.post("/login", function(req, res) {
      mongo.getUser({username: req.body.username}, function(user) {
-
       if (!user) {
         res.json({ success: false, message: 'Authentication failed. User not found.' });
       } else if (user) {
         // check if password matches
-        if (user.password != req.body.password) {
+        var decodedUserPw = sjcl.decrypt(encodePw, user.password);
+        var decodedBodyPw = sjcl.decrypt(encodePw, req.body.password);
+        if (decodedUserPw != decodedBodyPw) {
           res.json({ success: false, message: 'Authentication failed. Wrong password.' });
         } else {
           var expriration =  60*60*24;
@@ -111,8 +114,9 @@
   });
 
   app.post("/register", function(req, res) {
+     var cryptedPw = devolopCrypt(req.body.password);
      var user = {username: req.body.username,
-                  password: req.body.password};
+                  password: cryptedPw};
 
      if(user.username != null && user.username != undefined
           && user.password != null && user.password != undefined) {
@@ -129,6 +133,11 @@
 
      }
   });
+
+  function devolopCrypt(pass) {
+     var encodedPw = sjcl.encrypt(encodePw, pass);
+     return encodedPw;
+ }
 
   app.post("/checkToken", function(req, res) {
      var token = req.body.token || req.query.token;

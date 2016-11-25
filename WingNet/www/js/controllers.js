@@ -1,7 +1,9 @@
 var token = undefined;
-var dev = false;
+var dev = true;
 var hostDev = "http://localhost:8080";
 var hostRelease = "http://35.160.11.177:8080";
+
+var encodePw = "dotamasterraceblizzardsucks";
 
 var host = hostRelease;
 if (dev == true) {
@@ -133,7 +135,7 @@ angular.module('default.controllers', ['angular-jwt'])
        button.addClass("ion-checkmark-round");
 
        window.setTimeout(function () {
-         nameInput.focus(); 
+         nameInput.focus();
        }, 0);
 
      } else {
@@ -189,8 +191,11 @@ angular.module('default.controllers', ['angular-jwt'])
     });
 
     var loginInfo = {};
+    var encodedPw = sjcl.encrypt(encodePw, $scope.login.password);
+
+    var dePw = sjcl.decrypt(encodePw, encodedPw);
     loginInfo.username = $scope.login.username;
-    loginInfo.password = $scope.login.password;
+    loginInfo.password = encodedPw;
     loginInfo.remember = $scope.login.remember;
     Connection.login(loginInfo)
        .success(function(data) {
