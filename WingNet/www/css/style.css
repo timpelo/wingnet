@@ -10,6 +10,7 @@
   border: none !important;
 
 }
+
 .button {
   color: white !important;
 }
@@ -163,13 +164,14 @@ border-color: #DB8B31;
 }
 
 .table-w-head {
-  background-color: #BB5500;
+  background-color: #DB8B31;
   color: #ffffff;
   font-size:15pt;
   border:none;
 }
 
 .table-w-body {
+  margin: 2px !important;
   border-top: none;
   background: #2D2D2D;
   border-bottom: 1px solid #43413F;
@@ -234,4 +236,42 @@ border-color: #DB8B31;
 
 .interest-icon-cg {
 
+}
+
+.anim-slide-row {
+  transform: translateX(100%);
+}
+
+.anim-slide {
+  transform: translateX(100%);
+  -webkit-animation: anim 3.5s 1 forwards;
+  animation: anim 3.5s 1 forwards;
+}
+@-webkit-keyframes anim {
+  0% {
+    transform: translateX(100%);
+  }
+  14.28% {
+    transform: translateX(0);
+  }
+  85.71% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes anim {
+  0% {
+    transform: translateX(100%);
+  }
+  14.28% {
+    transform: translateX(0);
+  }
+  85.71% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(0%);
+  }
 }

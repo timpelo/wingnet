@@ -11,6 +11,25 @@ if (dev == true) {
 }
 angular.module('default.controllers', ['angular-jwt'])
 
+.directive('fadeInDirective', function() {
+  return function(scope, element, attrs) {
+    if (scope.$last){
+      var elements = document.getElementsByClassName("anim-slide-row");
+
+      console.log(elements.length);
+
+      var i = 0, l = elements.length;
+      (function iterator() {
+        var elem = angular.element(elements[i]);
+        elem.addClass("anim-slide");
+        if(++i<l) {
+          setTimeout(iterator, 100);
+        }
+      })();
+    }
+  };
+})
+
 
 
 .factory('Connection', function($http) {
@@ -43,6 +62,7 @@ angular.module('default.controllers', ['angular-jwt'])
 
    // Gets all profiles that fit the filters
    $scope.getProfiles = function() {
+      angular.element(".profile-row").remove();
 
       if (!($scope.filter == undefined)) {
          var filterstmp = {$or : ""};

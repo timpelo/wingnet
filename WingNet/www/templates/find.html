@@ -42,18 +42,22 @@
           </tr>
       </tbody>
     </table>-->
-    <div class="row table-w-head">
-      <div class="col"><p>Name</p></div>
-      <div class="col"><p>Interest</p></div>
-      <div class="col"><p>Platform</p></div>
-    </div>
-    <div class="row table-w-body" ng-repeat="profile in profiles">
-      <div class="col"><p>{{profile.name}}</p></div>
-      <div class="col">
-          <div ng-repeat="interest in profile.interest"
-          class="interest-icon icon-{{interest | lowercase}}"></div>
+    <div id="profile-table">
+      <div class="row table-w-head">
+        <div class="col"><p>Name</p></div>
+        <div class="col"><p>Interest</p></div>
+        <div class="col"><p>Platform</p></div>
       </div>
-      <div class="col"><p>{{profile.platform.toString()}}</p></div>
+      <div class="row profile-row table-w-body anim-slide-row"
+      ng-repeat="profile in profiles"
+      fade-in-directive>
+        <div class="col"><p>{{profile.name}}</p></div>
+        <div class="col">
+            <div ng-repeat="interest in profile.interest"
+            class="interest-icon icon-{{interest | lowercase}}"></div>
+        </div>
+        <div class="col"><p>{{profile.platform.toString()}}</p></div>
+      </div>
     </div>
 
   </ion-content>

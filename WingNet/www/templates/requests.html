@@ -1,27 +1,20 @@
 <ion-view view-title="Requests">
   <ion-content ng-controller="RequestController" class="background-dark-w">
-    <table class="borderless-w table-w pure-table pure-table-horizontal"
-    style="width:100%">
-
-        <thead class="table-w-head">
-            <tr>
-                <th>Name</th>
-                <th>Interests</th>
-                <th>Platform</th>
-                <th>Status</th>
-                <th>Date</th>
-            </tr>
-        </thead>
-
-        <tbody class="table-w-body">
-            <tr ng-repeat="request in requests">
-                <td>{{request.fromName}}</td>
-                <td>{{request.interests.toString()}}</td>
-                <td>{{request.platform.toString()}}</td>
-                <td>{{request.status}}</td>
-                <td>{{request.date}}</td>
-            </tr>
-        </tbody>
-    </table>
+    <p style="height:20px"></p>
+    <div class="row table-w-head">
+      <div class="col"><p>From</p></div>
+      <div class="col"><p>Interest</p></div>
+      <div class="col"><p>Platform</p></div>
+      <div class="col"><p>Status</p></div>
+    </div>
+    <div class="row table-w-body" ng-repeat="request in requests">
+      <div class="col"><p>{{request.fromName}}</p></div>
+      <div class="col">
+          <div ng-repeat="interest in request.interest"
+          class="interest-icon icon-{{interest | lowercase}}"></div>
+      </div>
+      <div class="col"><p>{{request.platform.toString()}}</p></div>
+      <div class="col"><p>{{request.status}}</p></div>
+    </div>
   </ion-content>
 </ion-view>
