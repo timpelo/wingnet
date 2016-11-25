@@ -7,11 +7,13 @@
   var jwt    = require('jsonwebtoken');
   var app = express();
 
+  var encodePw = "dotamasterraceblizzardsucks";
+
+  var sjcl = require('sjcl');
+
   var superSecret = "ilovedotadotaisthebest";
 
   var serverPort = 8080;
-
-
 
   // Configuration
   app.use(bodyParser.json());
@@ -82,12 +84,14 @@
 
   app.post("/login", function(req, res) {
      mongo.getUser({username: req.body.username}, function(user) {
-
       if (!user) {
         res.json({ success: false, message: 'Authentication failed. User not found.' });
       } else if (user) {
         // check if password matches
-        if (user.password != req.body.password) {
+        //var decodedUserPw = sjcl.decrypt(encodePw, user.password);
+        var decodedUserPw = user.password;
+        var decodedBodyPw = sjcl.decrypt(encodePw, req.body.password);
+        if (decodedUserPw != decodedBodyPw) {
           res.json({ success: false, message: 'Authentication failed. Wrong password.' });
         } else {
           var expriration =  60*60*24;
