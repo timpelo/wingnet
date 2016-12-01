@@ -55,6 +55,18 @@
     }
   });
 
+  // Gets profile with userid.
+  apiRoutes.get("/profile/userid", function(req, res) {
+    var userid = req.query.userid;
+    if(userid != null && userid != undefined) {
+      mongo.getProfileWithUserId(userid, function(result) {
+        res.json(result);
+      });
+   } else {
+      res.json({ success: false, message: 'userid not found in query' });
+   }
+  });
+
   // Adds new profile to list.
   apiRoutes.post("/profiles/add", function(req, res) {
     var profile = req.body.profile;
@@ -74,14 +86,14 @@
 
   apiRoutes.post("/profiles/update", function(req, res) {
     var profile = req.body.profile;
-    var tokenPayload = jwtHelper.decodeToken(token);
     if(profile != null && profile != undefined) {
       mongo.getProfiles({_id : profile._id}, function(result){
-         if(result.length == 1 && result.userid == tokenPayload._id) {
+         if(result.length == 1) {
             mongo.updateProfile(profile, function(result) {
                 res.json(result);
             });
          } else {
+            console.log(result.length);
             res.json({ success: false, message: 'No profile found' });
          }
       });

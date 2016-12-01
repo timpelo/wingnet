@@ -41,7 +41,24 @@
   function getProfiles(filter, callback) {
     MongoClient.connect(url, function(err, db) {
       var collection = db.collection(profilesCollection);
+      if (filter._id != undefined) {
+         filter._id = ObjectID(filter._id);
+      }
       collection.find(filter).toArray(function(err, result) {
+        if(err != null) {
+          callback({"success" : "false", "message":err});
+        } else {
+          callback(result);
+        }
+        db.close();
+      });
+    });
+  }
+
+  function getProfileWithUserId(userid, callback) {
+    MongoClient.connect(url, function(err, db) {
+      var collection = db.collection(profilesCollection);
+      collection.findOne({userid:ObjectID(userid)}, function(err, result) {
         if(err != null) {
           callback({"success" : "false", "message":err});
         } else {
@@ -85,12 +102,15 @@
   function updateProfile(profile, callback) {
      MongoClient.connect(url, function(err, db) {
       var collection = db.collection(profilesCollection);
-      console.log(profile._id);
-      collection.update({_id:profile._id}, {$set:profile}, function(err, result) {
+      var o_id = ObjectID(profile._id);
+      profile.userid = ObjectID(profile.userid);
+      delete profile._id;
+      collection.update({_id:o_id}, profile, function(err, result) {
          if(err != null) {
           callback({"success" : "false", "message":err});
          } else {
           callback({"success" : "true", "message":result});
+          console.log(result);
          }
          db.close();
       });
@@ -140,4 +160,5 @@
   exports.register = register;
   exports.getUser = getUser;
   exports.updateProfile = updateProfile;
+  exports.getProfileWithUserId = getProfileWithUserId;
 }())

@@ -1,5 +1,5 @@
 var token = undefined;
-var dev = false;
+var dev = true;
 var hostDev = "http://localhost:8080";
 var hostRelease = "http://35.160.11.177:8080";
 
@@ -16,8 +16,6 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
   return function(scope, element, attrs) {
     if (scope.$last){
       var elements = document.getElementsByClassName("anim-fade-row");
-
-      console.log(elements.length);
 
       var i = 0, l = elements.length;
       (function iterator() {
@@ -40,10 +38,23 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
           body.token = token;
           return $http.post(host+'/api/profiles', body);
       },
+      getProfileWithUserId : function(userid){
+         token = $cookies.get('devCookie');
+         return $http({
+                  url: host+'/api/profile/userid',
+                  method: "GET",
+                  params: {userid: userid, token: token}
+               });
+      },
       addProfile : function(body) {
           token = $cookies.get('devCookie');
           body.token = token;
           return $http.post(host+'/api/profiles/add', body);
+      },
+      updateProfile : function(body) {
+          token = $cookies.get('devCookie');
+          body.token = token;
+          return $http.post(host+'/api/profiles/update', body);
       },
       getRequests : function(profileId) {
           token = $cookies.get('devCookie');
@@ -54,7 +65,6 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
                 });
       },
       login : function(loginInfo) {
-         console.log(loginInfo);
          return $http.post(host + '/login', loginInfo);
       }
    }
@@ -137,70 +147,47 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
       });
 })
 
-.controller('ProfileController', function($scope, Connection, jwtHelper){
-   $scope.addProfile = function () {
-      if (!($scope.profile == undefined)
-            && !($scope.profile.interest == undefined)
-            && !($scope.profile.platform == undefined)
-            && !($scope.profile.name == undefined)) {
-         var body = {};
-         var profile = {};
-         var platforms = fillPlatforms();
-         var interests = fillInterests();
+.controller('ProfileController', function($scope,$cookies ,Connection, jwtHelper){
+   token = $cookies.get('devCookie');
+   var tokenPayload = jwtHelper.decodeToken(token);
+   var userid = tokenPayload._id;
+   Connection.getProfileWithUserId(userid)
+      .success(function(data) {
+         $scope.profile = data;
+         checkPlatforms(data.platform);
+         checkInterests(data.interest);
+      });
 
-         var tokenPayload = jwtHelper.decodeToken(token);
-         profile.userid = tokenPayload._id;
-         profile.name = $scope.profile.name;
-         profile.interest = interests;
-         profile.platform = platforms;
-         body.profile = profile;
-         Connection.addProfile(body)
-            .success(function(data) {
-               if(data.success) {
-                  alert("Profile created!");
-               } else {
-                  alert(data.message);
-               }
-
-            });
-      } else {
-         alert("Choose atleast 1 interest and platform");
-      }
-   }
-
-   // NOT READY
    $scope.updateProfile = function () {
-      if (!($scope.profile == undefined)
-            && !($scope.profile.interest == undefined)
-            && !($scope.profile.platform == undefined)
-            && !($scope.profile.name == undefined)) {
+      if (!($scope.profile.name == undefined)) {
          var body = {};
          var profile = {};
          var platforms = fillPlatforms();
          var interests = fillInterests();
 
          var tokenPayload = jwtHelper.decodeToken(token);
+         profile._id = $scope.profile._id;
          profile.userid = tokenPayload._id;
          profile.name = $scope.profile.name;
          profile.interest = interests;
          profile.platform = platforms;
          body.profile = profile;
-         Connection.addProfile(body)
+         console.log(JSON.stringify(body));
+         Connection.updateProfile(body)
             .success(function(data) {
                if(data.success) {
-                  alert("Profile created!");
+                  alert("Profile updated");
                } else {
                   alert(data.message);
                }
 
             });
       } else {
-         alert("Choose atleast 1 interest and platform");
+         alert("Profile name can't be empty");
       }
    }
 
    $scope.toggleEdit = function() {
-     console.log("hello");
      var nameInput = document.getElementById("nameInput");
 
      if(nameInput.readOnly == true) {
@@ -225,20 +212,26 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
 
    function fillPlatforms() {
       var platforms = [];
-
       if ($scope.profile.platform.xbox){
          platforms.push("XBOX");
       }
       if ($scope.profile.platform.pc){
          platforms.push("PC");
       }
-
       return platforms;
+   }
+
+   function checkPlatforms(platforms) {
+      if (platforms.indexOf("XBOX") != -1) {
+         $scope.profile.platform.xbox = true;
+      }
+      if (platforms.indexOf("PC") != -1) {
+         $scope.profile.platform.pc = true;
+      }
    }
 
    function fillInterests() {
       var interests = [];
-
       if ($scope.profile.interest.exploration){
          interests.push("Exploration");
       }
@@ -248,8 +241,19 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
       if ($scope.profile.interest.combat){
          interests.push("Combat");
       }
-
       return interests;
+   }
+
+   function checkInterests(interests) {
+      if (interests.indexOf("Exploration") != -1) {
+         $scope.profile.interest.exploration = true;
+      }
+      if (interests.indexOf("Trading") != -1) {
+         $scope.profile.interest.trading = true;
+      }
+      if (interests.indexOf("Combat") != -1) {
+         $scope.profile.interest.combat = true;
+      }
    }
 })
 
