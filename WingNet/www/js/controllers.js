@@ -289,6 +289,6 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
   }
 })
 
-.controller('RegisterController', function($scope, Connection)) {
+.controller('RegisterController', function($scope, Connection) {
 
 });
