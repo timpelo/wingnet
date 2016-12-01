@@ -239,6 +239,11 @@ border-color: #DB8B31;
   border: none;
   height: 50px;
 }
+.toggle-w input:checked + .track .handle,
+.toggle-w .handle {
+  background-color: #43413F;
+  border: 1px solid #DB8B31 !important;
+}
 
 .toggle-w input + .track {
   border: 1px solid #DB8B31 !important;
@@ -247,9 +252,8 @@ border-color: #DB8B31;
 }
 
 .toggle-w input:checked + .track {
-  background-color: green !important;
+  background-color: #339933 !important;
 }
-
 .interest-icon-cg {
 
 }
