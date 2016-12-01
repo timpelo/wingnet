@@ -7,7 +7,8 @@
       <div class="col"><p>Platform</p></div>
       <div class="col"><p>Status</p></div>
     </div>
-    <div class="row table-w-body" ng-repeat="request in requests">
+    <div class="row table-w-body request-row" ng-repeat="request in requests"
+    fade-in-directive>
       <div class="col"><p>{{request.fromName}}</p></div>
       <div class="col">
           <div ng-repeat="interest in request.interest"

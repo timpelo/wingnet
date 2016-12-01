@@ -8,20 +8,21 @@ var encodePw = "dotamasterraceblizzardsucks";
 var host = hostRelease;
 if (dev == true) {
    host = hostDev;
+   token="hotsmasterrace";
 }
 angular.module('default.controllers', ['angular-jwt'])
 
 .directive('fadeInDirective', function() {
   return function(scope, element, attrs) {
     if (scope.$last){
-      var elements = document.getElementsByClassName("anim-slide-row");
+      var elements = document.getElementsByClassName("anim-fade-row");
 
       console.log(elements.length);
 
       var i = 0, l = elements.length;
       (function iterator() {
         var elem = angular.element(elements[i]);
-        elem.addClass("anim-slide");
+        elem.addClass("anim-fade");
         if(++i<l) {
           setTimeout(iterator, 100);
         }
@@ -104,6 +105,7 @@ angular.module('default.controllers', ['angular-jwt'])
   //Janin 5820c86ee0e56011df73e02d
   //Juhon 5825815ed01cb174b789a494
   //Servun 5825815ed01cb174b789a494
+  angular.element(".request-row").remove();
    var profileId = "5825815ed01cb174b789a494";
    Connection.getRequests(profileId)
       .success(function(data) {

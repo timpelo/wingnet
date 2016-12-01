@@ -3,22 +3,38 @@
 
     <!-- Filters -->
     <div id="finder-filters">
-      <ion-checkbox class="checkbox-dark-w checkbox-w"
-      ng-model="filter.interest.exploration">
-        <div class="interest-icon icon-exploration">Exploration</div>
-      </ion-checkbox>
-      <ion-checkbox class="checkbox-dark-w checkbox-w"
-      ng-model="filter.interest.trading">
-        <div class="interest-icon icon-trading">Trading</div>
-      </ion-checkbox>
-      <ion-checkbox class="checkbox-w checkbox-dark-w"
-      ng-model="filter.interest.combat">
-        <div class="interest-icon icon-combat">Combat</div>
-      </ion-checkbox>
-      <button ng-click="getProfiles()"
-      class="button icon-left ion-search button-primary-w">
-        Find
-      </button>
+      <div class="row">
+        <div class="col">
+          <ion-checkbox class="checkbox-dark-w checkbox-w"
+          ng-model="filter.interest.exploration">
+            <div class="interest-icon icon-exploration">Exploration</div>
+          </ion-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <ion-checkbox class="checkbox-dark-w checkbox-w"
+          ng-model="filter.interest.trading">
+            <div class="interest-icon icon-trading">Trading</div>
+          </ion-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <ion-checkbox class="checkbox-w checkbox-dark-w"
+          ng-model="filter.interest.combat">
+            <div class="interest-icon icon-combat">Combat</div>
+          </ion-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <button ng-click="getProfiles()"
+          class="button icon-left ion-search button-primary-w">
+            Find
+          </button>
+        </div>
+      </div>
     </div>
 
     <!-- Tables -->
@@ -48,7 +64,7 @@
         <div class="col"><p>Interest</p></div>
         <div class="col"><p>Platform</p></div>
       </div>
-      <div class="row profile-row table-w-body anim-slide-row"
+      <div class="row profile-row table-w-body anim-fade-row"
       ng-repeat="profile in profiles"
       fade-in-directive>
         <div class="col"><p>{{profile.name}}</p></div>

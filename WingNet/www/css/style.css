@@ -238,16 +238,58 @@ border-color: #DB8B31;
 
 }
 
+.anim-fade-row {
+  opacity: 0;
+}
+
+.anim-fade {
+  -webkit-animation: fadein 2s 1 forwards; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 2s 1 forwards; /* Firefox < 16 */
+        -ms-animation: fadein 2s 1 forwards; /* Internet Explorer */
+         -o-animation: fadein 2s 1 forwards; /* Opera < 12.1 */
+            animation: fadein 2s 1 forwards;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
 .anim-slide-row {
   transform: translateX(100%);
 }
 
 .anim-slide {
   transform: translateX(100%);
-  -webkit-animation: anim 3.5s 1 forwards;
-  animation: anim 3.5s 1 forwards;
+  -webkit-animation: slide 3.5s 1 forwards;
+  animation: slide 3.5s 1 forwards;
 }
-@-webkit-keyframes anim {
+
+@-webkit-keyframes slide {
   0% {
     transform: translateX(100%);
   }
@@ -261,7 +303,7 @@ border-color: #DB8B31;
     transform: translateX(0);
   }
 }
-@keyframes anim {
+@keyframes slide {
   0% {
     transform: translateX(100%);
   }
