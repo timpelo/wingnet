@@ -216,8 +216,7 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
 
     var loginInfo = {};
     var encodedPw = sjcl.encrypt(encodePw, $scope.login.password);
-
-    var dePw = sjcl.decrypt(encodePw, encodedPw);
+    
     loginInfo.username = $scope.login.username;
     loginInfo.password = encodedPw;
     loginInfo.remember = $scope.login.remember;

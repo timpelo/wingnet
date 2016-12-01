@@ -82,6 +82,20 @@
     })
   }
 
+  function updateProfile(profile, callback) {
+     MongoClient.connect(url, function(err, db) {
+      var collection = db.collection(profilesCollection);
+      collection.update({_id:profile._id}, {$set:profile}, function(err, result) {
+         if(err != null) {
+          callback({"success" : "false", "message":err});
+         } else {
+          callback({"success" : "true", "message":result});
+         }
+         db.close();
+      });
+     });
+  }
+
   /* Utils */
   function getLastId(collectionName, callback) {
     MongoClient.connect(url, function(err, db) {
@@ -124,4 +138,5 @@
   exports.getRequests = getRequests;
   exports.register = register;
   exports.getUser = getUser;
+  exports.updateProfile = updateProfile;
 }())
