@@ -283,4 +283,8 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
           }
        });
   }
+
+  $scope.openRegisteration = function() {
+    $state.go('app.register');
+  }
 });
