@@ -32,7 +32,7 @@
              req.decoded = result.decoded;
              next();
           } else {
-             return res.json({ success: false, message: 'Failed to authenticate token.' });
+             return res.status(403).send({ success: false, message: 'Failed to authenticate token.' });
           }
         });
      } else {
@@ -74,10 +74,10 @@
 
   apiRoutes.post("/profiles/update", function(req, res) {
     var profile = req.body.profile;
-
+    var tokenPayload = jwtHelper.decodeToken(token);
     if(profile != null && profile != undefined) {
       mongo.getProfiles({_id : profile._id}, function(result){
-         if(result.length == 1) {
+         if(result.length == 1 && result.userid == tokenPayload._id) {
             mongo.updateProfile(profile, function(result) {
                 res.json(result);
             });
@@ -132,20 +132,31 @@
      var cryptedPw = devolopCrypt(req.body.password);
      var user = {username: req.body.username,
                   password: cryptedPw};
+     var nickName = req.body.nickname;
 
      if(user.username != null && user.username != undefined
-          && user.password != null && user.password != undefined) {
-
+          && user.password != null && user.password != undefined
+          && nickName != null && nickName != undefined) {
         mongo.getUser({username: user.username}, function(result){
           if (result == null) {
-             mongo.register(user, function(result){
-                res.json(result);
+             mongo.getProfiles({name: nickName}, function(profileResult){
+                if (profileResult.length == 0) {
+                   mongo.register(user, function(registerResult){
+                         var profile = {userid:registerResult.ops[0]._id, name : nickName, platform : "", interest : "", active:false };
+                         mongo.addProfile(profile, function(addResult){
+                            res.json(addResult);
+                         });
+                   });
+                } else {
+                   res.json({"success" : "false", "message": "Nick name is already taken!"});
+                }
              });
           } else {
              res.json({"success" : "false", "message": "User name is already taken!"});
           }
         });
-
+     } else {
+        res.json({"success" : "false", "message": "Fill all required fields"});
      }
   });
 

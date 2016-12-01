@@ -85,6 +85,7 @@
   function updateProfile(profile, callback) {
      MongoClient.connect(url, function(err, db) {
       var collection = db.collection(profilesCollection);
+      console.log(profile._id);
       collection.update({_id:profile._id}, {$set:profile}, function(err, result) {
          if(err != null) {
           callback({"success" : "false", "message":err});
