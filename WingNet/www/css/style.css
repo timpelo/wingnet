@@ -234,6 +234,26 @@ border-color: #DB8B31;
   background-repeat: no-repeat;
 }
 
+.toggle-w{
+  background-color: #2D2D2D;
+  border: none;
+  height: 50px;
+}
+
+.toggle-w input + .track {
+  border: 1px solid #DB8B31 !important;
+  background-color: #2D2D2D !important;
+  color: black;
+}
+
+.toggle-w input:checked + .track {
+  background-color: green !important;
+}
+
+.toggle-w.toggle-checked .toggle-inner{
+background-color: #red; // Whatever color you want
+}
+
 .interest-icon-cg {
 
 }
