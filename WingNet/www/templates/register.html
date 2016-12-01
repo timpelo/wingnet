@@ -1,0 +1,31 @@
+<ion-view view-title="Register" hide-nav-bar="true">
+  <ion-content class="background-dark-w center-w" ng-controller="RegisterController">
+
+    <div class="login-title-container-w">
+      <img ng-src="img/ed_logo.png" />
+      <h1 class="login-title-w">Registeration</h1>
+    </div>
+    <form ng-submit="register()">
+      <label>
+        <input class="input-w" type="text" ng-model="register.username"
+        placeholder="Username (used for login)">
+      </label>
+      <label>
+        <input class="input-w" type="text" ng-model="register.username"
+        placeholder="Nickname (name other user see)">
+      </label>
+      <label>
+        <input class="input-w" type="password" ng-model="register.password1"
+        placeholder="Password">
+      </label>
+      <label>
+        <input class="input-w" type="password" ng-model="register.password2"
+        placeholder="Retype password">
+      </label>
+
+      <button class="button button-primary-w button-login-w" >
+        Register
+      </button>
+    </form>
+  </ion-content>
+</ion-view>

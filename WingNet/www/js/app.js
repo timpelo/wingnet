@@ -50,6 +50,15 @@ angular.module('default', ['ionic', 'default.controllers'])
       }
     })
 
+    .state('app.register', {
+        url: '/register',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/register.html'
+          }
+        }
+      })
+
   .state('app.welcome', {
     url: '/welcome',
     views: {

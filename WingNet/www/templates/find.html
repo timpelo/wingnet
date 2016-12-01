@@ -10,6 +10,11 @@
     </div>
     <!-- Filters -->
     <div id="finder-filters">
+
+      <!-- Interest filters -->
+      <label class="label-title-w item">
+        Interests
+      </label>
       <div class="row">
         <div class="col">
           <ion-checkbox class="checkbox-dark-w checkbox-w"
@@ -34,6 +39,27 @@
           </ion-checkbox>
         </div>
       </div>
+
+      <!-- Platform filters -->
+      <label class="label-title-w item">
+        Platforms
+      </label>
+      <div class="row">
+        <div class="col">
+          <ion-checkbox class="checkbox-dark-w checkbox-w"
+          ng-model="filter.platform.pc">
+            <div class="interest-icon">PC</div>
+          </ion-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <ion-checkbox class="checkbox-w checkbox-dark-w"
+          ng-model="filter.platform.xbox">
+            <div class="interest-icon">XBOX</div>
+          </ion-checkbox>
+        </div>
+      </div>
       <div class="row">
         <div class="col center-w">
           <button ng-click="getProfiles()"
@@ -44,28 +70,8 @@
       </div>
     </div>
 
-    <!-- Tables -->
-    <!--<table class="borderless-w table-w pure-table pure-table-horizontal"
-    style="width:100%" >
-      <thead class="table-w-head">
-          <tr>
-              <th>Name</th>
-              <th>Interest</th>
-              <th>Date</th>
-              <th>Platform</th>
-          </tr>
-      </thead>
-
-      <tbody class="table-w-body">
-          <tr ng-repeat="profile in profiles">
-              <td>{{profile.name}}</td>
-              <td>{{profile.interest.toString()}}</td>
-              <td>20.11.201</td>
-              <td>{{profile.platform.toString()}}</td>
-          </tr>
-      </tbody>
-    </table>-->
-    <div id="profile-table">
+    <!-- Search results -->
+    <div id="profile-table" style="position:relative;float:top;">
       <div class="row table-w-head">
         <div class="col"><p>Name</p></div>
         <div class="col"><p>Interest</p></div>

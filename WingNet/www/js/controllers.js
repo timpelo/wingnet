@@ -78,18 +78,20 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
 
   var showFilters = function() {
     angular.element("#finder-filters").removeClass("anim-collapse");
-    angular.element("#profile-table").removeClass("anim-top");
+    angular.element("#profile-table").toggleClass("anim-top");
     angular.element("#collapse-button").css("visibility", "hidden");
     //angular.element("#finder-filters").addClass("anim-collapse-reverse");
     //angular.element("#profile-table").addClass("anim-top-reverse");
   }
 
-  var hideFilters = function() {
+  var hideFilters = function(callback) {
     //angular.element("#finder-filters").removeClass("anim-collapse-reverse");
     //angular.element("#profile-table").removeClass("anim-top-reverse");
     angular.element("#finder-filters").addClass("anim-collapse");
     angular.element("#profile-table").addClass("anim-top");
     angular.element("#collapse-button").css("visibility", "visible");
+
+    callback();
   }
 
   $scope.showFilters = showFilters;
@@ -98,22 +100,22 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
    // Gets all profiles that fit the filters
    $scope.getProfiles = function() {
       angular.element(".profile-row").remove();
-      hideFilters();
+      hideFilters(function() {
+        if (!($scope.filter == undefined)) {
+           var filterstmp = {$or : ""};
+           filterstmp.$or = filterInterests($scope);
+           body = {}
+           body.filters = filterstmp;
 
-      if (!($scope.filter == undefined)) {
-         var filterstmp = {$or : ""};
-         filterstmp.$or = filterInterests($scope);
-         body = {}
-         body.filters = filterstmp;
+           Connection.getProfiles(body)
+              .success(function(data) {
+                 $scope.profiles = data;
+              });
 
-         Connection.getProfiles(body)
-            .success(function(data) {
-               $scope.profiles = data;
-            });
-
-      } else {
-         alert("Choose atleast 1 interest");
-      }
+        } else {
+           alert("Choose atleast 1 interest");
+        }
+      });
    }
 
    // Filters interests from checkboxes
@@ -285,4 +287,12 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
           }
        });
   }
+
+  $scope.openRegisteration = function() {
+    $state.go('app.register');
+  }
+})
+
+.controller('RegisterController', function($scope, Connection) {
+
 });
