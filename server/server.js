@@ -93,7 +93,6 @@
                 res.json(result);
             });
          } else {
-            console.log(result.length);
             res.json({ success: false, message: 'No profile found' });
          }
       });

@@ -173,8 +173,8 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
          profile.name = $scope.profile.name;
          profile.interest = interests;
          profile.platform = platforms;
+         profile.active = $scope.profile.active;
          body.profile = profile;
-         console.log(JSON.stringify(body));
          Connection.updateProfile(body)
             .success(function(data) {
                if(data.success) {

@@ -110,7 +110,6 @@
           callback({"success" : "false", "message":err});
          } else {
           callback({"success" : "true", "message":result});
-          console.log(result);
          }
          db.close();
       });
