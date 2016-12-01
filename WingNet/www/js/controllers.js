@@ -1,5 +1,5 @@
 var token = undefined;
-var dev = true;
+var dev = false;
 var hostDev = "http://localhost:8080";
 var hostRelease = "http://35.160.11.177:8080";
 
@@ -116,7 +116,7 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
          filterstmp.$or = filterInterests($scope);
          body = {}
 
-         if($scope.filter.platform != undefined && ($scope.filter.platform.pc || $scope.filter.platform.pc)) {
+         if($scope.filter.platform != undefined && ($scope.filter.platform.pc || $scope.filter.platform.xbox)) {
             filterstmp.$and = filterPlatforms($scope);
          }
          body.filters = filterstmp;
