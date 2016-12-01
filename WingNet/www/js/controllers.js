@@ -94,8 +94,8 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
    // Gets all profiles that fit the filters
    $scope.getProfiles = function() {
       angular.element(".profile-row").remove();
-      if (!($scope.filter == undefined)) {
-         var filterstmp = {$or : ""};
+      if ($scope.filter != undefined && filterInterests($scope).length != 0) {
+         var filterstmp = {$or : "", active:true};
          filterstmp.$or = filterInterests($scope);
          body = {}
          body.filters = filterstmp;
