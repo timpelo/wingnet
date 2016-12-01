@@ -1,5 +1,6 @@
 var token = undefined;
 var dev = false;
+var devToken = true;
 var hostDev = "http://localhost:8080";
 var hostRelease = "http://35.160.11.177:8080";
 
@@ -8,8 +9,11 @@ var encodePw = "dotamasterraceblizzardsucks";
 var host = hostRelease;
 if (dev == true) {
    host = hostDev;
-   token="hotsmasterrace";
 }
+if(devToken == true) {
+  token="hotsmasterrace";
+}
+
 angular.module('default.controllers', ['angular-jwt'])
 
 .directive('fadeInDirective', function() {
