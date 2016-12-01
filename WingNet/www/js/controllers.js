@@ -75,17 +75,28 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
 })
 
 .controller('FinderController', function($scope, Connection) {
+  angular.element("#profile-table").visibility='hidden';
 
   var showFilters = function() {
     angular.element("#finder-filters").removeClass("anim-collapse");
-    angular.element("#profile-table").toggleClass("anim-top");
     angular.element("#collapse-button").css("visibility", "hidden");
+
+    angular.element("#profile-table").fadeIn()
+      .css({position:'relative', width:'100%'})
+      .animate({display:'none', top: 1000}, 800, function() {
+    //callback
+    });
   }
 
   var hideFilters = function() {
     angular.element("#finder-filters").addClass("anim-collapse");
-    angular.element("#profile-table").addClass("anim-top");
     angular.element("#collapse-button").css("visibility", "visible");
+
+    angular.element("#profile-table").fadeIn()
+      .css({top:1000, position:'absolute', width:'100%'})
+      .animate({top:100, display:'block'}, 800, function() {
+    //callback
+    });
   }
 
   $scope.showFilters = showFilters;

@@ -140,6 +140,9 @@ border-color: #DB8B31;
   height: 20pt;
 }
 
+#profile-table{
+  display: none;
+}
 .profile-name-label-w{
   font-size: 24pt !important;
   background-color: #2D2D2D !important;
