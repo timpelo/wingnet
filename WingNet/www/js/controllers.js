@@ -54,6 +54,7 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
                 });
       },
       login : function(loginInfo) {
+         console.log(loginInfo);
          return $http.post(host + '/login', loginInfo);
       }
    }
@@ -118,6 +119,37 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
 
 .controller('ProfileController', function($scope, Connection, jwtHelper){
    $scope.addProfile = function () {
+      if (!($scope.profile == undefined)
+            && !($scope.profile.interest == undefined)
+            && !($scope.profile.platform == undefined)
+            && !($scope.profile.name == undefined)) {
+         var body = {};
+         var profile = {};
+         var platforms = fillPlatforms();
+         var interests = fillInterests();
+
+         var tokenPayload = jwtHelper.decodeToken(token);
+         profile.userid = tokenPayload._id;
+         profile.name = $scope.profile.name;
+         profile.interest = interests;
+         profile.platform = platforms;
+         body.profile = profile;
+         Connection.addProfile(body)
+            .success(function(data) {
+               if(data.success) {
+                  alert("Profile created!");
+               } else {
+                  alert(data.message);
+               }
+
+            });
+      } else {
+         alert("Choose atleast 1 interest and platform");
+      }
+   }
+
+   // NOT READY
+   $scope.updateProfile = function () {
       if (!($scope.profile == undefined)
             && !($scope.profile.interest == undefined)
             && !($scope.profile.platform == undefined)
@@ -216,7 +248,7 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
 
     var loginInfo = {};
     var encodedPw = sjcl.encrypt(encodePw, $scope.login.password);
-    
+
     loginInfo.username = $scope.login.username;
     loginInfo.password = encodedPw;
     loginInfo.remember = $scope.login.remember;
