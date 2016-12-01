@@ -1,6 +1,5 @@
 var token = undefined;
 var dev = false;
-var devToken = true;
 var hostDev = "http://localhost:8080";
 var hostRelease = "http://35.160.11.177:8080";
 
@@ -10,11 +9,8 @@ var host = hostRelease;
 if (dev == true) {
    host = hostDev;
 }
-if(devToken == true) {
-  token="hotsmasterrace";
-}
 
-angular.module('default.controllers', ['angular-jwt'])
+angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
 
 .directive('fadeInDirective', function() {
   return function(scope, element, attrs) {
@@ -37,17 +33,21 @@ angular.module('default.controllers', ['angular-jwt'])
 
 
 
-.factory('Connection', function($http) {
+.factory('Connection', function($http, $cookies) {
    return {
       getProfiles : function(body){
-         return $http.post(host+'/api/profiles', body);
+          token = $cookies.get('devCookie');
+          body.token = token;
+          return $http.post(host+'/api/profiles', body);
       },
       addProfile : function(body) {
-         return $http.post(host+'/api/profiles/add', body);
+          token = $cookies.get('devCookie');
+          body.token = token;
+          return $http.post(host+'/api/profiles/add', body);
       },
       getRequests : function(profileId) {
-
-         return $http({
+          token = $cookies.get('devCookie');
+          return $http({
                    url: host+'/api/requests/',
                    method: "GET",
                    params: {profileId: profileId, token: token}
@@ -73,8 +73,7 @@ angular.module('default.controllers', ['angular-jwt'])
          var filterstmp = {$or : ""};
          filterstmp.$or = filterInterests($scope);
          body = {}
-         body.filters = filterstmp
-         body.token = token;
+         body.filters = filterstmp;
 
          Connection.getProfiles(body)
             .success(function(data) {
@@ -127,7 +126,6 @@ angular.module('default.controllers', ['angular-jwt'])
          var profile = {};
          var platforms = fillPlatforms();
          var interests = fillInterests();
-         body.token = token;
 
          var tokenPayload = jwtHelper.decodeToken(token);
          profile.userid = tokenPayload._id;
@@ -203,7 +201,7 @@ angular.module('default.controllers', ['angular-jwt'])
    }
 })
 
-.controller('LoginController', function($scope, $state, $ionicHistory, Connection, jwtHelper) {
+.controller('LoginController', function($scope, $state, $ionicHistory, Connection, jwtHelper, $cookies) {
 //TODO check token expiration.
   if (token != undefined) {
      var date = jwtHelper.getTokenExpirationDate(token);
@@ -227,6 +225,7 @@ angular.module('default.controllers', ['angular-jwt'])
        .success(function(data) {
           if (data.success) {
             token = data.token;
+            $cookies.put('devCookie', token);
             $state.go('app.welcome');
           }
        });
