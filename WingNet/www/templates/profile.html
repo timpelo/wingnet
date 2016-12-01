@@ -5,7 +5,7 @@
       <div style="width:90%">
         <form ng-submit="toggleEdit()">
           <input id="nameInput" type="text" class="input-w-bigfont profile-name-label-w"
-          value="{{profile.name || 'John Smith'}}" readonly>
+          ng-value="profile.name" readonly>
         </form>
       </div>
       <div style="text-align:right;width:10%;">
@@ -76,7 +76,7 @@
      <!-- Actions -->
      <div class="row">
        <div class="col center-w">
-         <button ng-click="addProfile()"
+         <button ng-click="updateProfile()"
           class="button button-primary-w" style="width:80%;">
           Update
           </button>
