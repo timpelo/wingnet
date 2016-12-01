@@ -1,5 +1,5 @@
 var token = undefined;
-var dev = true;
+var dev = false;
 var hostDev = "http://localhost:8080";
 var hostRelease = "http://35.160.11.177:8080";
 
@@ -66,9 +66,29 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
 
 .controller('FinderController', function($scope, Connection) {
 
+  var showFilters = function() {
+    angular.element("#finder-filters").removeClass("anim-collapse");
+    angular.element("#profile-table").removeClass("anim-top");
+    angular.element("#collapse-button").css("visibility", "hidden");
+    //angular.element("#finder-filters").addClass("anim-collapse-reverse");
+    //angular.element("#profile-table").addClass("anim-top-reverse");
+  }
+
+  var hideFilters = function() {
+    //angular.element("#finder-filters").removeClass("anim-collapse-reverse");
+    //angular.element("#profile-table").removeClass("anim-top-reverse");
+    angular.element("#finder-filters").addClass("anim-collapse");
+    angular.element("#profile-table").addClass("anim-top");
+    angular.element("#collapse-button").css("visibility", "visible");
+  }
+
+  $scope.showFilters = showFilters;
+  $scope.hideFilters = hideFilters;
+
    // Gets all profiles that fit the filters
    $scope.getProfiles = function() {
       angular.element(".profile-row").remove();
+      hideFilters();
 
       if (!($scope.filter == undefined)) {
          var filterstmp = {$or : ""};

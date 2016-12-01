@@ -317,3 +317,85 @@ border-color: #DB8B31;
     transform: translateX(0%);
   }
 }
+
+.anim-collapse {
+    transform: translateY(0%);
+  -webkit-animation: collapse 2s 1 forwards;
+  animation: collapse 2s 1 forwards;
+}
+
+.anim-collapse-reverse {
+    transform: translateY(0%);
+  -webkit-animation: collapse 2s 1 forwards reverse;
+  animation: collapse 2s 1 forwards reverse;
+}
+
+@-webkit-keyframes collapse {
+  0% {
+    transform: translateY(0%);
+  }
+  14.28% {
+    transform: translateY(0);
+  }
+  85.71% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+@keyframes collapse {
+  0% {
+    transform: translateY(0%);
+  }
+  14.28% {
+    transform: translateY(0);
+  }
+  85.71% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.anim-top {
+  transform: translateY(0%);
+-webkit-animation: moveTop 2s 1 forwards;
+animation: moveTop 2s 1 forwards;
+}
+
+.anim-top-reverse {
+  transform: translateY(0%);
+-webkit-animation: moveTop 2s 1 forwards reverse;
+animation: moveTop 2s 1 forwards reverse;
+}
+
+@-webkit-keyframes moveTop {
+  0% {
+    transform: translateY(0%);
+  }
+  14.28% {
+    transform: translateY(0);
+  }
+  85.71% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-90%);
+  }
+}
+@keyframes moveTop {
+  0% {
+    transform: translateY(0%);
+  }
+  14.28% {
+    transform: translateY(0);
+  }
+  85.71% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-90%);
+  }
+}

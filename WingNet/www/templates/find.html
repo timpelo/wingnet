@@ -1,6 +1,13 @@
 <ion-view view-title="Find">
   <ion-content ng-controller="FinderController"  class="background-dark-w">
 
+
+    <div id="collapse-button" class="row" style="position:absolute;visibility:hidden;">
+      <button ng-click="showFilters()"
+      class="button icon-left ion-arrow-down-b button-primary-w">
+        Filters
+      </button>
+    </div>
     <!-- Filters -->
     <div id="finder-filters">
       <div class="row">
@@ -28,9 +35,9 @@
         </div>
       </div>
       <div class="row">
-        <div class="col">
+        <div class="col center-w">
           <button ng-click="getProfiles()"
-          class="button icon-left ion-search button-primary-w">
+          class="button icon-left ion-search button-primary-w" style="width:80%;">
             Find
           </button>
         </div>
