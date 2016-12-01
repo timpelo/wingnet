@@ -44,6 +44,11 @@
       if (filter._id != undefined) {
          filter._id = ObjectID(filter._id);
       }
+      if(filter.userid != undefined ) {
+         if(filter.userid.$ne != undefined) {
+            filter.userid.$ne = ObjectID(filter.userid.$ne);
+         }
+      }
       collection.find(filter).toArray(function(err, result) {
         if(err != null) {
           callback({"success" : "false", "message":err});

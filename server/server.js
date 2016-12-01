@@ -140,9 +140,9 @@
   });
 
   app.post("/register", function(req, res) {
-     var cryptedPw = devolopCrypt(req.body.password);
+     //var cryptedPw = devolopCrypt(req.body.password);
      var user = {username: req.body.username,
-                  password: cryptedPw};
+                  password: req.body.password};
      var nickName = req.body.nickname;
 
      if(user.username != null && user.username != undefined

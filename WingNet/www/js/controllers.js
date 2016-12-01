@@ -1,5 +1,5 @@
 var token = undefined;
-var dev = false;
+var dev = true;
 var hostDev = "http://localhost:8080";
 var hostRelease = "http://35.160.11.177:8080";
 
@@ -64,6 +64,9 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
                    params: {profileId: profileId, token: token}
                 });
       },
+      register : function(body) {
+         return $http.post(host + '/register', body);
+      },
       login : function(loginInfo) {
          return $http.post(host + '/login', loginInfo);
       }
@@ -74,7 +77,7 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
 
 })
 
-.controller('FinderController', function($scope, Connection) {
+.controller('FinderController', function($scope,$scope,jwtHelper,$cookies, Connection) {
   angular.element("#profile-table").visibility='hidden';
 
   var showFilters = function() {
@@ -104,13 +107,19 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
 
    // Gets all profiles that fit the filters
    $scope.getProfiles = function() {
+      token = $cookies.get('devCookie');
       angular.element(".profile-row").remove();
       if ($scope.filter != undefined && filterInterests($scope).length != 0) {
-         var filterstmp = {$or : "", active:true};
+         var tokenPayload = jwtHelper.decodeToken(token);
+         var userid = tokenPayload._id;
+         var filterstmp = {$or : "", active:true, userid:{$ne:userid}};
          filterstmp.$or = filterInterests($scope);
          body = {}
-         body.filters = filterstmp;
 
+         if($scope.filter.platform != undefined && ($scope.filter.platform.pc || $scope.filter.platform.pc)) {
+            filterstmp.$and = filterPlatforms($scope);
+         }
+         body.filters = filterstmp;
          Connection.getProfiles(body)
             .success(function(data) {
                $scope.profiles = data;
@@ -120,6 +129,20 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
       } else {
          alert("Choose atleast 1 interest");
       }
+   }
+   // Filters interests from checkboxes
+   function filterPlatforms($scope) {
+      var returnable = [{$or:""}];
+      var checkboxValues = [];
+
+      if ($scope.filter.platform.pc){
+         checkboxValues.push({platform: "PC"});
+      }
+      if ($scope.filter.platform.xbox){
+         checkboxValues.push({platform: "XBOX"});
+      }
+      returnable[0].$or = checkboxValues;
+      return returnable;
    }
 
    // Filters interests from checkboxes
@@ -288,7 +311,9 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
             token = data.token;
             $cookies.put('devCookie', token);
             $state.go('app.welcome');
-          }
+         } else {
+            alert(data.message);
+         }
        });
   }
 
@@ -297,6 +322,44 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
   }
 })
 
-.controller('RegisterController', function($scope, Connection) {
+.controller('RegisterController', function($scope,$cookies,$state ,Connection) {
+
+   $scope.register = function() {
+      if($scope.register != null && $scope.register != undefined) {
+         var password1 = $scope.register.password1;
+         var password2 = $scope.register.password2;
+         if (password1 == password2 && password1 != undefined
+            && password1 != null) {
+
+            var username = $scope.register.username;
+            var nickname = $scope.register.nickname;
+            if (username != null &&  username != undefined && username.length != 0) {
+               if(nickname != null &&  nickname != undefined ) {
+                  var body = {};
+                  body.username = username;
+                  body.nickname = nickname;
+                  body.password = sjcl.encrypt(encodePw, password1);
+                  Connection.register(body)
+                     .success(function(data) {
+                        if (data.success) {
+                          $state.go('app.login');
+                       } else {
+                          alert(data.message);
+                       }
+                     });
+               }else {
+                  alert("Please insert nickname!");
+               }
+            } else {
+               alert("Please insert username!");
+            }
+         } else {
+            alert("Passwords do not match!");
+         }
+      } else {
+         alert("Please fill your info");
+      }
+   }
+
 
 });
