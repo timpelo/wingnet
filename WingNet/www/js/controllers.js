@@ -1,5 +1,5 @@
 var token = undefined;
-var dev = true;
+var dev = false;
 var hostDev = "http://localhost:8080";
 var hostRelease = "http://35.160.11.177:8080";
 
@@ -80,18 +80,12 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
     angular.element("#finder-filters").removeClass("anim-collapse");
     angular.element("#profile-table").toggleClass("anim-top");
     angular.element("#collapse-button").css("visibility", "hidden");
-    //angular.element("#finder-filters").addClass("anim-collapse-reverse");
-    //angular.element("#profile-table").addClass("anim-top-reverse");
   }
 
-  var hideFilters = function(callback) {
-    //angular.element("#finder-filters").removeClass("anim-collapse-reverse");
-    //angular.element("#profile-table").removeClass("anim-top-reverse");
+  var hideFilters = function() {
     angular.element("#finder-filters").addClass("anim-collapse");
     angular.element("#profile-table").addClass("anim-top");
     angular.element("#collapse-button").css("visibility", "visible");
-
-    callback();
   }
 
   $scope.showFilters = showFilters;
@@ -100,22 +94,21 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
    // Gets all profiles that fit the filters
    $scope.getProfiles = function() {
       angular.element(".profile-row").remove();
-      hideFilters(function() {
-        if (!($scope.filter == undefined)) {
-           var filterstmp = {$or : ""};
-           filterstmp.$or = filterInterests($scope);
-           body = {}
-           body.filters = filterstmp;
+      if (!($scope.filter == undefined)) {
+         var filterstmp = {$or : ""};
+         filterstmp.$or = filterInterests($scope);
+         body = {}
+         body.filters = filterstmp;
 
-           Connection.getProfiles(body)
-              .success(function(data) {
-                 $scope.profiles = data;
-              });
+         Connection.getProfiles(body)
+            .success(function(data) {
+               $scope.profiles = data;
+               hideFilters();
+            });
 
-        } else {
-           alert("Choose atleast 1 interest");
-        }
-      });
+      } else {
+         alert("Choose atleast 1 interest");
+      }
    }
 
    // Filters interests from checkboxes
