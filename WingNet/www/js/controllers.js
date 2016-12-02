@@ -151,10 +151,13 @@ angular.module( 'default.controllers', [ 'angular-jwt', 'ngCookies' ] )
         body.filters = filterstmp;
         Connection.getProfiles( body )
           .success( function( data ) {
-            $scope.profiles = data;
-            hideFilters();
+            if ( data.success ) {
+              $scope.profiles = data;
+              hideFilters();
+            } else {
+              alert( data.message );
+            }
           } );
-
       } else {
         alert( "Choose atleast 1 interest" );
       }
@@ -211,7 +214,6 @@ angular.module( 'default.controllers', [ 'angular-jwt', 'ngCookies' ] )
     $scope.modal = modal;
   } );
   $scope.openModal = function( userId ) {
-    console.log( userId );
     $scope.modal.show();
     $scope.toUserId = userId;
   };
@@ -239,9 +241,14 @@ angular.module( 'default.controllers', [ 'angular-jwt', 'ngCookies' ] )
   //Servun 5825815ed01cb174b789a494
   angular.element( ".request-row" ).remove();
   var profileId = "5825815ed01cb174b789a494";
+
   Connection.getRequests( profileId )
     .success( function( data ) {
-      $scope.requests = data;
+      if ( data.success ) {
+        $scope.requests = data;
+      } else {
+        alert( data.message );
+      }
     } );
 
   $scope.sendRequest = function( toUserId ) {
@@ -256,12 +263,17 @@ angular.module( 'default.controllers', [ 'angular-jwt', 'ngCookies' ] )
   jwtHelper ) {
   token = $cookies.get( 'devCookie' );
   var tokenPayload = jwtHelper.decodeToken( token );
+
   var userid = tokenPayload._id;
   Connection.getProfileWithUserId( userid )
     .success( function( data ) {
-      $scope.profile = data;
-      checkPlatforms( data.platform );
-      checkInterests( data.interest );
+      if ( data.success ) {
+        $scope.profile = data;
+        checkPlatforms( data.platform );
+        checkInterests( data.interest );
+      } else {
+        alert( data.message );
+      }
     } );
 
   $scope.updateProfile = function() {
@@ -409,7 +421,6 @@ angular.module( 'default.controllers', [ 'angular-jwt', 'ngCookies' ] )
       var password2 = $scope.register.password2;
       if ( password1 == password2 && password1 != undefined &&
         password1 != null ) {
-
         var username = $scope.register.username;
         var nickname = $scope.register.nickname;
         if ( username != null && username != undefined && username.length !=
@@ -440,6 +451,4 @@ angular.module( 'default.controllers', [ 'angular-jwt', 'ngCookies' ] )
       alert( "Please fill your info" );
     }
   }
-
-
 } );
