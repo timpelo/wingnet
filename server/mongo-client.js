@@ -129,7 +129,41 @@
             }
             db.close();
          });
-      })
+      });
+   }
+
+   function checkRequest(filter, callback) {
+      MongoClient.connect(url, function(err, db) {
+         var collection = db.collection(requestCollection);
+         collection.find(filter).toArray(function(err, result) {
+            if (err != null) {
+               callback({
+                  "success": "false",
+                  "message": err
+               });
+            } else {
+               callback(result);
+            }
+            db.close();
+         });
+      });
+   }
+
+   function addRequest(request, callback) {
+      MongoClient.connect(url, function(err, db) {
+         var collection = db.collection(requestCollection);
+         collection.insertOne(request, function(err, result) {
+            if (err != null) {
+               callback({
+                  "success": "false",
+                  "message": err
+               });
+            } else {
+               callback(result);
+            }
+            db.close();
+         });
+      });
    }
 
    function updateProfile(profile, callback) {
@@ -202,6 +236,8 @@
    exports.getProfiles = getProfiles;
    exports.addProfile = addProfile;
    exports.getRequests = getRequests;
+   exports.checkRequest = checkRequest;
+   exports.addRequest = addRequest;
    exports.register = register;
    exports.getUser = getUser;
    exports.updateProfile = updateProfile;
