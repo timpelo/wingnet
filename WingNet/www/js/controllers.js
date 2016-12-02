@@ -1,5 +1,5 @@
 var token = undefined;
-var dev = false;
+var dev = true;
 var hostDev = "http://localhost:8080";
 var hostRelease = "http://35.160.11.177:8080";
 
@@ -76,6 +76,11 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
     },
     login: function(loginInfo) {
       return $http.post(host + '/login', loginInfo);
+    },
+    addRequest: function(body) {
+      token = $cookies.get('devCookie');
+      body.token = token;
+      return $http.post(host + '/api/requests/add', body);
     }
   }
 })
@@ -265,14 +270,13 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
     //TODO implement request send.
     $scope.closeModal();
     alert("Request sent to user!");
-    console.log("uid: " + toUserId);
-
     var body = {
       request: {
         from: $scope.fromId,
         to: toUserId,
         date: Date(),
-        status: "pending"
+        status: "pending",
+        new: true
       }
     };
 
@@ -284,8 +288,6 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
           alert(result.message);
         }
       });
-
-
   }
 })
 

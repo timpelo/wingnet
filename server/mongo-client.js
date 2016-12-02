@@ -78,12 +78,12 @@
          }, function(err, result) {
             if (err != null) {
                callback({
-                  "success": "false",
+                  "success": false,
                   "message": err
                });
             } else if (result == null) {
                callback({
-                  "success": "false",
+                  "success": false,
                   "message": "No profile found"
                });
             } else {

@@ -71,6 +71,7 @@
       if (userid != null && userid != undefined) {
          mongo.getProfileWithUserId(userid, function(result) {
             if (result != null && result.success != false) {
+               console.log("HEPPP");
                res.json({
                   success: true,
                   data: result
@@ -160,7 +161,7 @@
       }
    });
 
-   apiRoutes.post("/reguests/add", function(req, res) {
+   apiRoutes.post("/requests/add", function(req, res) {
       var request = req.body.request;
 
       if (request != null && request != undefined) {
@@ -168,8 +169,7 @@
             to: request.to,
             from: request.from
          }, function(result) {
-            if (result.success != false && result.data.length ==
-               0) {
+            if (result.success != false && result.length == 0) {
                mongo.addRequest(request, function(result) {
                   if (result.success != false) {
                      res.json({
