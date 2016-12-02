@@ -215,6 +215,7 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
   });
   $scope.openModal = function(userId) {
     $scope.modal.show();
+    $scope.toUserId = userId;
   };
   $scope.closeModal = function() {
     $scope.modal.hide();
@@ -240,6 +241,7 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
   //Servun 5825815ed01cb174b789a494
   angular.element(".request-row").remove();
   var profileId = "5825815ed01cb174b789a494";
+
   Connection.getRequests(profileId)
     .success(function(data) {
       if (data.success) {
@@ -248,197 +250,217 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
         alert(data.message);
       }
     });
+
+  $scope.sendRequest = function(toUserId) {
+    //TODO implement request send.
+    $scope.closeModal();
+    alert("Request sent to user!");
+    console.log("uid: " + toUserId);
+  }
 })
 
 .controller('ProfileController', function($scope, $cookies, Connection,
-  jwtHelper) {
-  token = $cookies.get('devCookie');
-  var tokenPayload = jwtHelper.decodeToken(token);
-  var userid = tokenPayload._id;
-  Connection.getProfileWithUserId(userid)
-    .success(function(result) {
-      if (result.success) {
-        $scope.profile = result.data;
-        checkPlatforms(result.data.platform);
-        checkInterests(result.data.interest);
-      } else {
-        alert(data.message);
-      }
-    });
-
-  $scope.updateProfile = function() {
-    if (!($scope.profile.name == undefined)) {
-      var body = {};
-      var profile = {};
-      var platforms = fillPlatforms();
-      var interests = fillInterests();
-
+      jwtHelper) {
+      token = $cookies.get('devCookie');
       var tokenPayload = jwtHelper.decodeToken(token);
-      profile._id = $scope.profile._id;
-      profile.userid = tokenPayload._id;
-      profile.name = $scope.profile.name;
-      profile.interest = interests;
-      profile.platform = platforms;
-      profile.active = $scope.profile.active;
-      body.profile = profile;
-      Connection.updateProfile(body)
-        .success(function(data) {
-          if (data.success) {
-            alert("Profile updated");
-          } else {
-            alert(data.message);
-          }
 
-        });
-    } else {
-      alert("Profile name can't be empty");
-    }
-  }
+      var userid = tokenPayload._id; <<
+      << << < HEAD
+      Connection.getProfileWithUserId(userid)
+        .success(function(result) {
+            if (result.success) {
+              $scope.profile = result.data;
+              checkPlatforms(result.data.platform);
+              checkInterests(result.data.interest); ===
+              === =
+              Connection.getProfileWithUserId(userid)
+                .success(function(data) {
+                  if (data.success) {
+                    $scope.profile = data;
+                    checkPlatforms(data.platform);
+                    checkInterests(data.interest); >>>
+                    >>> > 2 b3c0774384595eee9bddc8c5501884cea8a9d54
+                  } else {
+                    alert(data.message);
+                  }
+                });
 
-  $scope.toggleEdit = function() {
-    var nameInput = document.getElementById("nameInput");
+              $scope.updateProfile = function() {
+                if (!($scope.profile.name == undefined)) {
+                  var body = {};
+                  var profile = {};
+                  var platforms = fillPlatforms();
+                  var interests = fillInterests();
 
-    if (nameInput.readOnly == true) {
-      nameInput.readOnly = false;
+                  var tokenPayload = jwtHelper.decodeToken(token);
+                  profile._id = $scope.profile._id;
+                  profile.userid = tokenPayload._id;
+                  profile.name = $scope.profile.name;
+                  profile.interest = interests;
+                  profile.platform = platforms;
+                  profile.active = $scope.profile.active;
+                  body.profile = profile;
+                  Connection.updateProfile(body)
+                    .success(function(data) {
+                      if (data.success) {
+                        alert("Profile updated");
+                      } else {
+                        alert(data.message);
+                      }
 
-      var button = angular.element(document.querySelector('#editButton'));
-      button.removeClass("ion-edit");
-      button.addClass("ion-checkmark-round");
-
-      window.setTimeout(function() {
-        nameInput.focus();
-      }, 0);
-
-    } else {
-      nameInput.readOnly = true;
-
-      var button = angular.element(document.querySelector('#editButton'));
-      button.addClass("ion-edit");
-      button.removeClass("ion-checkmark-round");
-    }
-  }
-
-  function fillPlatforms() {
-    var platforms = [];
-    if ($scope.profile.platform.xbox) {
-      platforms.push("XBOX");
-    }
-    if ($scope.profile.platform.pc) {
-      platforms.push("PC");
-    }
-    return platforms;
-  }
-
-  function checkPlatforms(platforms) {
-    if (platforms.indexOf("XBOX") != -1) {
-      $scope.profile.platform.xbox = true;
-    }
-    if (platforms.indexOf("PC") != -1) {
-      $scope.profile.platform.pc = true;
-    }
-  }
-
-  function fillInterests() {
-    var interests = [];
-    if ($scope.profile.interest.exploration) {
-      interests.push("Exploration");
-    }
-    if ($scope.profile.interest.trading) {
-      interests.push("Trading");
-    }
-    if ($scope.profile.interest.combat) {
-      interests.push("Combat");
-    }
-    return interests;
-  }
-
-  function checkInterests(interests) {
-    if (interests.indexOf("Exploration") != -1) {
-      $scope.profile.interest.exploration = true;
-    }
-    if (interests.indexOf("Trading") != -1) {
-      $scope.profile.interest.trading = true;
-    }
-    if (interests.indexOf("Combat") != -1) {
-      $scope.profile.interest.combat = true;
-    }
-  }
-})
-
-.controller('LoginController', function($scope, $state, $ionicHistory,
-  Connection, jwtHelper, $cookies) {
-  //TODO check token expiration.
-  if (token != undefined) {
-    var date = jwtHelper.getTokenExpirationDate(token);
-    if (date > Date.now()) {
-      $state.go('app.welcome');
-    }
-  }
-  $scope.login = function() {
-    $ionicHistory.nextViewOptions({
-      disableBack: true
-    });
-
-    var loginInfo = {};
-    var encodedPw = sjcl.encrypt(encodePw, $scope.login.password);
-
-    loginInfo.username = $scope.login.username;
-    loginInfo.password = encodedPw;
-    loginInfo.remember = $scope.login.remember;
-    Connection.login(loginInfo)
-      .success(function(data) {
-        if (data.success) {
-          token = data.token;
-          $cookies.put('devCookie', token);
-          $state.go('app.welcome');
-        } else {
-          alert(data.message);
-        }
-      });
-  }
-
-  $scope.openRegisteration = function() {
-    $state.go('app.register');
-  }
-})
-
-.controller('RegisterController', function($scope, $cookies, $state,
-  Connection) {
-
-  $scope.register = function() {
-    if ($scope.register != null && $scope.register != undefined) {
-      var password1 = $scope.register.password1;
-      var password2 = $scope.register.password2;
-      if (password1 == password2 && password1 != undefined &&
-        password1 != null) {
-        var username = $scope.register.username;
-        var nickname = $scope.register.nickname;
-        if (username != null && username != undefined && username.length !=
-          0) {
-          if (nickname != null && nickname != undefined) {
-            var body = {};
-            body.username = username;
-            body.nickname = nickname;
-            body.password = sjcl.encrypt(encodePw, password1);
-            Connection.register(body)
-              .success(function(data) {
-                if (data.success) {
-                  $state.go('app.login');
+                    });
                 } else {
-                  alert(data.message);
+                  alert("Profile name can't be empty");
                 }
+              }
+
+              $scope.toggleEdit = function() {
+                var nameInput = document.getElementById("nameInput");
+
+                if (nameInput.readOnly == true) {
+                  nameInput.readOnly = false;
+
+                  var button = angular.element(document.querySelector(
+                    '#editButton'));
+                  button.removeClass("ion-edit");
+                  button.addClass("ion-checkmark-round");
+
+                  window.setTimeout(function() {
+                    nameInput.focus();
+                  }, 0);
+
+                } else {
+                  nameInput.readOnly = true;
+
+                  var button = angular.element(document.querySelector(
+                    '#editButton'));
+                  button.addClass("ion-edit");
+                  button.removeClass("ion-checkmark-round");
+                }
+              }
+
+              function fillPlatforms() {
+                var platforms = [];
+                if ($scope.profile.platform.xbox) {
+                  platforms.push("XBOX");
+                }
+                if ($scope.profile.platform.pc) {
+                  platforms.push("PC");
+                }
+                return platforms;
+              }
+
+              function checkPlatforms(platforms) {
+                if (platforms.indexOf("XBOX") != -1) {
+                  $scope.profile.platform.xbox = true;
+                }
+                if (platforms.indexOf("PC") != -1) {
+                  $scope.profile.platform.pc = true;
+                }
+              }
+
+              function fillInterests() {
+                var interests = [];
+                if ($scope.profile.interest.exploration) {
+                  interests.push("Exploration");
+                }
+                if ($scope.profile.interest.trading) {
+                  interests.push("Trading");
+                }
+                if ($scope.profile.interest.combat) {
+                  interests.push("Combat");
+                }
+                return interests;
+              }
+
+              function checkInterests(interests) {
+                if (interests.indexOf("Exploration") != -1) {
+                  $scope.profile.interest.exploration = true;
+                }
+                if (interests.indexOf("Trading") != -1) {
+                  $scope.profile.interest.trading = true;
+                }
+                if (interests.indexOf("Combat") != -1) {
+                  $scope.profile.interest.combat = true;
+                }
+              }
+            })
+
+          .controller('LoginController', function($scope, $state, $ionicHistory,
+            Connection, jwtHelper, $cookies) {
+            //TODO check token expiration.
+            if (token != undefined) {
+              var date = jwtHelper.getTokenExpirationDate(token);
+              if (date > Date.now()) {
+                $state.go('app.welcome');
+              }
+            }
+            $scope.login = function() {
+              $ionicHistory.nextViewOptions({
+                disableBack: true
               });
-          } else {
-            alert("Please insert nickname!");
-          }
-        } else {
-          alert("Please insert username!");
-        }
-      } else {
-        alert("Passwords do not match!");
-      }
-    } else {
-      alert("Please fill your info");
-    }
-  }
-});
+
+              var loginInfo = {};
+              var encodedPw = sjcl.encrypt(encodePw, $scope.login.password);
+
+              loginInfo.username = $scope.login.username;
+              loginInfo.password = encodedPw;
+              loginInfo.remember = $scope.login.remember;
+              Connection.login(loginInfo)
+                .success(function(data) {
+                  if (data.success) {
+                    token = data.token;
+                    $cookies.put('devCookie', token);
+                    $state.go('app.welcome');
+                  } else {
+                    alert(data.message);
+                  }
+                });
+            }
+
+            $scope.openRegisteration = function() {
+              $state.go('app.register');
+            }
+          })
+
+          .controller('RegisterController', function($scope, $cookies, $state,
+            Connection) {
+
+            $scope.register = function() {
+              if ($scope.register != null && $scope.register != undefined) {
+                var password1 = $scope.register.password1;
+                var password2 = $scope.register.password2;
+                if (password1 == password2 && password1 != undefined &&
+                  password1 != null) {
+                  var username = $scope.register.username;
+                  var nickname = $scope.register.nickname;
+                  if (username != null && username != undefined && username
+                    .length !=
+                    0) {
+                    if (nickname != null && nickname != undefined) {
+                      var body = {};
+                      body.username = username;
+                      body.nickname = nickname;
+                      body.password = sjcl.encrypt(encodePw, password1);
+                      Connection.register(body)
+                        .success(function(data) {
+                          if (data.success) {
+                            $state.go('app.login');
+                          } else {
+                            alert(data.message);
+                          }
+                        });
+                    } else {
+                      alert("Please insert nickname!");
+                    }
+                  } else {
+                    alert("Please insert username!");
+                  }
+                } else {
+                  alert("Passwords do not match!");
+                }
+              } else {
+                alert("Please fill your info");
+              }
+            }
+          });

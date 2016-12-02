@@ -2,11 +2,12 @@
   <ion-content ng-controller="FinderController" class="background-dark-w">
     <!-- Request mondal -->
     <script id="request-modal" type="text/ng-template">
-      <ion-modal-view style="background:transparent;width:60%;height:auto;">
+      <ion-modal-view style="background:transparent;width:60%;height:auto;" ng-controller="RequestController">
         <ion-content class="center-w">
           <div class="row">
             <div class="col">
-              <button class="button button-primary-w" style="width:95%" ng-click="closeModal()">Send request</button>
+              <input type="hidden" ng-model="toUserId" />
+              <button class="button button-primary-w" style="width:95%" ng-click="sendRequest(toUserId)">Send request</button>
             </div>
           </div>
           <div class="row">
@@ -95,8 +96,8 @@
         </div>
       </div>
       <div class="row profile-row table-w-body anim-fade-row" ng-repeat="profile in profiles"
-          fade-in-directive>
-        <div class="col" on-hold="openModal({{profile.name}})">
+          on-hold="openModal('{{profile._id}}')" fade-in-directive>
+        <div class="col">
           <p>{{profile.name}}</p>
         </div>
         <div class="col">
