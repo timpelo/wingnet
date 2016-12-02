@@ -6,121 +6,121 @@ var hostRelease = "http://35.160.11.177:8080";
 var encodePw = "dotamasterraceblizzardsucks";
 
 var host = hostRelease;
-if ( dev == true ) {
+if (dev == true) {
   host = hostDev;
 }
 
-angular.module( 'default.controllers', [ 'angular-jwt', 'ngCookies' ] )
+angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
 
-.directive( 'fadeInDirective', function() {
-  return function( scope, element, attrs ) {
-    if ( scope.$last ) {
-      var elements = document.getElementsByClassName( "anim-fade-row" );
+.directive('fadeInDirective', function() {
+  return function(scope, element, attrs) {
+    if (scope.$last) {
+      var elements = document.getElementsByClassName("anim-fade-row");
 
       var i = 0,
         l = elements.length;
-      ( function iterator() {
-        var elem = angular.element( elements[ i ] );
-        elem.addClass( "anim-fade" );
-        if ( ++i < l ) {
-          setTimeout( iterator, 100 );
+      (function iterator() {
+        var elem = angular.element(elements[i]);
+        elem.addClass("anim-fade");
+        if (++i < l) {
+          setTimeout(iterator, 100);
         }
-      } )();
+      })();
     }
   };
-} )
+})
 
 
 
-.factory( 'Connection', function( $http, $cookies ) {
+.factory('Connection', function($http, $cookies) {
   return {
-    getProfiles: function( body ) {
-      token = $cookies.get( 'devCookie' );
+    getProfiles: function(body) {
+      token = $cookies.get('devCookie');
       body.token = token;
-      return $http.post( host + '/api/profiles', body );
+      return $http.post(host + '/api/profiles', body);
     },
-    getProfileWithUserId: function( userid ) {
-      token = $cookies.get( 'devCookie' );
-      return $http( {
+    getProfileWithUserId: function(userid) {
+      token = $cookies.get('devCookie');
+      return $http({
         url: host + '/api/profile/userid',
         method: "GET",
         params: {
           userid: userid,
           token: token
         }
-      } );
+      });
     },
-    addProfile: function( body ) {
-      token = $cookies.get( 'devCookie' );
+    addProfile: function(body) {
+      token = $cookies.get('devCookie');
       body.token = token;
-      return $http.post( host + '/api/profiles/add', body );
+      return $http.post(host + '/api/profiles/add', body);
     },
-    updateProfile: function( body ) {
-      token = $cookies.get( 'devCookie' );
+    updateProfile: function(body) {
+      token = $cookies.get('devCookie');
       body.token = token;
-      return $http.post( host + '/api/profiles/update', body );
+      return $http.post(host + '/api/profiles/update', body);
     },
-    getRequests: function( profileId ) {
-      token = $cookies.get( 'devCookie' );
-      return $http( {
+    getRequests: function(profileId) {
+      token = $cookies.get('devCookie');
+      return $http({
         url: host + '/api/requests/',
         method: "GET",
         params: {
           profileId: profileId,
           token: token
         }
-      } );
+      });
     },
-    register: function( body ) {
-      return $http.post( host + '/register', body );
+    register: function(body) {
+      return $http.post(host + '/register', body);
     },
-    login: function( loginInfo ) {
-      return $http.post( host + '/login', loginInfo );
+    login: function(loginInfo) {
+      return $http.post(host + '/login', loginInfo);
     }
   }
-} )
+})
 
-.controller( 'AppCtrl', function( $scope, $ionicModal, $timeout ) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
-} )
+})
 
-.controller( 'FinderController', function( $scope, $scope, jwtHelper, $cookies,
-  $ionicModal, Connection ) {
-  angular.element( "#profile-table" ).visibility = 'hidden';
+.controller('FinderController', function($scope, $scope, jwtHelper, $cookies,
+  $ionicModal, Connection) {
+  angular.element("#profile-table").visibility = 'hidden';
 
   var showFilters = function() {
-    angular.element( "#finder-filters" ).removeClass( "anim-collapse" );
-    angular.element( "#collapse-button" ).css( "visibility", "hidden" );
+    angular.element("#finder-filters").removeClass("anim-collapse");
+    angular.element("#collapse-button").css("visibility", "hidden");
 
-    angular.element( "#profile-table" ).fadeIn()
-      .css( {
+    angular.element("#profile-table").fadeIn()
+      .css({
         position: 'relative',
         width: '100%'
-      } )
-      .animate( {
+      })
+      .animate({
         display: 'none',
         top: 1000
       }, 800, function() {
         //callback
-      } );
+      });
   }
 
   var hideFilters = function() {
-    angular.element( "#finder-filters" ).addClass( "anim-collapse" );
-    angular.element( "#collapse-button" ).css( "visibility", "visible" );
+    angular.element("#finder-filters").addClass("anim-collapse");
+    angular.element("#collapse-button").css("visibility", "visible");
 
-    angular.element( "#profile-table" ).fadeIn()
-      .css( {
+    angular.element("#profile-table").fadeIn()
+      .css({
         top: 1000,
         position: 'absolute',
         width: '100%'
-      } )
-      .animate( {
+      })
+      .animate({
         top: 100,
         display: 'block'
       }, 800, function() {
         //callback
-      } );
+      });
   }
 
   $scope.showFilters = showFilters;
@@ -128,11 +128,11 @@ angular.module( 'default.controllers', [ 'angular-jwt', 'ngCookies' ] )
 
   // Gets all profiles that fit the filters
   $scope.getProfiles = function() {
-      token = $cookies.get( 'devCookie' );
-      angular.element( ".profile-row" ).remove();
-      if ( $scope.filter != undefined && filterInterests( $scope ).length !=
-        0 ) {
-        var tokenPayload = jwtHelper.decodeToken( token );
+      token = $cookies.get('devCookie');
+      angular.element(".profile-row").remove();
+      if ($scope.filter != undefined && filterInterests($scope).length !=
+        0) {
+        var tokenPayload = jwtHelper.decodeToken(token);
         var userid = tokenPayload._id;
         var filterstmp = {
           $or: "",
@@ -141,129 +141,139 @@ angular.module( 'default.controllers', [ 'angular-jwt', 'ngCookies' ] )
             $ne: userid
           }
         };
-        filterstmp.$or = filterInterests( $scope );
+        filterstmp.$or = filterInterests($scope);
         body = {}
 
-        if ( $scope.filter.platform != undefined && ( $scope.filter.platform
-            .pc || $scope.filter.platform.xbox ) ) {
-          filterstmp.$and = filterPlatforms( $scope );
+        if ($scope.filter.platform != undefined && ($scope.filter.platform
+            .pc || $scope.filter.platform.xbox)) {
+          filterstmp.$and = filterPlatforms($scope);
         }
         body.filters = filterstmp;
-        Connection.getProfiles( body )
-          .success( function( data ) {
-            $scope.profiles = data;
-            hideFilters();
-          } );
-
+        Connection.getProfiles(body)
+          .success(function(data) {
+            if (data.success) {
+              $scope.profiles = data;
+              hideFilters();
+            } else {
+              alert(data.message);
+            }
+          });
       } else {
-        alert( "Choose atleast 1 interest" );
+        alert("Choose atleast 1 interest");
       }
     }
     // Filters interests from checkboxes
-  function filterPlatforms( $scope ) {
-    var returnable = [ {
+  function filterPlatforms($scope) {
+    var returnable = [{
       $or: ""
-    } ];
+    }];
     var checkboxValues = [];
 
-    if ( $scope.filter.platform.pc ) {
-      checkboxValues.push( {
+    if ($scope.filter.platform.pc) {
+      checkboxValues.push({
         platform: "PC"
-      } );
+      });
     }
-    if ( $scope.filter.platform.xbox ) {
-      checkboxValues.push( {
+    if ($scope.filter.platform.xbox) {
+      checkboxValues.push({
         platform: "XBOX"
-      } );
+      });
     }
-    returnable[ 0 ].$or = checkboxValues;
+    returnable[0].$or = checkboxValues;
     return returnable;
   }
 
   // Filters interests from checkboxes
-  function filterInterests( $scope ) {
+  function filterInterests($scope) {
     var checkboxValues = [];
 
-    if ( $scope.filter.interest.exploration ) {
-      checkboxValues.push( {
+    if ($scope.filter.interest.exploration) {
+      checkboxValues.push({
         interest: "Exploration"
-      } );
+      });
     }
-    if ( $scope.filter.interest.trading ) {
-      checkboxValues.push( {
+    if ($scope.filter.interest.trading) {
+      checkboxValues.push({
         interest: "Trading"
-      } );
+      });
     }
-    if ( $scope.filter.interest.combat ) {
-      checkboxValues.push( {
+    if ($scope.filter.interest.combat) {
+      checkboxValues.push({
         interest: "Combat"
-      } );
+      });
     }
 
     return checkboxValues;
   }
 
   // Modal for sending requests.
-  $ionicModal.fromTemplateUrl( 'request-modal', {
+  $ionicModal.fromTemplateUrl('request-modal', {
     scope: $scope,
     animation: 'slide-in-up'
-  } ).then( function( modal ) {
+  }).then(function(modal) {
     $scope.modal = modal;
-  } );
-  $scope.openModal = function( userId ) {
-    console.log( userId );
+  });
+  $scope.openModal = function(userId) {
     $scope.modal.show();
   };
   $scope.closeModal = function() {
     $scope.modal.hide();
   };
   // Cleanup the modal when we're done with it!
-  $scope.$on( '$destroy', function() {
+  $scope.$on('$destroy', function() {
     $scope.modal.remove();
-  } );
+  });
   // Execute action on hide modal
-  $scope.$on( 'modal.hidden', function() {
+  $scope.$on('modal.hidden', function() {
     // Execute action
-  } );
+  });
   // Execute action on remove modal
-  $scope.$on( 'modal.removed', function() {
+  $scope.$on('modal.removed', function() {
     // Execute action
-  } );
-} )
+  });
+})
 
 
-.controller( 'RequestController', function( $scope, Connection ) {
+.controller('RequestController', function($scope, Connection) {
   //Janin 5820c86ee0e56011df73e02d
   //Juhon 5825815ed01cb174b789a494
   //Servun 5825815ed01cb174b789a494
-  angular.element( ".request-row" ).remove();
+  angular.element(".request-row").remove();
   var profileId = "5825815ed01cb174b789a494";
-  Connection.getRequests( profileId )
-    .success( function( data ) {
-      $scope.requests = data;
-    } );
-} )
+  Connection.getRequests(profileId)
+    .success(function(data) {
+      if (data.success) {
+        $scope.requests = data;
+      } else {
+        alert(data.message);
+      }
+    });
+})
 
-.controller( 'ProfileController', function( $scope, $cookies, Connection,
-  jwtHelper ) {
-  token = $cookies.get( 'devCookie' );
-  var tokenPayload = jwtHelper.decodeToken( token );
+.controller('ProfileController', function($scope, $cookies, Connection,
+  jwtHelper) {
+  token = $cookies.get('devCookie');
+  var tokenPayload = jwtHelper.decodeToken(token);
   var userid = tokenPayload._id;
-  Connection.getProfileWithUserId( userid )
-    .success( function( data ) {
-      $scope.profile = data;
-      checkPlatforms( data.platform );
-      checkInterests( data.interest );
-    } );
+  Connection.getProfileWithUserId(userid)
+    .success(function(data) {
+      if (data.success) {
+        $scope.profile = data;
+        checkPlatforms(data.platform);
+        checkInterests(data.interest);
+      } else {
+        alert(data.message);
+      }
+    });
 
   $scope.updateProfile = function() {
-    if ( !( $scope.profile.name == undefined ) ) {
+    if (!($scope.profile.name == undefined)) {
       var body = {};
       var profile = {};
       var platforms = fillPlatforms();
       var interests = fillInterests();
 
-      var tokenPayload = jwtHelper.decodeToken( token );
+      var tokenPayload = jwtHelper.decodeToken(token);
       profile._id = $scope.profile._id;
       profile.userid = tokenPayload._id;
       profile.name = $scope.profile.name;
@@ -271,167 +281,164 @@ angular.module( 'default.controllers', [ 'angular-jwt', 'ngCookies' ] )
       profile.platform = platforms;
       profile.active = $scope.profile.active;
       body.profile = profile;
-      Connection.updateProfile( body )
-        .success( function( data ) {
-          if ( data.success ) {
-            alert( "Profile updated" );
+      Connection.updateProfile(body)
+        .success(function(data) {
+          if (data.success) {
+            alert("Profile updated");
           } else {
-            alert( data.message );
+            alert(data.message);
           }
 
-        } );
+        });
     } else {
-      alert( "Profile name can't be empty" );
+      alert("Profile name can't be empty");
     }
   }
 
   $scope.toggleEdit = function() {
-    var nameInput = document.getElementById( "nameInput" );
+    var nameInput = document.getElementById("nameInput");
 
-    if ( nameInput.readOnly == true ) {
+    if (nameInput.readOnly == true) {
       nameInput.readOnly = false;
 
-      var button = angular.element( document.querySelector( '#editButton' ) );
-      button.removeClass( "ion-edit" );
-      button.addClass( "ion-checkmark-round" );
+      var button = angular.element(document.querySelector('#editButton'));
+      button.removeClass("ion-edit");
+      button.addClass("ion-checkmark-round");
 
-      window.setTimeout( function() {
+      window.setTimeout(function() {
         nameInput.focus();
-      }, 0 );
+      }, 0);
 
     } else {
       nameInput.readOnly = true;
 
-      var button = angular.element( document.querySelector( '#editButton' ) );
-      button.addClass( "ion-edit" );
-      button.removeClass( "ion-checkmark-round" );
+      var button = angular.element(document.querySelector('#editButton'));
+      button.addClass("ion-edit");
+      button.removeClass("ion-checkmark-round");
     }
   }
 
   function fillPlatforms() {
     var platforms = [];
-    if ( $scope.profile.platform.xbox ) {
-      platforms.push( "XBOX" );
+    if ($scope.profile.platform.xbox) {
+      platforms.push("XBOX");
     }
-    if ( $scope.profile.platform.pc ) {
-      platforms.push( "PC" );
+    if ($scope.profile.platform.pc) {
+      platforms.push("PC");
     }
     return platforms;
   }
 
-  function checkPlatforms( platforms ) {
-    if ( platforms.indexOf( "XBOX" ) != -1 ) {
+  function checkPlatforms(platforms) {
+    if (platforms.indexOf("XBOX") != -1) {
       $scope.profile.platform.xbox = true;
     }
-    if ( platforms.indexOf( "PC" ) != -1 ) {
+    if (platforms.indexOf("PC") != -1) {
       $scope.profile.platform.pc = true;
     }
   }
 
   function fillInterests() {
     var interests = [];
-    if ( $scope.profile.interest.exploration ) {
-      interests.push( "Exploration" );
+    if ($scope.profile.interest.exploration) {
+      interests.push("Exploration");
     }
-    if ( $scope.profile.interest.trading ) {
-      interests.push( "Trading" );
+    if ($scope.profile.interest.trading) {
+      interests.push("Trading");
     }
-    if ( $scope.profile.interest.combat ) {
-      interests.push( "Combat" );
+    if ($scope.profile.interest.combat) {
+      interests.push("Combat");
     }
     return interests;
   }
 
-  function checkInterests( interests ) {
-    if ( interests.indexOf( "Exploration" ) != -1 ) {
+  function checkInterests(interests) {
+    if (interests.indexOf("Exploration") != -1) {
       $scope.profile.interest.exploration = true;
     }
-    if ( interests.indexOf( "Trading" ) != -1 ) {
+    if (interests.indexOf("Trading") != -1) {
       $scope.profile.interest.trading = true;
     }
-    if ( interests.indexOf( "Combat" ) != -1 ) {
+    if (interests.indexOf("Combat") != -1) {
       $scope.profile.interest.combat = true;
     }
   }
-} )
+})
 
-.controller( 'LoginController', function( $scope, $state, $ionicHistory,
-  Connection, jwtHelper, $cookies ) {
+.controller('LoginController', function($scope, $state, $ionicHistory,
+  Connection, jwtHelper, $cookies) {
   //TODO check token expiration.
-  if ( token != undefined ) {
-    var date = jwtHelper.getTokenExpirationDate( token );
-    if ( date > Date.now() ) {
-      $state.go( 'app.welcome' );
+  if (token != undefined) {
+    var date = jwtHelper.getTokenExpirationDate(token);
+    if (date > Date.now()) {
+      $state.go('app.welcome');
     }
   }
   $scope.login = function() {
-    $ionicHistory.nextViewOptions( {
+    $ionicHistory.nextViewOptions({
       disableBack: true
-    } );
+    });
 
     var loginInfo = {};
-    var encodedPw = sjcl.encrypt( encodePw, $scope.login.password );
+    var encodedPw = sjcl.encrypt(encodePw, $scope.login.password);
 
     loginInfo.username = $scope.login.username;
     loginInfo.password = encodedPw;
     loginInfo.remember = $scope.login.remember;
-    Connection.login( loginInfo )
-      .success( function( data ) {
-        if ( data.success ) {
+    Connection.login(loginInfo)
+      .success(function(data) {
+        if (data.success) {
           token = data.token;
-          $cookies.put( 'devCookie', token );
-          $state.go( 'app.welcome' );
+          $cookies.put('devCookie', token);
+          $state.go('app.welcome');
         } else {
-          alert( data.message );
+          alert(data.message);
         }
-      } );
+      });
   }
 
   $scope.openRegisteration = function() {
-    $state.go( 'app.register' );
+    $state.go('app.register');
   }
-} )
+})
 
-.controller( 'RegisterController', function( $scope, $cookies, $state,
-  Connection ) {
+.controller('RegisterController', function($scope, $cookies, $state,
+  Connection) {
 
   $scope.register = function() {
-    if ( $scope.register != null && $scope.register != undefined ) {
+    if ($scope.register != null && $scope.register != undefined) {
       var password1 = $scope.register.password1;
       var password2 = $scope.register.password2;
-      if ( password1 == password2 && password1 != undefined &&
-        password1 != null ) {
-
+      if (password1 == password2 && password1 != undefined &&
+        password1 != null) {
         var username = $scope.register.username;
         var nickname = $scope.register.nickname;
-        if ( username != null && username != undefined && username.length !=
-          0 ) {
-          if ( nickname != null && nickname != undefined ) {
+        if (username != null && username != undefined && username.length !=
+          0) {
+          if (nickname != null && nickname != undefined) {
             var body = {};
             body.username = username;
             body.nickname = nickname;
-            body.password = sjcl.encrypt( encodePw, password1 );
-            Connection.register( body )
-              .success( function( data ) {
-                if ( data.success ) {
-                  $state.go( 'app.login' );
+            body.password = sjcl.encrypt(encodePw, password1);
+            Connection.register(body)
+              .success(function(data) {
+                if (data.success) {
+                  $state.go('app.login');
                 } else {
-                  alert( data.message );
+                  alert(data.message);
                 }
-              } );
+              });
           } else {
-            alert( "Please insert nickname!" );
+            alert("Please insert nickname!");
           }
         } else {
-          alert( "Please insert username!" );
+          alert("Please insert username!");
         }
       } else {
-        alert( "Passwords do not match!" );
+        alert("Passwords do not match!");
       }
     } else {
-      alert( "Please fill your info" );
+      alert("Please fill your info");
     }
   }
-
-
-} );
+});
