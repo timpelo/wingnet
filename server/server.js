@@ -194,13 +194,13 @@
          username: req.body.username
       }, function(result) {
          var user = result;
-         if (result.success == false) {
-            res.json(result);
-         } else if (user == null) {
+         if (result == null) {
             res.json({
                success: false,
                message: 'Authentication failed. User not found.'
             });
+         } else if (result.success == false) {
+            res.json(result);
          } else if (user) {
             // check if password matches
             var decodedUserPw = sjcl.decrypt(encodePw, user.password);

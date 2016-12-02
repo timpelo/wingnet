@@ -422,7 +422,13 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
     $ionicHistory.nextViewOptions({
       disableBack: true
     });
-
+    var password = $scope.login.password;
+    var username = $scope.login.password;
+    if (password == undefined || username == undefined || password == "" ||
+      username == "") {
+      alert("Empty username or password");
+      return;
+    }
     var loginInfo = {};
     var encodedPw = sjcl.encrypt(encodePw, $scope.login.password);
 
@@ -431,7 +437,7 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
     loginInfo.remember = $scope.login.remember;
     Connection.login(loginInfo)
       .success(function(data) {
-        if (data.success) {
+        if (data != null && data.success) {
           token = data.token;
           $cookies.put('devCookie', token);
           $state.go('app.welcome');
