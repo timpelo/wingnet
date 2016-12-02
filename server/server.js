@@ -246,9 +246,7 @@
          mongo.getUser({
             username: user.username
          }, function(result) {
-            if (result.success == false) {
-               res.json(result);
-            } else if (result == null) {
+            if (result == null) {
                mongo.getProfiles({
                   name: nickName
                }, function(profileResult) {
@@ -288,21 +286,21 @@
                      });
                   } else {
                      res.json({
-                        "success": "false",
+                        "success": false,
                         "message": "Nick name is already taken!"
                      });
                   }
                });
             } else {
                res.json({
-                  "success": "false",
+                  "success": false,
                   "message": "User name is already taken!"
                });
             }
          });
       } else {
          res.json({
-            "success": "false",
+            "success": false,
             "message": "Fill all required fields"
          });
       }
