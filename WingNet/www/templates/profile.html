@@ -4,14 +4,13 @@
     <div class="row">
       <div style="width:90%">
         <form ng-submit="toggleEdit()">
-          <input id="nameInput" type="text" class="input-w-bigfont profile-name-label-w"
-          ng-model="profile.name" readonly>
+          <input id="nameInput" type="text" class="input-w-bigfont profile-name-label-w" ng-model="profile.name"
+              readonly>
         </form>
       </div>
       <div style="text-align:right;width:10%;">
-        <button id="editButton" ng-click="toggleEdit()"
-        style="margin-right:20pt;margin-top:5pt;"
-        class="button-right button icon-middle ion-edit icon-button-w"></button>
+        <button id="editButton" ng-click="toggleEdit()" style="margin-right:20pt;margin-top:5pt;"
+            class="button-right button icon-middle ion-edit icon-button-w"></button>
       </div>
     </div>
 
@@ -22,15 +21,13 @@
     <div class="row">
       <div class="col menu-title-w">PC</div>
       <div class="col">
-        <ion-checkbox class="checkbox-right checkbox-dark-w checkbox-w"
-        ng-model="profile.platform.pc"></ion-checkbox>
+        <ion-checkbox class="checkbox-right checkbox-dark-w checkbox-w" ng-model="profile.platform.pc"></ion-checkbox>
       </div>
     </div>
     <div class="row">
       <div class="col menu-title-w">XBOX</div>
       <div class="col">
-        <ion-checkbox class="checkbox-right checkbox-dark-w checkbox-w"
-         ng-model="profile.platform.xbox"></ion-checkbox>
+        <ion-checkbox class="checkbox-right checkbox-dark-w checkbox-w" ng-model="profile.platform.xbox"></ion-checkbox>
       </div>
     </div>
 
@@ -41,47 +38,42 @@
     <div class="row">
       <div class="col menu-title-w">Trading</div>
       <div class="col">
-        <ion-checkbox class="checkbox-right checkbox-dark-w checkbox-w"
-         ng-model="profile.interest.trading"></ion-checkbox>
+        <ion-checkbox class="checkbox-right checkbox-dark-w checkbox-w" ng-model="profile.interest.trading"></ion-checkbox>
       </div>
     </div>
     <div class="row">
       <div class="col menu-title-w">Combat</div>
       <div class="col">
-        <ion-checkbox class="checkbox-right checkbox-dark-w checkbox-w"
-         ng-model="profile.interest.combat"></ion-checkbox>
+        <ion-checkbox class="checkbox-right checkbox-dark-w checkbox-w" ng-model="profile.interest.combat"></ion-checkbox>
       </div>
     </div>
     <div class="row">
       <div class="col menu-title-w">Exploration</div>
       <div class="col">
-        <ion-checkbox class="checkbox-right checkbox-dark-w checkbox-w"
-         ng-model="profile.interest.exploration"></ion-checkbox>
+        <ion-checkbox class="checkbox-right checkbox-dark-w checkbox-w" ng-model="profile.interest.exploration"></ion-checkbox>
       </div>
     </div>
 
-     <!-- Active -->
-     <label class="label-title-w item">
+    <!-- Active -->
+    <label class="label-title-w item">
        Active
      </label>
-     <div class="row">
-       <div class="col menu-title-w">Active</div>
-       <div class="col">
-         <ion-toggle ng-model="profile.active" toggle-class="toggle-calm"
-         class="toggle-w">
-         </ion-toggle>
-       </div>
-     </div>
+    <div class="row">
+      <div class="col menu-title-w">Active</div>
+      <div class="col">
+        <ion-toggle ng-model="profile.active" toggle-class="toggle-calm" class="toggle-w">
+        </ion-toggle>
+      </div>
+    </div>
 
-     <!-- Actions -->
-     <div class="row">
-       <div class="col center-w">
-         <button ng-click="updateProfile()"
-          class="button button-primary-w" style="width:80%;">
+    <!-- Actions -->
+    <div class="row">
+      <div class="col center-w">
+        <button ng-click="updateProfile()" class="button button-primary-w" style="width:80%;">
           Update
           </button>
-        </div>
       </div>
+    </div>
 
   </ion-content>
 </ion-view>

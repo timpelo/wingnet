@@ -2,20 +2,32 @@
   <ion-content ng-controller="RequestController" class="background-dark-w">
     <p style="height:20px"></p>
     <div class="row table-w-head">
-      <div class="col"><p>From</p></div>
-      <div class="col"><p>Interest</p></div>
-      <div class="col"><p>Platform</p></div>
-      <div class="col"><p>Status</p></div>
-    </div>
-    <div class="row table-w-body request-row" ng-repeat="request in requests"
-    fade-in-directive>
-      <div class="col"><p>{{request.fromName}}</p></div>
       <div class="col">
-          <div ng-repeat="interest in request.interest"
-          class="interest-icon icon-{{interest | lowercase}}"></div>
+        <p>From</p>
       </div>
-      <div class="col"><p>{{request.platform.toString()}}</p></div>
-      <div class="col"><p>{{request.status}}</p></div>
+      <div class="col">
+        <p>Interest</p>
+      </div>
+      <div class="col">
+        <p>Platform</p>
+      </div>
+      <div class="col">
+        <p>Status</p>
+      </div>
+    </div>
+    <div class="row table-w-body request-row" ng-repeat="request in requests" fade-in-directive>
+      <div class="col">
+        <p>{{request.fromName}}</p>
+      </div>
+      <div class="col">
+        <div ng-repeat="interest in request.interest" class="interest-icon icon-{{interest | lowercase}}"></div>
+      </div>
+      <div class="col">
+        <p>{{request.platform.toString()}}</p>
+      </div>
+      <div class="col">
+        <p>{{request.status}}</p>
+      </div>
     </div>
   </ion-content>
 </ion-view>

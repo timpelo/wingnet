@@ -1,19 +1,17 @@
 <ion-view view-title="Find">
-  <ion-content ng-controller="FinderController"  class="background-dark-w">
+  <ion-content ng-controller="FinderController" class="background-dark-w">
     <!-- Request mondal -->
     <script id="request-modal" type="text/ng-template">
       <ion-modal-view style="background:transparent;width:60%;height:auto;">
         <ion-content class="center-w">
           <div class="row">
             <div class="col">
-              <button class="button button-primary-w" style="width:95%"
-              ng-click="closeModal()">Send request</button>
+              <button class="button button-primary-w" style="width:95%" ng-click="closeModal()">Send request</button>
             </div>
           </div>
           <div class="row">
             <div class="col">
-              <button ng-click="closeModal()" style="width:95%"
-              class="button button-primary-w">Cancel</button>
+              <button ng-click="closeModal()" style="width:95%" class="button button-primary-w">Cancel</button>
             </div>
           </div>
         </ion-content>
@@ -22,8 +20,7 @@
 
 
     <div id="collapse-button" class="row" style="position:absolute;visibility:hidden;">
-      <button ng-click="showFilters()"
-      class="button icon-left ion-arrow-down-b button-primary-w">
+      <button ng-click="showFilters()" class="button icon-left ion-arrow-down-b button-primary-w">
         Filters
       </button>
     </div>
@@ -36,24 +33,21 @@
       </label>
       <div class="row">
         <div class="col">
-          <ion-checkbox class="checkbox-dark-w checkbox-w"
-          ng-model="filter.interest.exploration">
+          <ion-checkbox class="checkbox-dark-w checkbox-w" ng-model="filter.interest.exploration">
             <div class="interest-icon icon-exploration">Exploration</div>
           </ion-checkbox>
         </div>
       </div>
       <div class="row">
         <div class="col">
-          <ion-checkbox class="checkbox-dark-w checkbox-w"
-          ng-model="filter.interest.trading">
+          <ion-checkbox class="checkbox-dark-w checkbox-w" ng-model="filter.interest.trading">
             <div class="interest-icon icon-trading">Trading</div>
           </ion-checkbox>
         </div>
       </div>
       <div class="row">
         <div class="col">
-          <ion-checkbox class="checkbox-w checkbox-dark-w"
-          ng-model="filter.interest.combat">
+          <ion-checkbox class="checkbox-w checkbox-dark-w" ng-model="filter.interest.combat">
             <div class="interest-icon icon-combat">Combat</div>
           </ion-checkbox>
         </div>
@@ -65,24 +59,22 @@
       </label>
       <div class="row">
         <div class="col">
-          <ion-checkbox class="checkbox-dark-w checkbox-w"
-          ng-model="filter.platform.pc">
+          <ion-checkbox class="checkbox-dark-w checkbox-w" ng-model="filter.platform.pc">
             <div class="interest-icon">PC</div>
           </ion-checkbox>
         </div>
       </div>
       <div class="row">
         <div class="col">
-          <ion-checkbox class="checkbox-w checkbox-dark-w"
-          ng-model="filter.platform.xbox">
+          <ion-checkbox class="checkbox-w checkbox-dark-w" ng-model="filter.platform.xbox">
             <div class="interest-icon">XBOX</div>
           </ion-checkbox>
         </div>
       </div>
       <div class="row">
         <div class="col center-w">
-          <button ng-click="getProfiles()"
-          class="button icon-left ion-search button-primary-w" style="width:80%;">
+          <button ng-click="getProfiles()" class="button icon-left ion-search button-primary-w"
+              style="width:80%;">
             Find
           </button>
         </div>
@@ -92,20 +84,27 @@
     <!-- Search results -->
     <div id="profile-table" style="position:relative;float:top;">
       <div class="row table-w-head">
-        <div class="col"><p>Name</p></div>
-        <div class="col"><p>Interest</p></div>
-        <div class="col"><p>Platform</p></div>
-      </div>
-      <div class="row profile-row table-w-body anim-fade-row"
-      ng-repeat="profile in profiles"
-      on-hold="openModal({{profile.name}})"
-      fade-in-directive>
-        <div class="col"><p>{{profile.name}}</p></div>
         <div class="col">
-            <div ng-repeat="interest in profile.interest"
-            class="interest-icon icon-{{interest | lowercase}}"></div>
+          <p>Name</p>
         </div>
-        <div class="col"><p>{{profile.platform.toString()}}</p></div>
+        <div class="col">
+          <p>Interest</p>
+        </div>
+        <div class="col">
+          <p>Platform</p>
+        </div>
+      </div>
+      <div class="row profile-row table-w-body anim-fade-row" ng-repeat="profile in profiles"
+          fade-in-directive>
+        <div class="col" on-hold="openModal({{profile.name}})">
+          <p>{{profile.name}}</p>
+        </div>
+        <div class="col">
+          <div ng-repeat="interest in profile.interest" class="interest-icon icon-{{interest | lowercase}}"></div>
+        </div>
+        <div class="col">
+          <p>{{profile.platform.toString()}}</p>
+        </div>
       </div>
     </div>
 
