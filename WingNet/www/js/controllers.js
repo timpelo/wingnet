@@ -235,17 +235,28 @@ angular.module( 'default.controllers', [ 'angular-jwt', 'ngCookies' ] )
 } )
 
 
-.controller( 'RequestController', function( $scope, Connection ) {
-  //Janin 5820c86ee0e56011df73e02d
-  //Juhon 5825815ed01cb174b789a494
-  //Servun 5825815ed01cb174b789a494
-  angular.element( ".request-row" ).remove();
-  var profileId = "5825815ed01cb174b789a494";
 
-  Connection.getRequests( profileId )
-    .success( function( data ) {
-      if ( data.success ) {
-        $scope.requests = data;
+.controller( 'RequestController', function( $scope, $cookies, jwtHelper,
+  Connection ) {
+  angular.element( ".request-row" ).remove();
+
+  token = $cookies.get( 'devCookie' );
+  var tokenPayload = jwtHelper.decodeToken( token );
+
+  var userid = tokenPayload._id;
+
+  Connection.getProfileWithUserId( userid )
+    .success( function( result ) {
+      if ( result.success ) {
+        $scope.fromId = result.data._id;
+        Connection.getRequests( $scope.fromId )
+          .success( function( data ) {
+            if ( data.success ) {
+              $scope.requests = data;
+            } else {
+              alert( data.message );
+            }
+          } );
       } else {
         alert( data.message );
       }
@@ -256,6 +267,24 @@ angular.module( 'default.controllers', [ 'angular-jwt', 'ngCookies' ] )
     $scope.closeModal();
     alert( "Request sent to user!" );
     console.log( "uid: " + toUserId );
+
+    var body = {
+      request: {
+        from: $scope.fromId,
+        to: toUserId,
+        date: Date(),
+        status: "pending"
+      }
+    };
+
+    Connection.addRequest( body )
+      .success( function( result ) {
+        if ( result.success ) {
+          alert( "Request sent to user!" );
+        } else {
+          alert( result.message );
+        }
+      } );
   }
 } )
 

@@ -160,8 +160,43 @@
       }
    } );
 
+<<<<<<< HEAD
    app.post( "/login", function( req, res ) {
       mongo.getUser( {
+=======
+   apiRoutes.post("/reguests/add", function(req, res) {
+      var request = req.body.request;
+
+      if (request != null && request != undefined) {
+         mongo.checkRequest({
+            to: request.to,
+            from: request.from
+         }, function(result) {
+            if (result.success != false && result.data.length ==
+               0) {
+               mongo.addRequest(request, function(result) {
+                  if (result.success != false) {
+                     res.json({
+                        success: true,
+                        data: result
+                     });
+                  } else {
+                     res.json(result);
+                  }
+               });
+            } else {
+               res.json({
+                  success: false,
+                  message: 'You already have request pending'
+               });
+            }
+         });
+      }
+   });
+
+   app.post("/login", function(req, res) {
+      mongo.getUser({
+>>>>>>> 21d0e82791a6d2020aa66b602b40432e6d18b430
          username: req.body.username
       }, function( result ) {
          var user = result;
