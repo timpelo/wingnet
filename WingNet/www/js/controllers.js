@@ -240,6 +240,7 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
 })
 
 
+
 .controller('RequestController', function($scope, $cookies, jwtHelper,
   Connection) {
   angular.element(".request-row").remove();
@@ -269,7 +270,6 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
   $scope.sendRequest = function(toUserId) {
     //TODO implement request send.
     $scope.closeModal();
-    alert("Request sent to user!");
     var body = {
       request: {
         from: $scope.fromId,

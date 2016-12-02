@@ -2,7 +2,7 @@
   <ion-content ng-controller="FinderController" class="background-dark-w">
     <!-- Request mondal -->
     <script id="request-modal" type="text/ng-template">
-      <ion-modal-view style="background:transparent;width:60%;height:auto;" ng-controller="RequestController">
+      <ion-modal-view class="request-modal" style="background:#43413F;" ng-controller="RequestController">
         <ion-content class="center-w">
           <div class="row">
             <div class="col">
@@ -50,6 +50,13 @@
         <div class="col">
           <ion-checkbox class="checkbox-w checkbox-dark-w" ng-model="filter.interest.combat">
             <div class="interest-icon icon-combat">Combat</div>
+          </ion-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <ion-checkbox class="checkbox-w checkbox-dark-w" ng-model="filter.interest.cg">
+            <div class="interest-icon icon-combat">Community Goals</div>
           </ion-checkbox>
         </div>
       </div>
