@@ -77,7 +77,8 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
 
 })
 
-.controller('FinderController', function($scope,$scope,jwtHelper,$cookies, Connection) {
+.controller('FinderController', function($scope,$scope,jwtHelper,$cookies,
+  $ionicModal, Connection) {
   angular.element("#profile-table").visibility='hidden';
 
   var showFilters = function() {
@@ -161,6 +162,33 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
 
       return checkboxValues;
    }
+
+   // Modal for sending requests.
+   $ionicModal.fromTemplateUrl('request-modal', {
+     scope: $scope,
+     animation: 'slide-in-up'
+   }).then(function(modal) {
+    $scope.modal = modal;
+    });
+    $scope.openModal = function(userId) {
+      console.log(userId);
+      $scope.modal.show();
+    };
+    $scope.closeModal = function() {
+      $scope.modal.hide();
+    };
+    // Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function() {
+      $scope.modal.remove();
+    });
+    // Execute action on hide modal
+    $scope.$on('modal.hidden', function() {
+      // Execute action
+    });
+    // Execute action on remove modal
+    $scope.$on('modal.removed', function() {
+      // Execute action
+    });
 })
 
 
