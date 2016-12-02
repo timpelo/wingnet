@@ -160,7 +160,7 @@
       }
    });
 
-   apiRoutes.post("/reguests/add", function(req, res) {
+   apiRoutes.post("/requests/add", function(req, res) {
       var request = req.body.request;
 
       if (request != null && request != undefined) {

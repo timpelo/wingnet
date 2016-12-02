@@ -1,5 +1,5 @@
 var token = undefined;
-var dev = true;
+var dev = false;
 var hostDev = "http://localhost:8080";
 var hostRelease = "http://35.160.11.177:8080";
 
@@ -255,15 +255,16 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
       if (result.success) {
         $scope.fromId = result.data._id;
         Connection.getRequests($scope.fromId)
-          .success(function(data) {
-            if (data.success) {
-              $scope.requests = data;
+          .success(function(result) {
+            if (result.success) {
+              console.log(JSON.stringify(result));
+              $scope.requests = result.data;
             } else {
-              alert(data.message);
+              alert(result.message);
             }
           });
       } else {
-        alert(data.message);
+        alert(result.message);
       }
     });
 
