@@ -213,6 +213,7 @@ angular.module( 'default.controllers', [ 'angular-jwt', 'ngCookies' ] )
   $scope.openModal = function( userId ) {
     console.log( userId );
     $scope.modal.show();
+    $scope.toUserId = userId;
   };
   $scope.closeModal = function() {
     $scope.modal.hide();
@@ -242,6 +243,13 @@ angular.module( 'default.controllers', [ 'angular-jwt', 'ngCookies' ] )
     .success( function( data ) {
       $scope.requests = data;
     } );
+
+  $scope.sendRequest = function( toUserId ) {
+    //TODO implement request send.
+    $scope.closeModal();
+    alert( "Request sent to user!" );
+    console.log( "uid: " + toUserId );
+  }
 } )
 
 .controller( 'ProfileController', function( $scope, $cookies, Connection,
