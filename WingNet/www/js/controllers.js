@@ -1,5 +1,5 @@
 var token = undefined;
-var dev = false;
+var dev = true;
 var hostDev = "http://localhost:8080";
 var hostRelease = "http://35.160.11.177:8080";
 
@@ -150,9 +150,9 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
         }
         body.filters = filterstmp;
         Connection.getProfiles(body)
-          .success(function(data) {
-            if (data.success) {
-              $scope.profiles = data;
+          .success(function(result) {
+            if (result.success) {
+              $scope.profiles = result.data;
               hideFilters();
             } else {
               alert(data.message);
@@ -256,11 +256,11 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
   var tokenPayload = jwtHelper.decodeToken(token);
   var userid = tokenPayload._id;
   Connection.getProfileWithUserId(userid)
-    .success(function(data) {
-      if (data.success) {
-        $scope.profile = data;
-        checkPlatforms(data.platform);
-        checkInterests(data.interest);
+    .success(function(result) {
+      if (result.success) {
+        $scope.profile = result.data;
+        checkPlatforms(result.data.platform);
+        checkInterests(result.data.interest);
       } else {
         alert(data.message);
       }

@@ -81,6 +81,11 @@
                   "success": "false",
                   "message": err
                });
+            } else if (result == null) {
+               callback({
+                  "success": "false",
+                  "message": "No profile found"
+               });
             } else {
                callback(result);
             }

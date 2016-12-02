@@ -70,7 +70,7 @@
       var userid = req.query.userid;
       if (userid != null && userid != undefined) {
          mongo.getProfileWithUserId(userid, function(result) {
-            if (result.success != false) {
+            if (result != null && result.success != false) {
                res.json({
                   success: true,
                   data: result
