@@ -224,7 +224,7 @@
             for (var j = 0; j < fillInfo.length; j++) {
                if (fillInfo[j]._id == inResult[i].from) {
                   inResult[i].fromName = fillInfo[j].name;
-                  inResult[i].interests = fillInfo[j].interest;
+                  inResult[i].interest = fillInfo[j].interest;
                   inResult[i].platform = fillInfo[j].platform;
                }
             }
