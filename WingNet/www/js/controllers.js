@@ -251,6 +251,16 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
 
   var userid = tokenPayload._id;
 
+  var updateTable = function(inOut) {
+    if (inOut == "IN") {
+      angular.element("#to-label").hide();
+      angular.element("#from-label").show();
+    } else {
+      angular.element("#to-label").show();
+      angular.element("#from-label").hide();
+    }
+  }
+
   Connection.getProfileWithUserId(userid)
     .success(function(result) {
       if (result.success) {
@@ -268,6 +278,20 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
         alert(result.message);
       }
     });
+
+  $scope.getRequests = function(inOut) {
+    $scope.inOut = inOut;
+    updateTable(inOut);
+    Connection.getRequests($scope.fromId, inOut)
+      .success(function(result) {
+        if (result.success) {
+          console.log(JSON.stringify(result));
+          $scope.requests = result.data;
+        } else {
+          alert(result.message);
+        }
+      });
+  }
 
   $scope.sendRequest = function(toUserId) {
     //TODO implement request send.

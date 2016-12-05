@@ -21,39 +21,43 @@
 
     <div class="row">
       <div class="col">
-        <button ng-click="#" style="width:100%;margin:0;" class="button button-primary-w">Recieved</button>
+        <button ng-click="getRequests('IN')" style="width:100%;margin:0;" class="button button-primary-w">Recieved</button>
       </div>
       <div class="col">
-        <button ng-click="#" style="width:100%;margin:0;" class="button button-primary-w">Sent</button>
+        <button ng-click="getRequests('OUT')" style="width:100%;margin:0; " class="button
+            button-primary-w ">Sent</button>
       </div>
     </div>
-    <p style="height:20px"></p>
-    <div class="row table-w-head">
-      <div class="col">
-        <p>From</p>
+    <p style="height:20px "></p>
+    <div class="row table-w-head ">
+      <div class="col ">
+        <p id="from-label">From</p>
+        <p id="to-label" style="display:none;">To</p>
       </div>
-      <div class="col">
+      <div class="col ">
         <p>Interest</p>
       </div>
-      <div class="col">
+      <div class="col ">
         <p>Platform</p>
       </div>
-      <div class="col">
+      <div class="col ">
         <p>Status</p>
       </div>
     </div>
-    <div class="row table-w-body request-row" ng-repeat="request in requests" fade-in-directive
-        on-hold="openModal()">
-      <div class="col">
-        <p>{{request.fromName}}</p>
+    <div class="row table-w-body request-row " ng-repeat="request in requests " fade-in-directive
+        on-hold="openModal() ">
+      <div class="col ">
+        <p class="from-name-label">{{inOut === "IN" ? request.fromName : request.to}}</p>
+        <p class="to-name-label" style="display:none;">{{request.to}}</p>
       </div>
-      <div class="col">
-        <div ng-repeat="interest in request.interest" class="interest-icon icon-{{interest | lowercase}}"></div>
+      <div class="col ">
+        <div ng-repeat="interest in request.interest " class="interest-icon icon-{{interest
+            | lowercase}} "></div>
       </div>
-      <div class="col">
+      <div class="col ">
         <p>{{request.platform.toString()}}</p>
       </div>
-      <div class="col">
+      <div class="col ">
         <p>{{request.status | uppercase}}</p>
       </div>
     </div>

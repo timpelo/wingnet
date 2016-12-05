@@ -111,13 +111,16 @@
       });
    }
 
-   function getRequests(profileId, callback) {
+   function getRequests(profileId, inOut, callback) {
       MongoClient.connect(url, function(err, db) {
          var collection = db.collection(requestCollection);
 
-         var filter = {
-            to: profileId
-         };
+         var filter = {};
+         if (inOut == "IN") {
+            filter.to = profileId;
+         } else if (inOut == "OUT") {
+            filter.from = profileId;
+         }
          collection.find(filter).toArray(function(err, result) {
             if (err != null) {
                callback({
