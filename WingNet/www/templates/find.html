@@ -92,26 +92,26 @@
     <!-- Search results -->
     <div id="profile-table" style="position:relative;float:top;">
       <div class="row table-w-head">
-        <div class="col">
+        <div style="width:50%;">
           <p>Name</p>
         </div>
-        <div class="col">
+        <div style="width:30%;">
           <p>Interest</p>
         </div>
-        <div class="col">
+        <div style="width:20%;">
           <p>Platform</p>
         </div>
       </div>
       <div class="row profile-row table-w-body anim-fade-row" ng-repeat="profile in profiles"
           on-hold="openModal('{{profile._id}}')" fade-in-directive>
-        <div class="col">
+        <div style="width:50%;">
           <p>{{profile.name}}</p>
         </div>
-        <div class="col">
+        <div style="width:30%;">
           <div ng-repeat="interest in profile.interest" class="interest-icon icon-{{interest | lowercase}}"></div>
         </div>
-        <div class="col">
-          <p>{{profile.platform.toString()}}</p>
+        <div style="width:20%;">
+          <p ng-repeat="platform in profile.platform">{{platform}}</p>
         </div>
       </div>
     </div>

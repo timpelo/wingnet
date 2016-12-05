@@ -244,7 +244,7 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
 
 .controller('RequestController', function($scope, $cookies, jwtHelper,
   Connection, $ionicModal) {
-  angular.element(".request-row").remove();
+  $scope.inOut = "IN";
 
   token = $cookies.get('devCookie');
   var tokenPayload = jwtHelper.decodeToken(token);
@@ -280,6 +280,7 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
     });
 
   $scope.getRequests = function(inOut) {
+    angular.element(".request-row").remove();
     $scope.inOut = inOut;
     updateTable(inOut);
     Connection.getRequests($scope.fromId, inOut)

@@ -193,10 +193,8 @@ border-color: #DB8B31;
   background: #2D2D2D;
   border-bottom: 1px solid #43413F;
   color: #ffffff;
-}
-
-.table-w-body p{
-  margin-top:5pt;
+  margin-top: 10pt  !important;
+  margin-bottom: 10pt !important;
 }
 
 .input-w {
