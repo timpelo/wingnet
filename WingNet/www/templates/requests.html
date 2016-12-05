@@ -1,5 +1,32 @@
 <ion-view view-title="Requests">
   <ion-content ng-controller="RequestController" class="background-dark-w">
+
+    <!-- Request mondal -->
+    <script id="request-action-modal" type="text/ng-template">
+      <ion-modal-view class="request-modal" style="background:#43413F;">
+        <ion-content class="center-w">
+          <div class="row">
+            <div class="col">
+              <button class="button button-primary-w" style="width:95%" ng-click="closeModal()">Accept request</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <button ng-click="closeModal()" style="width:95%" class="button button-primary-w">Decline request</button>
+            </div>
+          </div>
+        </ion-content>
+      </ion-modal-view>
+    </script>
+
+    <div class="row">
+      <div class="col">
+        <button ng-click="#" style="width:100%;margin:0;" class="button button-primary-w">Recieved</button>
+      </div>
+      <div class="col">
+        <button ng-click="#" style="width:100%;margin:0;" class="button button-primary-w">Sent</button>
+      </div>
+    </div>
     <p style="height:20px"></p>
     <div class="row table-w-head">
       <div class="col">
@@ -15,7 +42,8 @@
         <p>Status</p>
       </div>
     </div>
-    <div class="row table-w-body request-row" ng-repeat="request in requests" fade-in-directive>
+    <div class="row table-w-body request-row" ng-repeat="request in requests" fade-in-directive
+        on-hold="openModal()">
       <div class="col">
         <p>{{request.fromName}}</p>
       </div>
@@ -26,7 +54,7 @@
         <p>{{request.platform.toString()}}</p>
       </div>
       <div class="col">
-        <p>{{request.status}}</p>
+        <p>{{request.status | uppercase}}</p>
       </div>
     </div>
   </ion-content>

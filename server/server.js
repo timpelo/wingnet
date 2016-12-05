@@ -146,8 +146,10 @@
 
    apiRoutes.get("/requests", function(req, res) {
       var profileId = req.query.profileId;
-      if (profileId != null && profileId != undefined) {
-         mongo.getRequests(profileId, function(result) {
+      var inOut = req.query.inOut;
+      if (profileId != null && profileId != undefined &&
+         inOut != null && inOut != undefined) {
+         mongo.getRequests(profileId, inOut, function(result) {
             if (result.success != false) {
                res.json({
                   success: true,

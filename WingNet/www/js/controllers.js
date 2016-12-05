@@ -1,5 +1,5 @@
 var token = undefined;
-var dev = false;
+var dev = true;
 var hostDev = "http://localhost:8080";
 var hostRelease = "http://35.160.11.177:8080";
 
@@ -60,13 +60,14 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
       body.token = token;
       return $http.post(host + '/api/profiles/update', body);
     },
-    getRequests: function(profileId) {
+    getRequests: function(profileId, inOut) {
       token = $cookies.get('devCookie');
       return $http({
         url: host + '/api/requests/',
         method: "GET",
         params: {
           profileId: profileId,
+          inOut: inOut,
           token: token
         }
       });
@@ -242,7 +243,7 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
 
 
 .controller('RequestController', function($scope, $cookies, jwtHelper,
-  Connection) {
+  Connection, $ionicModal) {
   angular.element(".request-row").remove();
 
   token = $cookies.get('devCookie');
@@ -254,7 +255,7 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
     .success(function(result) {
       if (result.success) {
         $scope.fromId = result.data._id;
-        Connection.getRequests($scope.fromId)
+        Connection.getRequests($scope.fromId, "IN")
           .success(function(result) {
             if (result.success) {
               console.log(JSON.stringify(result));
@@ -290,6 +291,32 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
         }
       });
   }
+
+  // Modal for accepting and declining requests
+  $ionicModal.fromTemplateUrl('request-action-modal', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+  $scope.openModal = function() {
+    $scope.modal.show();
+  };
+  $scope.closeModal = function() {
+    $scope.modal.hide();
+  };
+  // Cleanup the modal when we're done with it!
+  $scope.$on('$destroy', function() {
+    $scope.modal.remove();
+  });
+  // Execute action on hide modal
+  $scope.$on('modal.hidden', function() {
+    // Execute action
+  });
+  // Execute action on remove modal
+  $scope.$on('modal.removed', function() {
+    // Execute action
+  });
 })
 
 .controller('ProfileController', function($scope, $cookies, Connection,
