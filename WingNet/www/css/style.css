@@ -249,6 +249,11 @@ border-color: #DB8B31;
   background-repeat: no-repeat;
 }
 
+.icon-cg {
+  background:url("../img/icon_cg.png");
+  background-repeat: no-repeat;
+}
+
 .interest-status-accepted {
   color: green;
 }
