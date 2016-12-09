@@ -290,7 +290,6 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
         Connection.getRequests($scope.fromId, "IN")
           .success(function(result) {
             if (result.success) {
-              console.log(JSON.stringify(result));
               $scope.requests = result.data;
             } else {
               alert(result.message);
@@ -308,7 +307,6 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
     Connection.getRequests($scope.fromId, inOut)
       .success(function(result) {
         if (result.success) {
-          console.log(JSON.stringify(result));
           $scope.requests = result.data;
         } else {
           alert(result.message);
@@ -321,7 +319,6 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
     Connection.removeRequest(requestId)
       .success(function(result) {
         if (result.success) {
-          console.log(JSON.stringify(result));
           alert(result.message);
         } else {
           alert(result.message);
@@ -339,11 +336,9 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
     var body = {
       request: request
     };
-    console.log(request);
     Connection.updateRequest(body)
       .success(function(result) {
         if (result.success) {
-          console.log(JSON.stringify(result));
           alert(result.message);
         } else {
           alert(result.message);
