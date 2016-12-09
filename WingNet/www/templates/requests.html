@@ -8,12 +8,12 @@
           <!-- Buttons for incoming request actions -->
           <div ng-show="showInRequests" class="row">
             <div class="col">
-              <button class="button button-primary-w" style="width:95%" ng-click="closeModal()">Accept request</button>
+              <button class="button button-primary-w" style="width:95%" ng-click="updateRequest('Accepted')">Accept request</button>
             </div>
           </div>
           <div ng-show="showInRequests" class="row">
             <div class="col">
-              <button ng-click="closeModal()" style="width:95%" class="button button-primary-w">Decline request</button>
+              <button ng-click="updateRequest('Declined')" style="width:95%" class="button button-primary-w">Decline request</button>
             </div>
           </div>
           <!-- Buttons for outgoing request actions -->
