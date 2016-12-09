@@ -7,6 +7,8 @@
    var profilesCollection = "profiles";
    var requestCollection = "requests";
    var userCollection = "users";
+   var messageCollection = "messages";
+   var conversationsCollection = "conversations";
 
    /* List functions */
 
@@ -231,6 +233,89 @@
       });
    }
 
+   /*
+      var messageModel = {
+        _id:ObjectID(asdasd),
+        conversationId : sadasfgagagj,
+         sender : "john",
+         message : "Tell me your name"
+      }
+   */
+   function getMessages(filter, callback) {
+      MongoClient.connect(url, function(err, db) {
+         var collection = db.collection(messageCollection);
+         collection.find(filter).toArray(function(err, result) {
+            if (err != null) {
+               callback({
+                  "success": "false",
+                  "message": err
+               });
+            } else {
+               callback(result);
+            }
+            db.close();
+         });
+      });
+   }
+
+   function addMessage(message, callback) {
+      MongoClient.connect(url, function(err, db) {
+         var collection = db.collection(profilesCollection);
+         collection.insertOne(profile, function(err, result) {
+            if (err != null) {
+               callback({
+                  "success": "false",
+                  "message": err
+               });
+            } else {
+               callback(result);
+            }
+            db.close();
+         });
+      });
+   }
+
+   /*
+      var conversationDatamodel = {
+        _id:ObjectID(asdasd),
+         participantIds : ["safafafa", "sfafasfafga"],
+         participantNames : ["john", "Sarah"],
+      }
+   */
+   function getConversations(filter, callback) {
+      MongoClient.connect(url, function(err, db) {
+         var collection = db.collection(conversationsCollection);
+         collection.find(filter).toArray(function(err, result) {
+            if (err != null) {
+               callback({
+                  "success": "false",
+                  "message": err
+               });
+            } else {
+               callback(result);
+            }
+            db.close();
+         });
+      });
+   }
+
+   function addConversation(conversation, callback) {
+      MongoClient.connect(url, function(err, db) {
+         var collection = db.collection(profilesCollection);
+         collection.insertOne(profile, function(err, result) {
+            if (err != null) {
+               callback({
+                  "success": "false",
+                  "message": err
+               });
+            } else {
+               callback(result);
+            }
+            db.close();
+         });
+      });
+   }
+
    /* Utils */
    function getLastId(collectionName, callback) {
       MongoClient.connect(url, function(err, db) {
@@ -302,4 +387,8 @@
    exports.getProfileWithUserId = getProfileWithUserId;
    exports.removeRequest = removeRequest;
    exports.updateRequest = updateRequest;
+   exports.getMessages = getMessages;
+   exports.addMessage = addMessage;
+   exports.getConversations = getConversations;
+   exports.addConversation = addConversation;
 }())
