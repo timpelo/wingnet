@@ -191,6 +191,23 @@
       }
    });
 
+   apiRoutes.delete("/requests/delete", function(req, res) {
+      var profileId = req.query.requestId;
+
+      if (profileId != null && request != undefined) {
+         mongo.removeRequest(profileId, function(result) {
+            if (result.success != false) {
+               res.json({
+                  success: true,
+                  message: 'Request removed!'
+               });
+            } else {
+               res.json(result);
+            }
+         });
+      }
+   });
+
    app.post("/login", function(req, res) {
       mongo.getUser({
          username: req.body.username

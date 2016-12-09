@@ -82,6 +82,17 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
       token = $cookies.get('devCookie');
       body.token = token;
       return $http.post(host + '/api/requests/add', body);
+    },
+    removeRequest: function(requestId) {
+      token = $cookies.get('devCookie');
+      return $http({
+        url: host + '/api/requests/delete',
+        method: "DELETE",
+        params: {
+          requestId: requestId,
+          token: token
+        }
+      });
     }
   }
 })
@@ -244,6 +255,7 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
 
 .controller('RequestController', function($scope, $cookies, jwtHelper,
   Connection, $ionicModal) {
+  var selectedRequest;
   $scope.inOut = "IN";
   $scope.showInRequests = true;
 
@@ -279,7 +291,7 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
     });
 
   $scope.getRequests = function(inOut) {
-    angular.element(".request-row").remove();
+    angular.element(".profile-row").remove();
     $scope.inOut = inOut;
     updateTable(inOut);
     Connection.getRequests($scope.fromId, inOut)
@@ -287,6 +299,19 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
         if (result.success) {
           console.log(JSON.stringify(result));
           $scope.requests = result.data;
+        } else {
+          alert(result.message);
+        }
+      });
+  }
+
+  $scope.removeRequest = function() {
+    var requestId = selectedRequest._id;
+    Connection.removeRequest(requestId)
+      .success(function(result) {
+        if (result.success) {
+          console.log(JSON.stringify(result));
+          alert(result.message);
         } else {
           alert(result.message);
         }
@@ -323,7 +348,8 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
   }).then(function(modal) {
     $scope.modal = modal;
   });
-  $scope.openModal = function() {
+  $scope.openModal = function(result) {
+    selectedRequest = result;
     $scope.modal.show();
   };
   $scope.closeModal = function() {

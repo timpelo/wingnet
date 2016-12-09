@@ -19,7 +19,7 @@
           <!-- Buttons for outgoing request actions -->
           <div ng-hide="showInRequests" class="row">
             <div class="col">
-              <button ng-click="closeModal()" style="width:95%" class="button button-primary-w">Cancel request</button>
+              <button ng-click="removeRequest()" style="width:95%" class="button button-primary-w">Cancel request</button>
             </div>
           </div>
         </ion-content>
@@ -44,11 +44,12 @@
       </div>
     </div>
 
-    <div class="profile-row" ng-repeat="request in requests" ng-hold="openModal">
+
+    <div id="{{request._id}}" class="profile-row" ng-repeat="request in requests" on-hold="openModal({{request}})">
       <div class="row name-row">
         <div class="col">
           <p ng-show="showInRequests">{{request.fromName}}</p>
-          <p ng-hide="showInRequests">{{request.to}}</p>
+          <p ng-hide="showInRequests">{{request.toName}}</p>
         </div>
       </div>
       <div class="row profile-content-row">
