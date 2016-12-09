@@ -93,6 +93,11 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
           token: token
         }
       });
+    },
+    updateRequest: function(body) {
+      token = $cookies.get('devCookie');
+      body.token = token;
+      return $http.post(host + '/api/requests/update', body);
     }
   }
 })
@@ -310,6 +315,27 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
 
   $scope.removeRequest = function(requestId) {
     Connection.removeRequest(requestId)
+      .success(function(result) {
+        if (result.success) {
+          console.log(JSON.stringify(result));
+          alert(result.message);
+        } else {
+          alert(result.message);
+        }
+      });
+  }
+
+  $scope.updateRequest = function(request, acceptDecline) {
+    if (acceptDecline == "accept") {
+      request.status == "accepted";
+    } else {
+      request.status == "declined";
+    }
+    var body = {
+      request: request
+    };
+
+    Connection.updateRequest(body)
       .success(function(result) {
         if (result.success) {
           console.log(JSON.stringify(result));
