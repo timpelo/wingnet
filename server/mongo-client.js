@@ -249,31 +249,41 @@
    }
 
    function fillRequestInfo(inResult, inOut, callback) {
-
-      // Get list of profile Ids
-      var fromIds = inResult.map(function(a) {
-         return {
-            _id: ObjectID(a.from)
-         }
-      });
+      var ids = [];
+      if (inOut == "IN") {
+         ids = inResult.map(function(a) {
+            return {
+               _id: ObjectID(a.from)
+            }
+         });
+      } else if (inOut == "OUT") {
+         ids = inResult.map(function(a) {
+            return {
+               _id: ObjectID(a.to)
+            }
+         });
+      }
 
       var filter = {
-         $or: fromIds
+         $or: ids
       };
       getProfiles(filter, fillMethod);
 
       function fillMethod(fillInfo) {
          for (var i = 0; i < inResult.length; i++) {
             for (var j = 0; j < fillInfo.length; j++) {
-               if (fillInfo[j]._id == inResult[i].from) {
-                  if (inOut == "IN") {
+               if (inOut == "IN") {
+                  if (fillInfo[j]._id == inResult[i].from) {
                      inResult[i].fromName = fillInfo[j].name;
-                  } else if (inOut == "OUT") {
-                     inResult[i].toName = fillInfo[j].name;
+                     inResult[i].interest = fillInfo[j].interest;
+                     inResult[i].platform = fillInfo[j].platform;
                   }
-
-                  inResult[i].interest = fillInfo[j].interest;
-                  inResult[i].platform = fillInfo[j].platform;
+               } else if (inOut == "OUT") {
+                  if (fillInfo[j]._id == inResult[i].to) {
+                     inResult[i].toName = fillInfo[j].name;
+                     inResult[i].interest = fillInfo[j].interest;
+                     inResult[i].platform = fillInfo[j].platform;
+                  }
                }
             }
          }
