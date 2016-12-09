@@ -331,15 +331,15 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
 
   $scope.updateRequest = function(acceptDecline) {
     var request = selectedRequest;
-    if (acceptDecline == "accepted") {
-      request.status == "accepted";
-    } else {
-      request.status == "declined";
+    if (acceptDecline == "Accepted") {
+      request.status = "accepted";
+    } else if (acceptDecline == "Declined") {
+      request.status = "declined";
     }
     var body = {
       request: request
     };
-
+    console.log(request);
     Connection.updateRequest(body)
       .success(function(result) {
         if (result.success) {

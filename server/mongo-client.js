@@ -192,9 +192,10 @@
 
    function updateRequest(request, callback) {
       MongoClient.connect(url, function(err, db) {
-         var collection = db.collection(profilesCollection);
+         var collection = db.collection(requestCollection);
          var o_id = ObjectID(request._id);
          delete request._id;
+         console.log(request);
          collection.update({
             _id: o_id
          }, request, function(err, result) {

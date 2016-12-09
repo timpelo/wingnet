@@ -215,6 +215,7 @@
             if (result.success != false) {
                res.json({
                   success: true,
+                  message: "Request updated",
                   data: result
                });
             } else {
