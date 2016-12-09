@@ -2,16 +2,14 @@
   <ion-content class="background-dark-w" ng-controller="ProfileController">
     <!-- Commander name -->
     <div class="row">
-      <div style="width:90%">
-        <form ng-submit="toggleEdit()">
-          <input id="nameInput" type="text" class="input-w-bigfont profile-name-label-w" ng-model="profile.name"
-              readonly>
-        </form>
+      <div class="col" style="text-align:center">
+        <input id="nameInput" type="text" class="input-w-bigfont profile-name-label-w" ng-model="profile.name"
+            readonly>
       </div>
-      <div style="text-align:right;width:10%;">
+      <!-- <div style="text-align:right;width:10%;">
         <button id="editButton" ng-click="toggleEdit()" style="margin-right:20pt;margin-top:5pt;"
             class="button-right button icon-middle ion-edit icon-button-w"></button>
-      </div>
+      </div> -->
     </div>
 
     <!-- Platform -->
