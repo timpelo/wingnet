@@ -290,7 +290,6 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
         Connection.getRequests($scope.fromId, "IN")
           .success(function(result) {
             if (result.success) {
-              console.log(JSON.stringify(result));
               $scope.requests = result.data;
             } else {
               alert(result.message);
@@ -308,7 +307,6 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
     Connection.getRequests($scope.fromId, inOut)
       .success(function(result) {
         if (result.success) {
-          console.log(JSON.stringify(result));
           $scope.requests = result.data;
         } else {
           alert(result.message);
@@ -321,7 +319,6 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
     Connection.removeRequest(requestId)
       .success(function(result) {
         if (result.success) {
-          console.log(JSON.stringify(result));
           alert(result.message);
         } else {
           alert(result.message);
@@ -331,19 +328,17 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
 
   $scope.updateRequest = function(acceptDecline) {
     var request = selectedRequest;
-    if (acceptDecline == "accepted") {
-      request.status == "accepted";
-    } else {
-      request.status == "declined";
+    if (acceptDecline == "Accepted") {
+      request.status = "accepted";
+    } else if (acceptDecline == "Declined") {
+      request.status = "declined";
     }
     var body = {
       request: request
     };
-
     Connection.updateRequest(body)
       .success(function(result) {
         if (result.success) {
-          console.log(JSON.stringify(result));
           alert(result.message);
         } else {
           alert(result.message);
