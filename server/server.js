@@ -208,6 +208,22 @@
       }
    });
 
+   apiRoutes.post("/requests/update", function(req, res) {
+      var request = req.body.request;
+      if (request != null && request != undefined) {
+         mongo.updateRequest(request, function(result) {
+            if (result.success != false) {
+               res.json({
+                  success: true,
+                  data: result
+               });
+            } else {
+               res.json(result);
+            }
+         });
+      }
+   });
+
    app.post("/login", function(req, res) {
       mongo.getUser({
          username: req.body.username
@@ -394,5 +410,42 @@
 
       return response;
    }
+
+}())
+e,
+message: 'Failed to authenticate token.'
+});
+}
+else {
+   callback({
+      success: true,
+      decoded: decoded
+   });
+}
+});
+}
+
+/* Server */
+var server = app.listen(serverPort, function() {});
+
+/* Models */
+var Profile = function(name, platform, interest) {
+   var profile = {
+      "name": name,
+      "platform": description,
+      "interest": interest
+   };
+
+   return profile;
+}
+
+var JSONResponse = function(success, message) {
+   var response = {
+      "success": success,
+      "message": message
+   }
+
+   return response;
+}
 
 }())

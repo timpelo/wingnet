@@ -188,6 +188,27 @@
       });
    }
 
+   function updateRequest(request, callback) {
+      MongoClient.connect(url, function(err, db) {
+         var collection = db.collection(profilesCollection);
+         var o_id = ObjectID(request._id);
+         delete request._id;
+         collection.update({
+            _id: o_id
+         }, request, function(err, result) {
+            if (err != null) {
+               callback({
+                  "success": "false",
+                  "message": err
+               });
+            } else {
+               callback(result);
+            }
+            db.close();
+         });
+      });
+   }
+
    function updateProfile(profile, callback) {
       MongoClient.connect(url, function(err, db) {
          var collection = db.collection(profilesCollection);
@@ -270,4 +291,5 @@
    exports.updateProfile = updateProfile;
    exports.getProfileWithUserId = getProfileWithUserId;
    exports.removeRequest = removeRequest;
+   exports.updateRequest = updateRequest;
 }())
