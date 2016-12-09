@@ -1,5 +1,5 @@
 var token = undefined;
-var dev = false;
+var dev = true;
 var hostDev = "http://localhost:8080";
 var hostRelease = "http://35.160.11.177:8080";
 
@@ -329,7 +329,8 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
       });
   }
 
-  $scope.updateRequest = function(request, acceptDecline) {
+  $scope.updateRequest = function(acceptDecline) {
+    var request = selectedRequest;
     if (acceptDecline == "accept") {
       request.status == "accepted";
     } else {

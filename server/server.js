@@ -192,10 +192,10 @@
    });
 
    apiRoutes.delete("/requests/delete", function(req, res) {
-      var profileId = req.query.requestId;
+      var requestId = req.query.requestId;
 
-      if (profileId != null && request != undefined) {
-         mongo.removeRequest(profileId, function(result) {
+      if (requestId != null && requestId != undefined) {
+         mongo.removeRequest(requestId, function(result) {
             if (result.success != false) {
                res.json({
                   success: true,
@@ -411,41 +411,4 @@
       return response;
    }
 
-}())
-e,
-message: 'Failed to authenticate token.'
-});
-}
-else {
-   callback({
-      success: true,
-      decoded: decoded
-   });
-}
-});
-}
-
-/* Server */
-var server = app.listen(serverPort, function() {});
-
-/* Models */
-var Profile = function(name, platform, interest) {
-   var profile = {
-      "name": name,
-      "platform": description,
-      "interest": interest
-   };
-
-   return profile;
-}
-
-var JSONResponse = function(success, message) {
-   var response = {
-      "success": success,
-      "message": message
-   }
-
-   return response;
-}
-
-}())
+}());
