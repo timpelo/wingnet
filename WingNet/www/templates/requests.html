@@ -58,7 +58,7 @@
         <p>{{request.platform.toString()}}</p>
       </div>
       <div class="col ">
-        <p>{{request.status | uppercase}}</p>
+        <div class="interest-icon icon-{{request.status | lowercase}}"></div>
       </div>
     </div>
   </ion-content>

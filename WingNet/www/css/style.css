@@ -253,6 +253,21 @@ border-color: #DB8B31;
   background-repeat: no-repeat;
 }
 
+.icon-accepted {
+  background:url("../img/icon_status_accepted.png");
+  background-repeat: no-repeat;
+}
+
+.icon-denied {
+  background:url("../img/icon_status_denied.png");
+  background-repeat: no-repeat;
+}
+
+.icon-pending {
+  background:url("../img/icon_status_pending.png");
+  background-repeat: no-repeat;
+}
+
 .toggle-w{
   background-color: #2D2D2D;
   border: none;
