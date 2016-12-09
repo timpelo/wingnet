@@ -16,6 +16,8 @@
 }
 .title{
   color: white !important;
+  font-size: 20pt !important;
+  font-family: 'Open Sans Condensed', sans-serif !important;
 }
 
 .request-modal{
