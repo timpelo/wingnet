@@ -245,6 +245,7 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
 .controller('RequestController', function($scope, $cookies, jwtHelper,
   Connection, $ionicModal) {
   $scope.inOut = "IN";
+  $scope.showInOptions = true;
 
   token = $cookies.get('devCookie');
   var tokenPayload = jwtHelper.decodeToken(token);
@@ -255,9 +256,11 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
     if (inOut == "IN") {
       angular.element("#to-label").hide();
       angular.element("#from-label").show();
+      $scope.showInOptions = true;
     } else {
       angular.element("#to-label").show();
       angular.element("#from-label").hide();
+      $scope.showInOptions = false;
     }
   }
 

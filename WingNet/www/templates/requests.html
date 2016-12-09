@@ -5,14 +5,21 @@
     <script id="request-action-modal" type="text/ng-template">
       <ion-modal-view class="request-modal" style="background:#43413F;">
         <ion-content class="center-w">
-          <div class="row">
+          <!-- Buttons for incoming request actions -->
+          <div ng-show="showInOptions" class="row">
             <div class="col">
               <button class="button button-primary-w" style="width:95%" ng-click="closeModal()">Accept request</button>
             </div>
           </div>
-          <div class="row">
+          <div ng-show="showInOptions" class="row">
             <div class="col">
               <button ng-click="closeModal()" style="width:95%" class="button button-primary-w">Decline request</button>
+            </div>
+          </div>
+          <!-- Buttons for outgoing request actions -->
+          <div ng-hide="showInOptions" class="row">
+            <div class="col">
+              <button ng-click="closeModal()" style="width:95%" class="button button-primary-w">Cancel request</button>
             </div>
           </div>
         </ion-content>
@@ -30,34 +37,34 @@
     </div>
     <p style="height:20px "></p>
     <div class="row table-w-head ">
-      <div class="col ">
+      <div style="width:40%;">
         <p id="from-label">From</p>
         <p id="to-label" style="display:none;">To</p>
       </div>
-      <div class="col ">
+      <div style="width:20%;">
         <p>Interest</p>
       </div>
-      <div class="col ">
+      <div style="width:20%;">
         <p>Platform</p>
       </div>
-      <div class="col ">
+      <div style="width:20%;">
         <p>Status</p>
       </div>
     </div>
     <div class="row table-w-body request-row " ng-repeat="request in requests " fade-in-directive
         on-hold="openModal() ">
-      <div class="col ">
+      <div style="width:40%;">
         <p class="from-name-label">{{inOut === "IN" ? request.fromName : request.to}}</p>
         <p class="to-name-label" style="display:none;">{{request.to}}</p>
       </div>
-      <div class="col ">
+      <div style="width:30%;">
         <div ng-repeat="interest in request.interest " class="interest-icon icon-{{interest
             | lowercase}} "></div>
       </div>
-      <div class="col ">
+      <!--<div style="width:20%;">
         <p>{{request.platform.toString()}}</p>
-      </div>
-      <div class="col ">
+      </div>-->
+      <div style="width:30%;">
         <div class="interest-icon icon-{{request.status | lowercase}}"></div>
       </div>
     </div>
