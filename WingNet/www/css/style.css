@@ -170,32 +170,28 @@ border-color: #DB8B31;
 .input-focusable:focus{
   background-color: #43413F !important;
 }
-.table-w {
-  margin-top: 10pt;
-  margin-bottom: 10pt;
-}
 
 .borderless-w {
   border: none;
 }
 
-.table-w-head {
+.name-row{
   background-color: #DB8B31;
   color: #ffffff;
   font-size:15pt;
-  border:none;
+  margin-bottom:5pt;
 }
 
-.table-w-body {
-  margin: 2px !important;
-  border-top: none;
-  font-size: 14pt !important;
-  background: #2D2D2D;
-  border-bottom: 1px solid #43413F;
+.profile-content-row{
+  font-size: 12pt;
   color: #ffffff;
-  margin-top: 10pt  !important;
-  margin-bottom: 10pt !important;
 }
+
+.profile-row {
+  border: 2px solid #43413F;
+  margin-bottom: 15pt;
+}
+
 
 .input-w {
   display: inline-block  !important;
