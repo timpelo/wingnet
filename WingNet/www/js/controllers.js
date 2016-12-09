@@ -225,6 +225,12 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
       });
     }
 
+    if ($scope.filter.interest.cg) {
+      checkboxValues.push({
+        interest: "CG"
+      });
+    }
+
     return checkboxValues;
   }
 
@@ -497,6 +503,9 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
     if ($scope.profile.interest.combat) {
       interests.push("Combat");
     }
+    if ($scope.profile.interest.cg) {
+      interests.push("CG");
+    }
     return interests;
   }
 
@@ -509,6 +518,9 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
     }
     if (interests.indexOf("Combat") != -1) {
       $scope.profile.interest.combat = true;
+    }
+    if (interests.indexOf("CG") != -1) {
+      $scope.profile.interest.cg = true;
     }
   }
 })
