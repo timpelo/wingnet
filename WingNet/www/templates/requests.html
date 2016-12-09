@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <div class="profile-row" ng-repeat="request in requests">
+    <div class="profile-row" ng-repeat="request in requests" ng-hold="openModal">
       <div class="row name-row">
         <div class="col">
           <p ng-show="showInRequests">{{request.fromName}}</p>
