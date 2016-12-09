@@ -249,19 +249,16 @@ border-color: #DB8B31;
   background-repeat: no-repeat;
 }
 
-.icon-accepted {
-  background:url("../img/icon_status_accepted.png");
-  background-repeat: no-repeat;
+.interest-status-accepted {
+  color: green;
 }
 
-.icon-denied {
-  background:url("../img/icon_status_denied.png");
-  background-repeat: no-repeat;
+.interest-status-denied {
+  color: red;
 }
 
-.icon-pending {
-  background:url("../img/icon_status_pending.png");
-  background-repeat: no-repeat;
+.interest-status-pending {
+  color: yellow;
 }
 
 .toggle-w{

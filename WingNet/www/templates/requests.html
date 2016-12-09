@@ -74,7 +74,9 @@
           <p>Status</p>
         </div>
         <div class="col">
-          <div class="interest-icon icon-{{request.status | lowercase}}"></div>
+          <p class="interest-status-{{request.status | lowercase}}">
+            {{request.status | uppercase}}
+          </p>
         </div>
       </div>
     </div>
