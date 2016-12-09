@@ -1,5 +1,5 @@
 var token = undefined;
-var dev = false;
+var dev = true;
 var hostDev = "http://localhost:8080";
 var hostRelease = "http://35.160.11.177:8080";
 
@@ -82,6 +82,17 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
       token = $cookies.get('devCookie');
       body.token = token;
       return $http.post(host + '/api/requests/add', body);
+    },
+    removeRequest: function(requestId) {
+      token = $cookies.get('devCookie');
+      return $http({
+        url: host + '/api/requests/delete',
+        method: "DELETE",
+        params: {
+          requestId: requestId,
+          token: token
+        }
+      });
     }
   }
 })
@@ -291,6 +302,18 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
         if (result.success) {
           console.log(JSON.stringify(result));
           $scope.requests = result.data;
+        } else {
+          alert(result.message);
+        }
+      });
+  }
+
+  $scope.removeRequest = function(requestId) {
+    Connection.removeRequest(requestId)
+      .success(function(result) {
+        if (result.success) {
+          console.log(JSON.stringify(result));
+          alert(result.message);
         } else {
           alert(result.message);
         }

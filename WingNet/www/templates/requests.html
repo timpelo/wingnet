@@ -54,7 +54,7 @@
     <div class="row table-w-body request-row " ng-repeat="request in requests " fade-in-directive
         on-hold="openModal() ">
       <div style="width:40%;">
-        <p class="from-name-label">{{inOut === "IN" ? request.fromName : request.to}}</p>
+        <p class="from-name-label">{{inOut === "IN" ? request.fromName : request.toName}}</p>
         <p class="to-name-label" style="display:none;">{{request.to}}</p>
       </div>
       <div style="width:30%;">

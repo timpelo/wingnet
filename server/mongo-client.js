@@ -128,7 +128,7 @@
                   "message": err
                });
             } else {
-               fillRequestInfo(result, callback);
+               fillRequestInfo(result, inOut, callback);
             }
             db.close();
          });
@@ -156,6 +156,25 @@
       MongoClient.connect(url, function(err, db) {
          var collection = db.collection(requestCollection);
          collection.insertOne(request, function(err, result) {
+            if (err != null) {
+               callback({
+                  "success": "false",
+                  "message": err
+               });
+            } else {
+               callback(result);
+            }
+            db.close();
+         });
+      });
+   }
+
+   function removeRequest(requestId, callback) {
+      MongoClient.connect(url, function(err, db) {
+         var collection = db.collection(requestCollection);
+         collection.remove({
+            _id: ObjectID(requestId)
+         }, function(err, result) {
             if (err != null) {
                callback({
                   "success": "false",
@@ -208,7 +227,7 @@
       });
    }
 
-   function fillRequestInfo(inResult, callback) {
+   function fillRequestInfo(inResult, inOut, callback) {
 
       // Get list of profile Ids
       var fromIds = inResult.map(function(a) {
@@ -226,7 +245,12 @@
          for (var i = 0; i < inResult.length; i++) {
             for (var j = 0; j < fillInfo.length; j++) {
                if (fillInfo[j]._id == inResult[i].from) {
-                  inResult[i].fromName = fillInfo[j].name;
+                  if (inOut == "IN") {
+                     inResult[i].fromName = fillInfo[j].name;
+                  } else if (inOut == "OUT") {
+                     inResult[i].toName = fillInfo[j].name;
+                  }
+
                   inResult[i].interest = fillInfo[j].interest;
                   inResult[i].platform = fillInfo[j].platform;
                }
@@ -245,4 +269,5 @@
    exports.getUser = getUser;
    exports.updateProfile = updateProfile;
    exports.getProfileWithUserId = getProfileWithUserId;
+   exports.removeRequest = removeRequest;
 }())
