@@ -3,7 +3,7 @@
     <div class="profile-row" ng-repeat="conversation in conversations" on-hold="openMessenger('{{conversation._id}}')">
       <div class="row name-row sans-font">
         <div class="col">
-          <p>{{conversation.participantNames}}</p>
+          <p>{{conversation.participantNames.toString()}}</p>
         </div>
       </div>
       <div class="row profile-content-row sans-font">
