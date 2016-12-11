@@ -1,5 +1,5 @@
 angular.module('default.controllers').controller('MessageController',
-  function($scope, Connection, $state) {
+  function($scope, Connection, $state, $interval) {
     conversationId = "584d377256776e2d1bc87060";
 
     Connection.getMessages(conversationId)
