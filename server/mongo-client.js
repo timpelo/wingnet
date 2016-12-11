@@ -280,7 +280,7 @@
       var conversationDatamodel = {
         _id:ObjectID(asdasd),
          participantIds : ["safafafa", "sfafasfafga"],
-         participantNames : ["john", "Sarah"],
+         participantNames : ["john", "Sarah"]
       }
    */
    function getConversations(filter, callback) {

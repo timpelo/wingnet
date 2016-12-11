@@ -68,7 +68,7 @@ exports.delete = function(req, res) {
    var requestId = req.query.requestId;
 
    if (requestId != null && requestId != undefined) {
-      var token = req.body.token;
+      var token = req.query.token;
       var payload = jwt.verify(token, superSecret);
       var profileId = payload.profileId;
       mongo.removeRequest(requestId, profileId, function(result) {
@@ -80,6 +80,11 @@ exports.delete = function(req, res) {
          } else {
             res.json(result);
          }
+      });
+   } else {
+      res.json({
+         success: false,
+         message: 'Error'
       });
    }
 };
