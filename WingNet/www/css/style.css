@@ -54,6 +54,8 @@
   background-color: #DB8B31;
   color: #ffffff;
   border: none;
+  font-size:15pt;
+  font-family: 'Open Sans Condensed', sans-serif !important;
 }
 
 .button-primary-w:focus,
@@ -63,6 +65,11 @@
   background-color: #BB5500;
   color: #ffffff;
   border: none;
+}
+
+.back-button {
+  font-size:15pt;
+  font-family: 'Open Sans Condensed', sans-serif !important;
 }
 
 .button-login-w {
