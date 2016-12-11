@@ -149,6 +149,7 @@ border-color: #DB8B31;
 }
 
 .message-send-button {
+  border: 1pt solid #BB5500 !important;
   width: 99% !important;
   margin: 0.5% !important;
   position: absolute !important;

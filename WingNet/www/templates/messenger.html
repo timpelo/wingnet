@@ -1,5 +1,5 @@
-<ion-view view-title="Messenger">
-  <ion-content class="background-dark-w" ng-controller="ConversationController">
+<ion-view view-title="Messenger" ng-controller="ConversationController">
+  <ion-content class="background-dark-w">
     <div class="row message-box message-box-own">
       <div class="col">
         Hello<br /> We AD
@@ -16,9 +16,11 @@
       </div>
     </div>
   </ion-content>
-  <div class="wrapper" style="position:relative;height:100%;width:100%;margin:0;">
-    <button id="sendMessageButton" class="button button-primary-w message-send-button">Send</button>
-    <textarea id="newMessage" class="message-field" ng-model="messenger.message" rows="10">
+  <div id="wrapper" style="position:relative;height:100%;width:100%;margin:0;">
+    <button ng-click="sendMessage()" id="sendMessageButton" class="button button-primary-w message-send-button">
+      Send
+    </button>
+    <textarea id="newMessage" class="message-field" ng-model="messenger.message">
     </textarea>
   </div>
 </ion-view>

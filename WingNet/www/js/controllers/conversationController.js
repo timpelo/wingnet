@@ -1,6 +1,20 @@
 angular.module('default.controllers').controller('ConversationController',
   function($scope, Connection, $state) {
 
+    var openNewMessage = function() {
+      console.log("hep");
+      angular.element("#sendMessageButton").show();
+    }
+    angular.element('#newMessage').click(function() {
+      openNewMessage();
+    });
+
+    $scope.sendMessage = function() {
+      angular.element("#sendMessageButton").hide();
+      angular.element('#newMessage').val('');
+
+    }
+
     $scope.openMessenger = function() {
       $state.go('app.messenger');
     }
@@ -13,4 +27,6 @@ angular.module('default.controllers').controller('ConversationController',
           alert(result.message);
         }
       });
+
+
   });
