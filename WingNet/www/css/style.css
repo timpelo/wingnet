@@ -136,14 +136,14 @@ border-color: #DB8B31;
     margin: 10pt 10pt 10pt 10pt;
     color: #ffffff;
     background-color: #BB5500;
-    float: right;
+    float: left;
     border-radius: 5pt;
 }
 
 .message-box-own {
     color: #ffffff;
     background-color: #DB8B31;
-    float: left;
+    float: right;
 }
 
 .message-field {

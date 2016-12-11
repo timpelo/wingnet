@@ -90,6 +90,7 @@ angular.module('default', ['ionic', 'default.controllers'])
     })
     .state('app.conversations', {
       url: '/conversations',
+      cache: false,
       views: {
         'menuContent': {
           templateUrl: 'templates/conversations.html'
