@@ -135,14 +135,14 @@ border-color: #DB8B31;
     padding-top: 10pt 0 10pt 0;
     margin: 10pt 10pt 10pt 10pt;
     color: #ffffff;
-    background-color: #BB5500;
+    background-color: #DB8B31;
     float: left;
     border-radius: 5pt;
 }
 
 .message-box-own {
     color: #ffffff;
-    background-color: #DB8B31;
+    background-color: #BB5500;
     float: right;
 }
 
