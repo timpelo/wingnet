@@ -225,6 +225,102 @@
       }
    });
 
+   apiRoutes.get("/conversations", function(req, res) {
+      var profileId = req.query.profileId;
+
+      if (profileId != null && profileId != undefined) {
+         mongo.getConversations({
+            participantIds: profileId
+         }, function(result) {
+            if (result.success != false) {
+               res.json({
+                  success: true,
+                  data: result
+               });
+            } else {
+               res.json(result);
+            }
+         });
+      }
+   });
+
+   apiRoutes.post("/conversations/add", function(req, res) {
+      var conversation = req.body.conversation;
+
+      if (conversation != null && conversation != undefined) {
+         mongo.getConversations({
+            participantIds: conversation.participantIds
+         }, function(result) {
+            if (result.success != false && result.length == 0) {
+               mongo.addConversation(conversation, function(
+                  result) {
+                  if (result.success != false) {
+                     res.json({
+                        success: true,
+                        data: result
+                     });
+                  } else {
+                     res.json(result);
+                  }
+               });
+            } else {
+               res.json({
+                  success: false,
+                  message: 'You already have conversation open'
+               });
+            }
+         });
+      }
+   });
+
+   apiRoutes.get("/messages", function(req, res) {
+      var conversationId = req.query.conversationId;
+
+      if (conversationId != null && conversationId != undefined) {
+         mongo.getMessages({
+            conversationId: conversationId
+         }, function(result) {
+            if (result.success != false) {
+               res.json({
+                  success: true,
+                  data: result
+               });
+            } else {
+               res.json(result);
+            }
+         });
+      }
+   });
+
+   apiRoutes.post("/messages/add", function(req, res) {
+      var message = req.body.message;
+
+      if (message != null && message != undefined) {
+         mongo.getConversations({
+            _id: message.conversationId
+         }, function(result) {
+            if (result.success != false && result.length == 1) {
+               mongo.addMessage(message, function(
+                  result) {
+                  if (result.success != false) {
+                     res.json({
+                        success: true,
+                        data: result
+                     });
+                  } else {
+                     res.json(result);
+                  }
+               });
+            } else {
+               res.json({
+                  success: false,
+                  message: "You don't have conversation open"
+               });
+            }
+         });
+      }
+   });
+
    app.post("/login", function(req, res) {
       mongo.getUser({
          username: req.body.username

@@ -195,7 +195,6 @@
          var collection = db.collection(requestCollection);
          var o_id = ObjectID(request._id);
          delete request._id;
-         console.log(request);
          collection.update({
             _id: o_id
          }, request, function(err, result) {
@@ -286,6 +285,9 @@
    function getConversations(filter, callback) {
       MongoClient.connect(url, function(err, db) {
          var collection = db.collection(conversationsCollection);
+         if (filter._id != undefined) {
+            filter._id = ObjectID(filter._id);
+         }
          collection.find(filter).toArray(function(err, result) {
             if (err != null) {
                callback({
