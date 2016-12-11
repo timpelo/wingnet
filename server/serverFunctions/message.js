@@ -23,6 +23,13 @@ exports.messages = function(req, res) {
                conversationId: conversationId
             }, function(result) {
                if (result.success != false) {
+                  for (var i = 0; i < result.length; i++) {
+                     if (result[i].sender == payload.profileName) {
+                        result[i].own = true;
+                     } else {
+                        result[i].own = false;
+                     }
+                  }
                   res.json({
                      success: true,
                      data: result
