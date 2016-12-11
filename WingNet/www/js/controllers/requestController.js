@@ -74,14 +74,32 @@ angular.module('default.controllers').controller('RequestController',
         .success(function(result) {
           if (result.success) {
             alert(result.message);
+            if (acceptDecline == "Accepted") {
+              var body = {
+                conversation: {
+                  participantIds: [selectedRequest.to,
+                    selectedRequest.from
+                  ],
+                  participantNames: [selectedRequest.fromName,
+                    selectedRequest.toName
+                  ],
+                }
+              };
+              Connection.addConversation(body)
+                .success(function(result) {
+                  if (result.success) {
+                    // TODO: Go to conversation?
+                  } else {
+                    alert(result.message);
+                  }
+                });
+            }
           } else {
             alert(result.message);
           }
         });
 
-      if (acceptDecline == "Accepted") {
 
-      }
     }
 
     $scope.sendRequest = function(toUserId) {

@@ -1,5 +1,5 @@
 var token = undefined;
-var dev = false;
+var dev = true;
 var hostDev = "http://localhost:8080";
 var hostRelease = "http://35.160.11.177:8080";
 
@@ -103,6 +103,32 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
       token = $cookies.get('devCookie');
       body.token = token;
       return $http.post(host + '/api/conversations/add', body);
+    },
+    getConversations: function() {
+      token = $cookies.get('devCookie');
+      return $http({
+        url: host + '/api/conversations/',
+        method: "GET",
+        params: {
+          token: token
+        }
+      });
+    },
+    getMessages: function(conversationId) {
+      token = $cookies.get('devCookie');
+      return $http({
+        url: host + '/api/messages/',
+        method: "GET",
+        params: {
+          conversationId: conversationId,
+          token: token
+        }
+      });
+    },
+    addMessage: function(body) {
+      token = $cookies.get('devCookie');
+      body.token = token;
+      return $http.post(host + '/api/messages/add', body);
     }
   }
 })

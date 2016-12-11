@@ -35,15 +35,19 @@ exports.login = function(req, res) {
             if (req.body.remember == true) {
                expriration = 60 * 60 * 24 * 100;
             }
-            var token = jwt.sign(user, superSecret, {
-               expiresIn: expriration // expires in 24 hours unless remember == true
-            });
+            mongo.getProfileWithUserId(user._id, function(result) {
+               user.profileId = result._id;
+               user.profileName = result.name;
+               var token = jwt.sign(user, superSecret, {
+                  expiresIn: expriration // expires in 24 hours unless remember == true
+               });
 
-            // return the information including token as JSON
-            res.json({
-               success: true,
-               message: 'Enjoy your token!',
-               token: token
+               // return the information including token as JSON
+               res.json({
+                  success: true,
+                  message: 'Enjoy your token!',
+                  token: token
+               });
             });
          }
       }
