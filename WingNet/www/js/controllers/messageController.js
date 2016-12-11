@@ -46,4 +46,5 @@ angular.module('default.controllers').controller('MessageController',
     $scope.$on('$destroy', function() {
       $interval.cancel(interval);
     });
+
   });
