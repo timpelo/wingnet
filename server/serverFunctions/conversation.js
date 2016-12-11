@@ -8,8 +8,9 @@ var encodePw = "dotamasterraceblizzardsucks";
 var superSecret = "ilovedotadotaisthebest";
 
 exports.conversations = function(req, res) {
-   var profileId = req.query.profileId;
-
+   var token = req.query.token;
+   var payload = jwt.verify(token, superSecret);
+   var profileId = payload.profileId;
    if (profileId != null && profileId != undefined) {
       mongo.getConversations({
          participantIds: profileId
@@ -22,6 +23,11 @@ exports.conversations = function(req, res) {
          } else {
             res.json(result);
          }
+      });
+   } else {
+      res.json({
+         success: false,
+         message: "Error"
       });
    }
 };
