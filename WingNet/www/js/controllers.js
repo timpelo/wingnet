@@ -604,4 +604,8 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
       alert("Please fill your info");
     }
   }
+})
+
+.controller('ConversationController', function($scope, Connection) {
+
 });
