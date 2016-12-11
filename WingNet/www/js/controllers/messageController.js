@@ -14,7 +14,6 @@ angular.module('default.controllers').controller('MessageController',
 
     $scope.sendMessage = function() {
       var message = $scope.messenger.message;
-      angular.element("#sendMessageButton").hide();
       angular.element('#newMessage').val('');
 
       var body = {
@@ -33,9 +32,7 @@ angular.module('default.controllers').controller('MessageController',
         });
     }
 
-    $scope.openNewMessage = function() {
-      angular.element("#sendMessageButton").show();
-    }
+    $scope.openNewMessage = function() {}
 
     var interval = $interval(callAtInterval, 3000);
 
