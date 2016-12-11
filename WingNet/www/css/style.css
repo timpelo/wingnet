@@ -135,10 +135,17 @@ border-color: #DB8B31;
 }
 
 .message-field {
-  height: 50pt;
+  border: 1pt solid #DB8B31;
+  background-color: #43413F;
+  font-size: 15pt;
+  color: #ffffff;
+  padding: 5pt;
   width: 99%;
+  margin: 0.5%;
+  height: 100pt;
+  overflow: auto;
   position: absolute;
-  bottom: 0;
+  bottom: 10pt;
 }
 
 

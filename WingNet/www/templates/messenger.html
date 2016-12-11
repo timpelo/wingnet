@@ -15,12 +15,11 @@
         Whats up?!
       </div>
     </div>
-
-    <div class="row" style="position:relative;">
-      <div class="col" style="text-align:center">
-        <textarea id="newMessage" type="text" class="message-field" ng-model="messenger.message">
-        </textarea>
-      </div>
-    </div>
   </ion-content>
+  <div class="wrapper" style="position:relative;height:100%;width:100%;margin:0;">
+    <form ng-submit="#">
+      <textarea id="newMessage" type="text" class="message-field" ng-model="messenger.message">
+      </textarea>
+    </form>
+  </div>
 </ion-view>
