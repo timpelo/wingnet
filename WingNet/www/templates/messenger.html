@@ -1,4 +1,29 @@
 <ion-view view-title="Messenger">
   <ion-content class="background-dark-w" ng-controller="ConversationController">
+    <div class="row message-own">
+      <div class="col">
+        Hello
+      </div>
+    </div>
+    <div class="row message">
+      <div class="col">
+        Hello!
+      </div>
+    </div>
+    <div class="row message">
+      <div class="col">
+        Whats up?!
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col" style="text-align:center">
+        <input id="nameInput" type="text" class="input-w-bigfont profile-name-label-w" ng-model="messenger.message">
+      </div>
+      <!-- <div style="text-align:right;width:10%;">
+        <button id="editButton" ng-click="toggleEdit()" style="margin-right:20pt;margin-top:5pt;"
+            class="button-right button icon-middle ion-edit icon-button-w"></button>
+      </div> -->
+    </div>
   </ion-content>
 </ion-view>
