@@ -37,7 +37,4 @@ angular.module('default.controllers').controller('MessageController',
       angular.element("#sendMessageButton").show();
     }
 
-    while (true) {
-
-    }
   });
