@@ -103,6 +103,17 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
       token = $cookies.get('devCookie');
       body.token = token;
       return $http.post(host + '/api/conversations/add', body);
+    },
+    getConversations: function(profileId) {
+      token = $cookies.get('devCookie');
+      return $http({
+        url: host + '/api/conversations/',
+        method: "GET",
+        params: {
+          profileId: profileId,
+          token: token
+        }
+      });
     }
   }
 })

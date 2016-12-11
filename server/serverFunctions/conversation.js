@@ -39,6 +39,7 @@ exports.add = function(req, res) {
                if (result.success != false) {
                   res.json({
                      success: true,
+                     message: "Conversation created!",
                      data: result
                   });
                } else {
