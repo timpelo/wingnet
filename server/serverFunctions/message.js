@@ -11,16 +11,31 @@ exports.messages = function(req, res) {
    var conversationId = req.query.conversationId;
 
    if (conversationId != null && conversationId != undefined) {
-      mongo.getMessages({
-         conversationId: conversationId
+      var token = req.query.token;
+      var payload = jwt.verify(token, superSecret);
+      var profileId = payload.profileId;
+      mongo.getConversations({
+         _id: conversationId,
+         participantIds: profileId
       }, function(result) {
-         if (result.success != false) {
-            res.json({
-               success: true,
-               data: result
+         if (result.success != false && result.size != 0) {
+            mongo.getMessages({
+               conversationId: conversationId
+            }, function(result) {
+               if (result.success != false) {
+                  res.json({
+                     success: true,
+                     data: result
+                  });
+               } else {
+                  res.json(result);
+               }
             });
          } else {
-            res.json(result);
+            res.json({
+               success: false,
+               message: "Conversation not found!"
+            });
          }
       });
    }
@@ -30,8 +45,13 @@ exports.add = function(req, res) {
    var message = req.body.message;
 
    if (message != null && message != undefined) {
+      var token = req.body.token;
+      var payload = jwt.verify(token, superSecret);
+      var profileId = payload.profileId;
+      message.sender = payload.profileName;
       mongo.getConversations({
-         _id: message.conversationId
+         _id: message.conversationId,
+         participantIds: profileId
       }, function(result) {
          if (result.success != false && result.length == 1) {
             mongo.addMessage(message, function(

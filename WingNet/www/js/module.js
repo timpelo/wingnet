@@ -1,5 +1,5 @@
 var token = undefined;
-var dev = false;
+var dev = true;
 var hostDev = "http://localhost:8080";
 var hostRelease = "http://35.160.11.177:8080";
 
@@ -39,13 +39,12 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
       body.token = token;
       return $http.post(host + '/api/profiles', body);
     },
-    getProfileWithUserId: function(userid) {
+    getProfileWithUserId: function() {
       token = $cookies.get('devCookie');
       return $http({
         url: host + '/api/profile/userid',
         method: "GET",
         params: {
-          userid: userid,
           token: token
         }
       });
@@ -60,13 +59,12 @@ angular.module('default.controllers', ['angular-jwt', 'ngCookies'])
       body.token = token;
       return $http.post(host + '/api/profiles/update', body);
     },
-    getRequests: function(profileId, inOut) {
+    getRequests: function(inOut) {
       token = $cookies.get('devCookie');
       return $http({
         url: host + '/api/requests/',
         method: "GET",
         params: {
-          profileId: profileId,
           inOut: inOut,
           token: token
         }

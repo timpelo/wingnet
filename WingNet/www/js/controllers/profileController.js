@@ -1,10 +1,6 @@
 angular.module('default.controllers').controller('ProfileController',
-  function($scope, $cookies, Connection, jwtHelper) {
-    token = $cookies.get('devCookie');
-    var tokenPayload = jwtHelper.decodeToken(token);
-
-    var userid = tokenPayload._id;
-    Connection.getProfileWithUserId(userid)
+  function($scope, Connection) {
+    Connection.getProfileWithUserId()
       .success(function(result) {
         if (result.success) {
           $scope.profile = result.data;
@@ -21,10 +17,8 @@ angular.module('default.controllers').controller('ProfileController',
         var profile = {};
         var platforms = fillPlatforms();
         var interests = fillInterests();
-
-        var tokenPayload = jwtHelper.decodeToken(token);
         profile._id = $scope.profile._id;
-        profile.userid = tokenPayload._id;
+        profile.userid = $scope.profile.userid;
         profile.name = $scope.profile.name;
         profile.interest = interests;
         profile.platform = platforms;

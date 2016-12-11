@@ -1,13 +1,8 @@
 angular.module('default.controllers').controller('RequestController',
-  function($scope, $cookies, jwtHelper, Connection, $ionicModal) {
+  function($scope, Connection, $ionicModal) {
     var selectedRequest;
     $scope.inOut = "IN";
     $scope.showInRequests = true;
-
-    token = $cookies.get('devCookie');
-    var tokenPayload = jwtHelper.decodeToken(token);
-
-    var userid = tokenPayload._id;
 
     var updateTable = function(inOut) {
       if (inOut == "IN") {
@@ -17,11 +12,11 @@ angular.module('default.controllers').controller('RequestController',
       }
     }
 
-    Connection.getProfileWithUserId(userid)
+    Connection.getProfileWithUserId()
       .success(function(result) {
         if (result.success) {
           $scope.fromId = result.data._id;
-          Connection.getRequests($scope.fromId, "IN")
+          Connection.getRequests("IN")
             .success(function(result) {
               if (result.success) {
                 $scope.requests = result.data;
@@ -38,7 +33,7 @@ angular.module('default.controllers').controller('RequestController',
       angular.element(".profile-row").remove();
       $scope.inOut = inOut;
       updateTable(inOut);
-      Connection.getRequests($scope.fromId, inOut)
+      Connection.getRequests(inOut)
         .success(function(result) {
           if (result.success) {
             $scope.requests = result.data;
@@ -62,6 +57,7 @@ angular.module('default.controllers').controller('RequestController',
 
     $scope.updateRequest = function(acceptDecline) {
       var request = selectedRequest;
+
       if (acceptDecline == "Accepted") {
         request.status = "accepted";
       } else if (acceptDecline == "Declined") {
@@ -103,11 +99,9 @@ angular.module('default.controllers').controller('RequestController',
     }
 
     $scope.sendRequest = function(toUserId) {
-      //TODO implement request send.
       $scope.closeModal();
       var body = {
         request: {
-          from: $scope.fromId,
           to: toUserId,
           date: Date(),
           status: "pending",

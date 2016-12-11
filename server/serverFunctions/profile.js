@@ -53,7 +53,10 @@ exports.add = function(req, res) {
 };
 
 exports.withUserId = function(req, res) {
-   var userid = req.query.userid;
+   var token = req.query.token;
+   var payload = jwt.verify(token, superSecret);
+   var userid = payload._id;
+
    if (userid != null && userid != undefined) {
       mongo.getProfileWithUserId(userid, function(result) {
          if (result != null && result.success != false) {
@@ -75,7 +78,13 @@ exports.withUserId = function(req, res) {
 
 exports.update = function(req, res) {
    var profile = req.body.profile;
+
    if (profile != null && profile != undefined) {
+      var token = req.body.token;
+      var payload = jwt.verify(token, superSecret);
+      var profileId = payload.profileId;
+
+      profile._id = profileId;
       mongo.getProfiles({
          _id: profile._id
       }, function(result) {
