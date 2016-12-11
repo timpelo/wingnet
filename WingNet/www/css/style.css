@@ -11,6 +11,11 @@
 
 }
 
+.sans-font {
+    font-family: 'Open Sans Condensed', sans-serif !important;
+    font-size:15pt;
+}
+
 .button {
   color: white !important;
 }
@@ -193,7 +198,8 @@ border-color: #DB8B31;
   border-top: 1px solid #43413F;
   padding-top: 5pt;
   padding-bottom 5pt;
-  height: 20pt;
+  height: 25pt;
+  font-size: 17pt;
 }
 
 #profile-table{
