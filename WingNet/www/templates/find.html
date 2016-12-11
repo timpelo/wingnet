@@ -94,23 +94,23 @@
       <div class="profile-row" ng-repeat="profile in profiles" on-hold="openModal('{{profile._id}}')"
           anim-fade-row fade-in-directive>
         <div class="row name-row">
-          <div class="col">
+          <div class="col sans-font">
             <p>{{profile.name}}</p>
           </div>
         </div>
         <div class="row profile-content-row">
-          <div class="col">
+          <div class="col sans-font">
             <p>Interests</p>
           </div>
-          <div class="col">
+          <div class="col sans-font">
             <div ng-repeat="interest in profile.interest" class="interest-icon icon-{{interest | lowercase}}"></div>
           </div>
         </div>
         <div class="row profile-content-row">
-          <div class="col">
+          <div class="col sans-font">
             <p>Platform</p>
           </div>
-          <div class="col">
+          <div class="col sans-font">
             <p>{{profile.platform.toString()}}</p>
           </div>
         </div>
