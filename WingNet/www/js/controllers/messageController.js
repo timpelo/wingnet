@@ -7,7 +7,6 @@ angular.module('default.controllers').controller('MessageController',
         if (result.success) {
           $scope.messages = result.data;
           console.log(JSON.stringify(result.data));
-          $timeout(getStuff, 5000);
         } else {
           alert(result.message);
         }
