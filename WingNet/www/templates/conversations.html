@@ -1,6 +1,6 @@
 <ion-view view-title="Conversations">
   <ion-content class="background-dark-w" ng-controller="ConversationController">
-    <div class="profile-row" ng-repeat="conversation in conversations" on-hold="openMessenger()">
+    <div class="profile-row" ng-repeat="conversation in conversations" on-hold="openMessenger('{{conversation._id}}')">
       <div class="row name-row sans-font">
         <div class="col">
           <p>{{conversation.participantNames}}</p>

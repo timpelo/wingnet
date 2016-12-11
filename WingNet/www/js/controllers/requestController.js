@@ -83,9 +83,7 @@ angular.module('default.controllers').controller('RequestController',
               };
               Connection.addConversation(body)
                 .success(function(result) {
-                  if (result.success) {
-                    // TODO: Go to conversation?
-                  } else {
+                  if (result.success) {} else {
                     alert(result.message);
                   }
                 });
@@ -95,7 +93,7 @@ angular.module('default.controllers').controller('RequestController',
           }
         });
 
-
+      $scope.closeModal();
     }
 
     $scope.sendRequest = function(toUserId) {

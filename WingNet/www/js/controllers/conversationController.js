@@ -1,8 +1,10 @@
 angular.module('default.controllers').controller('ConversationController',
   function($scope, Connection, $state) {
 
-    $scope.openMessenger = function() {
-      $state.go('app.messenger');
+    $scope.openMessenger = function(conversationId) {
+      $state.go('app.messenger', {
+        'id': conversationId
+      });
     }
 
     Connection.getConversations()
