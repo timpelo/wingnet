@@ -15,6 +15,12 @@
 
    var serverPort = 8080;
 
+   var loginRegister = require('./serverFunctions/loginRegister');
+   var profile = require('./serverFunctions/profile');
+   var request = require('./serverFunctions/request');
+   var conversation = require('./serverFunctions/conversation');
+   var message = require('./serverFunctions/message');
+
    // Configuration
    app.use(bodyParser.json());
    app.use(express.static('client'));
@@ -49,394 +55,35 @@
    });
 
    // Gets profiles with filter.
-   apiRoutes.post("/profiles", function(req, res) {
-      var filter = req.body.filters;
-      if (filter != null && filter != undefined) {
-         mongo.getProfiles(filter, function(result) {
-            if (result.success != false) {
-               res.json({
-                  success: true,
-                  data: result
-               });
-            } else {
-               res.json(result);
-            }
-         });
-      }
-   });
+   apiRoutes.post("/profiles", profile.profiles);
 
    // Gets profile with userid.
-   apiRoutes.get("/profile/userid", function(req, res) {
-      var userid = req.query.userid;
-      if (userid != null && userid != undefined) {
-         mongo.getProfileWithUserId(userid, function(result) {
-            if (result != null && result.success != false) {
-               res.json({
-                  success: true,
-                  data: result
-               });
-            } else {
-               res.json(result);
-            }
-         });
-      } else {
-         res.json({
-            success: false,
-            message: 'userid not found in query'
-         });
-      }
-   });
+   apiRoutes.get("/profile/userid", profile.withUserId);
 
    // Adds new profile to list.
-   apiRoutes.post("/profiles/add", function(req, res) {
-      var profile = req.body.profile;
+   apiRoutes.post("/profiles/add", profile.add);
 
-      if (profile != null && profile != undefined) {
-         mongo.getProfiles({
-            name: profile.name
-         }, function(result) {
-            if (result.success != false && result.data.length ==
-               0) {
-               mongo.addProfile(profile, function(result) {
-                  if (result.success != false) {
-                     res.json({
-                        success: true,
-                        data: result
-                     });
-                  } else {
-                     res.json(result);
-                  }
-               });
-            } else {
-               res.json({
-                  success: false,
-                  message: 'Profile with that name already exists'
-               });
-            }
-         });
-      }
-   });
+   apiRoutes.post("/profiles/update", profile.update);
 
-   apiRoutes.post("/profiles/update", function(req, res) {
-      var profile = req.body.profile;
-      if (profile != null && profile != undefined) {
-         mongo.getProfiles({
-            _id: profile._id
-         }, function(result) {
-            if (result.success != false && result.length == 1) {
-               mongo.updateProfile(profile, function(result) {
-                  if (result.success != false) {
-                     res.json({
-                        success: true,
-                        data: result
-                     });
-                  } else {
-                     res.json(result);
-                  }
-               });
-            } else {
-               res.json({
-                  success: false,
-                  message: 'No profile found'
-               });
-            }
-         });
-      }
-   });
+   apiRoutes.get("/requests", request.requests);
 
-   apiRoutes.get("/requests", function(req, res) {
-      var profileId = req.query.profileId;
-      var inOut = req.query.inOut;
-      if (profileId != null && profileId != undefined &&
-         inOut != null && inOut != undefined) {
-         mongo.getRequests(profileId, inOut, function(result) {
-            if (result.success != false) {
-               res.json({
-                  success: true,
-                  data: result
-               });
-            } else {
-               res.json(result);
-            }
-         });
-      }
-   });
+   apiRoutes.post("/requests/add", request.add);
 
-   apiRoutes.post("/requests/add", function(req, res) {
-      var request = req.body.request;
+   apiRoutes.delete("/requests/delete", request.delete);
 
-      if (request != null && request != undefined) {
-         mongo.checkRequest({
-            to: request.to,
-            from: request.from
-         }, function(result) {
-            if (result.success != false && result.length == 0) {
-               mongo.addRequest(request, function(result) {
-                  if (result.success != false) {
-                     res.json({
-                        success: true,
-                        data: result
-                     });
-                  } else {
-                     res.json(result);
-                  }
-               });
-            } else {
-               res.json({
-                  success: false,
-                  message: 'You already have request pending'
-               });
-            }
-         });
-      }
-   });
+   apiRoutes.post("/requests/update", request.update);
 
-   apiRoutes.delete("/requests/delete", function(req, res) {
-      var requestId = req.query.requestId;
+   apiRoutes.get("/conversations", conversation.conversations);
 
-      if (requestId != null && requestId != undefined) {
-         mongo.removeRequest(requestId, function(result) {
-            if (result.success != false) {
-               res.json({
-                  success: true,
-                  message: 'Request removed!'
-               });
-            } else {
-               res.json(result);
-            }
-         });
-      }
-   });
+   apiRoutes.post("/conversations/add", conversation.add);
 
-   apiRoutes.post("/requests/update", function(req, res) {
-      var request = req.body.request;
-      if (request != null && request != undefined) {
-         mongo.updateRequest(request, function(result) {
-            if (result.success != false) {
-               res.json({
-                  success: true,
-                  message: "Request updated",
-                  data: result
-               });
-            } else {
-               res.json(result);
-            }
-         });
-      }
-   });
+   apiRoutes.get("/messages", message.messages);
 
-   apiRoutes.get("/conversations", function(req, res) {
-      var profileId = req.query.profileId;
+   apiRoutes.post("/messages/add", message.add);
 
-      if (profileId != null && profileId != undefined) {
-         mongo.getConversations({
-            participantIds: profileId
-         }, function(result) {
-            if (result.success != false) {
-               res.json({
-                  success: true,
-                  data: result
-               });
-            } else {
-               res.json(result);
-            }
-         });
-      }
-   });
+   app.post("/login", loginRegister.login);
 
-   apiRoutes.post("/conversations/add", function(req, res) {
-      var conversation = req.body.conversation;
-
-      if (conversation != null && conversation != undefined) {
-         mongo.getConversations({
-            participantIds: conversation.participantIds
-         }, function(result) {
-            if (result.success != false && result.length == 0) {
-               mongo.addConversation(conversation, function(
-                  result) {
-                  if (result.success != false) {
-                     res.json({
-                        success: true,
-                        data: result
-                     });
-                  } else {
-                     res.json(result);
-                  }
-               });
-            } else {
-               res.json({
-                  success: false,
-                  message: 'You already have conversation open'
-               });
-            }
-         });
-      }
-   });
-
-   apiRoutes.get("/messages", function(req, res) {
-      var conversationId = req.query.conversationId;
-
-      if (conversationId != null && conversationId != undefined) {
-         mongo.getMessages({
-            conversationId: conversationId
-         }, function(result) {
-            if (result.success != false) {
-               res.json({
-                  success: true,
-                  data: result
-               });
-            } else {
-               res.json(result);
-            }
-         });
-      }
-   });
-
-   apiRoutes.post("/messages/add", function(req, res) {
-      var message = req.body.message;
-
-      if (message != null && message != undefined) {
-         mongo.getConversations({
-            _id: message.conversationId
-         }, function(result) {
-            if (result.success != false && result.length == 1) {
-               mongo.addMessage(message, function(
-                  result) {
-                  if (result.success != false) {
-                     res.json({
-                        success: true,
-                        data: result
-                     });
-                  } else {
-                     res.json(result);
-                  }
-               });
-            } else {
-               res.json({
-                  success: false,
-                  message: "You don't have conversation open"
-               });
-            }
-         });
-      }
-   });
-
-   app.post("/login", function(req, res) {
-      mongo.getUser({
-         username: req.body.username
-      }, function(result) {
-         var user = result;
-         if (result == null) {
-            res.json({
-               success: false,
-               message: 'Authentication failed. User not found.'
-            });
-         } else if (result.success == false) {
-            res.json(result);
-         } else if (user) {
-            // check if password matches
-            var decodedUserPw = sjcl.decrypt(encodePw, user.password);
-            var decodedBodyPw = sjcl.decrypt(encodePw, req.body
-               .password);
-            if (decodedUserPw != decodedBodyPw) {
-               res.json({
-                  success: false,
-                  message: 'Authentication failed. Wrong password.'
-               });
-            } else {
-               var expriration = 60 * 60 * 24;
-
-               if (req.body.remember == true) {
-                  expriration = 60 * 60 * 24 * 100;
-               }
-               var token = jwt.sign(user, superSecret, {
-                  expiresIn: expriration // expires in 24 hours unless remember == true
-               });
-
-               // return the information including token as JSON
-               res.json({
-                  success: true,
-                  message: 'Enjoy your token!',
-                  token: token
-               });
-            }
-         }
-      });
-   });
-
-   app.post("/register", function(req, res) {
-      //var cryptedPw = devolopCrypt(req.body.password);
-      var user = {
-         username: req.body.username,
-         password: req.body.password
-      };
-      var nickName = req.body.nickname;
-
-      if (user.username != null && user.username != undefined &&
-         user.password != null && user.password != undefined &&
-         nickName != null && nickName != undefined) {
-         mongo.getUser({
-            username: user.username
-         }, function(result) {
-            if (result == null) {
-               mongo.getProfiles({
-                  name: nickName
-               }, function(profileResult) {
-                  if (profileResult.success == false) {
-                     res.json(profileResult);
-                  } else if (profileResult.length == 0) {
-                     mongo.register(user, function(
-                        registerResult) {
-                        if (registerResult.success ==
-                           false) {
-                           res.json(profileResult);
-                        } else {
-                           var profile = {
-                              userid: registerResult
-                                 .ops[0]._id,
-                              name: nickName,
-                              platform: "",
-                              interest: "",
-                              active: false
-                           };
-                           mongo.addProfile(profile,
-                              function(addResult) {
-                                 if (addResult.success ==
-                                    false) {
-                                    res.json(
-                                       addResult
-                                    );
-                                 } else {
-                                    res.json({
-                                       success: true,
-                                       data: addResult
-                                    });
-                                 }
-                              });
-
-                        }
-                     });
-                  } else {
-                     res.json({
-                        "success": false,
-                        "message": "Nick name is already taken!"
-                     });
-                  }
-               });
-            } else {
-               res.json({
-                  "success": false,
-                  "message": "User name is already taken!"
-               });
-            }
-         });
-      } else {
-         res.json({
-            "success": false,
-            "message": "Fill all required fields"
-         });
-      }
-   });
+   app.post("/register", loginRegister.register);
 
    function devolopCrypt(pass) {
       var encodedPw = sjcl.encrypt(encodePw, pass);
