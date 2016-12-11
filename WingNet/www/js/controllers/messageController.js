@@ -2,8 +2,6 @@ angular.module('default.controllers').controller('MessageController',
   function($scope, Connection, $state, $stateParams, $interval) {
     conversationId = $stateParams.id;
 
-
-
     $scope.sendMessage = function() {
       var message = $scope.messenger.message;
       angular.element("#sendMessageButton").hide();
@@ -36,7 +34,6 @@ angular.module('default.controllers').controller('MessageController',
         .success(function(result) {
           if (result.success) {
             $scope.messages = result.data;
-            console.log(JSON.stringify(result.data));
           } else {
             alert(result.message);
           }
