@@ -1,4 +1,4 @@
-<ion-view view-title="Messenger" ng-controller="ConversationController">
+<ion-view view-title="Messenger" ng-controller="MessageController">
   <ion-content class="background-dark-w">
     <div class="row message-box message-box-own">
       <div class="col">
@@ -20,7 +20,7 @@
     <button ng-click="sendMessage()" id="sendMessageButton" class="button button-primary-w message-send-button">
       Send
     </button>
-    <textarea id="newMessage" class="message-field" ng-model="messenger.message">
+    <textarea id="newMessage" class="message-field" ng-model="messenger.message" ng-focus="openNewMessage()">
     </textarea>
   </div>
 </ion-view>

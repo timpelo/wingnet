@@ -1,10 +1,7 @@
 angular.module('default.controllers').controller('ConversationController',
   function($scope, Connection, $state) {
 
-    var openNewMessage = function() {
-      console.log("hep");
-      angular.element("#sendMessageButton").show();
-    }
+
     angular.element('#newMessage').click(function() {
       openNewMessage();
     });

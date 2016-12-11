@@ -57,6 +57,7 @@ angular.module('default.controllers').controller('RequestController',
 
     $scope.updateRequest = function(acceptDecline) {
       var request = selectedRequest;
+
       if (acceptDecline == "Accepted") {
         request.status = "accepted";
       } else if (acceptDecline == "Declined") {

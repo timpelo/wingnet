@@ -262,7 +262,7 @@
    function addMessage(message, callback) {
       MongoClient.connect(url, function(err, db) {
          var collection = db.collection(messageCollection);
-         collection.insertOne(profile, function(err, result) {
+         collection.insertOne(message, function(err, result) {
             if (err != null) {
                callback({
                   "success": "false",
