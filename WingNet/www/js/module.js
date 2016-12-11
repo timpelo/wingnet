@@ -1,5 +1,5 @@
 var token = undefined;
-var dev = true;
+var dev = false;
 var hostDev = "http://localhost:8080";
 var hostRelease = "http://35.160.11.177:8080";
 

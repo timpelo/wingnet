@@ -1,4 +1,26 @@
 <ion-view view-title="Messenger">
   <ion-content class="background-dark-w" ng-controller="ConversationController">
+    <div class="row message-box message-box-own">
+      <div class="col">
+        Hello<br /> We AD
+      </div>
+    </div>
+    <div class="row message-box">
+      <div class="col">
+        Hello! <br> Toy
+      </div>
+    </div>
+    <div class="row message-box">
+      <div class="col">
+        Whats up?!
+      </div>
+    </div>
+
+    <div class="row" style="position:relative;">
+      <div class="col" style="text-align:center">
+        <textarea id="newMessage" type="text" class="message-field" ng-model="messenger.message">
+        </textarea>
+      </div>
+    </div>
   </ion-content>
 </ion-view>

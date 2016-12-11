@@ -1,4 +1,7 @@
 angular.module('default.controllers').controller('ConversationController',
-  function($scope, Connection) {
+  function($scope, Connection, $state) {
 
+    $scope.openMessenger = function() {
+      $state.go('app.messenger');
+    }
   });
