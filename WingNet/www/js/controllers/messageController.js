@@ -1,5 +1,6 @@
 angular.module('default.controllers').controller('MessageController',
-  function($scope, Connection, $state, $stateParams, $interval) {
+  function($scope, Connection, $state, $stateParams, $interval,
+    $ionicScrollDelegate) {
     conversationId = $stateParams.id;
 
     Connection.getMessages(conversationId)
@@ -25,6 +26,7 @@ angular.module('default.controllers').controller('MessageController',
       Connection.addMessage(body)
         .success(function(result) {
           if (result.success) {
+            $ionicScrollDelegate.scrollBottom(true);
 
           } else {
             alert(result.message);
