@@ -88,6 +88,14 @@ angular.module('default', ['ionic', 'default.controllers'])
         }
       }
     })
+    .state('app.conversations', {
+      url: '/conversations',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/conversations.html'
+        }
+      }
+    })
     .state('app.about', {
       url: '/about',
       views: {
