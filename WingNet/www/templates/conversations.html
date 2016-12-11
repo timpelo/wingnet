@@ -1,9 +1,9 @@
 <ion-view view-title="Conversations">
   <ion-content class="background-dark-w" ng-controller="ConversationController">
-    <div class="profile-row" on-hold="openMessenger()">
+    <div class="profile-row" ng-repeat="conversation in conversations" on-hold="openMessenger()">
       <div class="row name-row sans-font">
         <div class="col">
-          <p>Jussi</p>
+          <p>{{conversation.participantNames}}</p>
         </div>
       </div>
       <div class="row profile-content-row sans-font">
@@ -12,14 +12,6 @@
         </div>
         <div class="col">
           16.11.2015
-        </div>
-      </div>
-      <div class="row profile-content-row sans-font">
-        <div class="col">
-          <p>Unseen messages</p>
-        </div>
-        <div class="col">
-          <p>2</p>
         </div>
       </div>
     </div>

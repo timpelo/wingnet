@@ -13,7 +13,7 @@
 
 .sans-font {
     font-family: 'Open Sans Condensed', sans-serif !important;
-    font-size:15pt;
+    font-size:15pt !important;
 }
 
 .button {

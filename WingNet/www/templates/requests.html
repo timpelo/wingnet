@@ -46,13 +46,13 @@
 
 
     <div id="{{request._id}}" class="profile-row" ng-repeat="request in requests" on-hold="openModal({{request}})">
-      <div class="row name-row">
+      <div class="row name-row sans-font">
         <div class="col">
           <p ng-show="showInRequests">{{request.fromName}}</p>
           <p ng-hide="showInRequests">{{request.toName}}</p>
         </div>
       </div>
-      <div class="row profile-content-row">
+      <div class="row profile-content-row sans-font">
         <div class="col">
           <p>Interests</p>
         </div>
@@ -61,7 +61,7 @@
               | lowercase}} "></div>
         </div>
       </div>
-      <div class="row profile-content-row">
+      <div class="row profile-content-row sans-font">
         <div class="col">
           <p>Platforms</p>
         </div>
@@ -69,7 +69,7 @@
           <p>{{request.platform.toString()}}</p>
         </div>
       </div>
-      <div class="row profile-content-row">
+      <div class="row profile-content-row sans-font">
         <div class="col">
           <p>Status</p>
         </div>
