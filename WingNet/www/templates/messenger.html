@@ -1,12 +1,12 @@
-<ion-view view-title="Messenger" ng-controller="MessageController">
-  <ion-content class="background-dark-w">
+<ion-view view-title="Messenger" ng-controller="MessageController" class="background-dark-w">
+  <ion-content class="background-dark-w" style="height:65%">
     <div class="row message-box {{message.own ? 'message-box-own' : ''}}" ng-repeat="message in messages">
       <div class="col">
         {{message.message}}
       </div>
     </div>
   </ion-content>
-  <div id="wrapper" style="position:relative;height:100%;width:100%;margin:0;">
+  <div id="wrapper" style="position:relative;height:100%;width:100%;margin:0;height:100%">
     <button ng-click="sendMessage()" id="sendMessageButton" class="button button-primary-w message-send-button">
       Send
     </button>
