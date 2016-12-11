@@ -135,17 +135,25 @@ border-color: #DB8B31;
 }
 
 .message-field {
-  border: 1pt solid #DB8B31;
-  background-color: #43413F;
-  font-size: 15pt;
-  color: #ffffff;
-  padding: 5pt;
-  width: 99%;
-  margin: 0.5%;
-  height: 100pt;
-  overflow: auto;
-  position: absolute;
-  bottom: 10pt;
+  border: 1pt solid #DB8B31 !important;
+  background-color: #43413F !important;
+  font-size: 15pt !important;
+  color: #ffffff !important;
+  padding: 5pt !important;
+  width: 99% !important;
+  margin: 0.5% !important;
+  height: 100pt !important;
+  overflow: auto !important;
+  position: absolute !important;
+  bottom: 10pt !important;
+}
+
+.message-send-button {
+  width: 99% !important;
+  margin: 0.5% !important;
+  position: absolute !important;
+  bottom: 120pt !important;
+  display: none;
 }
 
 

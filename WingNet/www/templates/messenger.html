@@ -17,9 +17,8 @@
     </div>
   </ion-content>
   <div class="wrapper" style="position:relative;height:100%;width:100%;margin:0;">
-    <form ng-submit="#">
-      <input id="newMessage" type="text" class="message-field" ng-model="messenger.message">
-      </input>
-    </form>
+    <button id="sendMessageButton" class="button button-primary-w message-send-button">Send</button>
+    <textarea id="newMessage" class="message-field" ng-model="messenger.message" rows="10">
+    </textarea>
   </div>
 </ion-view>
