@@ -16,6 +16,10 @@ exports.conversations = function(req, res) {
          participantIds: profileId
       }, function(result) {
          if (result.success != false) {
+            for (var i = 0; i < result.length; i++) {
+               var index = result[i].participantNames.indexOf(payload.profileName);
+               result[i].participantNames.splice(index, 1);
+            }
             res.json({
                success: true,
                data: result
