@@ -96,6 +96,14 @@ angular.module('default', ['ionic', 'default.controllers'])
         }
       }
     })
+    .state('app.messenger', {
+      url: '/messenger',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/messenger.html'
+        }
+      }
+    })
     .state('app.about', {
       url: '/about',
       views: {
