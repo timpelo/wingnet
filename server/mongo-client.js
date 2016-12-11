@@ -193,11 +193,12 @@
       });
    }
 
-   function removeRequest(requestId, callback) {
+   function removeRequest(requestId, profileId, callback) {
       MongoClient.connect(url, function(err, db) {
          var collection = db.collection(requestCollection);
          collection.remove({
-            _id: ObjectID(requestId)
+            _id: ObjectID(requestId),
+            from: profileId
          }, function(err, result) {
             if (err != null) {
                callback({
