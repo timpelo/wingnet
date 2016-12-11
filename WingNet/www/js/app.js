@@ -98,6 +98,7 @@ angular.module('default', ['ionic', 'default.controllers'])
     })
     .state('app.messenger', {
       url: '/messenger',
+      cache: false,
       views: {
         'menuContent': {
           templateUrl: 'templates/messenger.html'
