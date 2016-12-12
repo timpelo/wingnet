@@ -182,6 +182,10 @@ border-color: #DB8B31;
   margin-bottom:30pt;
   margin-top:40pt;
 }
+.login-title-container-w img.resize{
+  height: 80pt;
+  width: auto;
+}
 
 .margin-10{
   margin: 10pt;
