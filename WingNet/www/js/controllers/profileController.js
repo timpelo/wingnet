@@ -20,6 +20,7 @@ angular.module('default.controllers').controller('ProfileController',
         profile._id = $scope.profile._id;
         profile.userid = $scope.profile.userid;
         profile.name = $scope.profile.name;
+        profile.location = $scope.profile.location;
         profile.interest = interests;
         profile.platform = platforms;
         profile.active = $scope.profile.active;

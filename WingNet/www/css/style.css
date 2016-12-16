@@ -48,6 +48,7 @@
   border: 1px #2D2D2D solid;
 }
 
+
 .button-primary-w,
 .button-primary-w:hover {
   margin: 10pt;
@@ -265,11 +266,11 @@ border-color: #DB8B31;
   display: inline-block  !important;
   margin: 5pt  !important;
   background-color: #43413F !important;
-  text-align: center  !important;
+  text-align: center;
   font-size: 15pt !important;
   height: 45px  !important;
   color: #DB8B31 !important;
-  width: 80%  !important;
+  width: 80%;
   border-radius: 4px  !important;
   border: 1px solid #DB8B31 !important;
 }
