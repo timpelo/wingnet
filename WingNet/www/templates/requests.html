@@ -6,20 +6,25 @@
       <ion-modal-view class="request-modal" style="background:#43413F;">
         <ion-content class="center-w">
           <!-- Buttons for incoming request actions -->
-          <div ng-show="showInRequests" class="row">
+          <div ng-show="showAcceptRequest" class="row">
             <div class="col">
               <button class="button button-primary-w" style="width:95%" ng-click="updateRequest('Accepted')">Accept request</button>
             </div>
           </div>
-          <div ng-show="showInRequests" class="row">
+          <div ng-show="showDeclineRequest" class="row">
             <div class="col">
               <button ng-click="updateRequest('Declined')" style="width:95%" class="button button-primary-w">Decline request</button>
             </div>
           </div>
           <!-- Buttons for outgoing request actions -->
-          <div ng-hide="showInRequests" class="row">
+          <div ng-show="showDeleteRequest" class="row">
             <div class="col">
               <button ng-click="removeRequest()" style="width:95%" class="button button-primary-w">Delete request</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <button ng-click="closeModal()" style="width:95%" class="button button-primary-w">Cancel</button>
             </div>
           </div>
         </ion-content>

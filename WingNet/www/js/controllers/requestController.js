@@ -1,15 +1,29 @@
 angular.module('default.controllers').controller('RequestController',
   function($scope, Connection, $ionicModal) {
     var selectedRequest;
-    $scope.inOut = "IN";
+    var inOut = "IN";
     $scope.showInRequests = true;
 
-    var updateTable = function(inOut) {
-      if (inOut == "IN") {
-        $scope.showInRequests = true;
-      } else {
-        $scope.showInRequests = false;
+    var updateModalButtons = function(acc, dec, del, callback) {
+      $scope.showAcceptRequest = false;
+      $scope.showDeclineRequest = false;
+      $scope.showDeleteRequest = false;
+      if (acc) {
+        $scope.showAcceptRequest = true;
+        console.log("acc");
+        callback();
       }
+      if (dec) {
+        $scope.showDeclineRequest = true;
+        console.log("dec");
+        callback();
+      }
+      if (del) {
+        $scope.showDeleteRequest = true;
+        console.log("del");
+        callback();
+      }
+
     }
 
     Connection.getProfileWithUserId()
@@ -31,8 +45,7 @@ angular.module('default.controllers').controller('RequestController',
 
     $scope.getRequests = function(inOut) {
       angular.element(".profile-row").remove();
-      $scope.inOut = inOut;
-      updateTable(inOut);
+      inOut = inOut;
       Connection.getRequests(inOut)
         .success(function(result) {
           if (result.success) {
@@ -45,14 +58,19 @@ angular.module('default.controllers').controller('RequestController',
 
     $scope.removeRequest = function() {
       var requestId = selectedRequest._id;
-      Connection.removeRequest(requestId)
-        .success(function(result) {
-          if (result.success) {
-            alert(result.message);
-          } else {
-            alert(result.message);
-          }
-        });
+      $scope.closeModal();
+      if (confirm(
+          "Do you want to delete request? This also deletes all conversations with that person"
+        )) {
+        Connection.removeRequest(requestId)
+          .success(function(result) {
+            if (result.success) {
+              alert(result.message);
+            } else {
+              alert(result.message);
+            }
+          });
+      }
     }
 
     $scope.updateRequest = function(acceptDecline) {
@@ -126,7 +144,16 @@ angular.module('default.controllers').controller('RequestController',
     });
     $scope.openModal = function(result) {
       selectedRequest = result;
-      $scope.modal.show();
+      if (inOut == "OUT" || result.status == "accepted") {
+        console.log(inOut + " " + result.status);
+        updateModalButtons(false, false, true, function() {
+          $scope.modal.show();
+        });
+      } else {
+        updateModalButtons(true, true, false, function() {
+          $scope.modal.show();
+        });
+      }
     };
     $scope.closeModal = function() {
       $scope.modal.hide();

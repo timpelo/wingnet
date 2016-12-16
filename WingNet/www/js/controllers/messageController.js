@@ -7,7 +7,7 @@ angular.module('default.controllers').controller('MessageController',
       .success(function(result) {
         if (result.success) {
           $scope.messages = result.data;
-          console.log(JSON.stringify(result.data));
+          $ionicScrollDelegate.scrollBottom(true);
         } else {
           alert(result.message);
         }

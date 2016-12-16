@@ -12,7 +12,8 @@ angular.module('default.controllers').controller('ProfileController',
       });
 
     $scope.updateProfile = function() {
-      if (!($scope.profile.name == undefined)) {
+      if ($scope.profile.location != undefined && $scope.profile.location !=
+        "") {
         var body = {};
         var profile = {};
         var platforms = fillPlatforms();
@@ -35,7 +36,7 @@ angular.module('default.controllers').controller('ProfileController',
 
           });
       } else {
-        alert("Profile name can't be empty");
+        alert("Please give your location");
       }
     }
 
